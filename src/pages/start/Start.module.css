@@ -1,0 +1,14 @@
+.wave {
+    animation: startapearwave 2s 1 ease-in-out both;
+}
+
+@keyframes startapearwave {
+    from {
+        margin-top: 0;
+        height: 0;
+    }
+    to {
+        margin-top: 48px;
+        height: 100px;
+    }
+}

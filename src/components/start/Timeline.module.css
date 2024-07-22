@@ -1,0 +1,37 @@
+.item {
+    animation: timelineapear 2s 1 ease-in-out both;
+}
+.line {
+    width: 0;
+    left: 0;
+    animation: timelineapearline 2s 1 ease-in-out both;
+}
+
+@keyframes timelineapear {
+    0% {
+        top: -200px;
+    }
+    100% {
+        top: 0;
+    }
+    /* 60% {
+        scale: 1;
+    }
+    70% {
+        scale: 0.50;
+    }
+    90% {
+        scale: 1.15;
+    }
+    100% {
+        scale: 1;
+    } */
+}
+@keyframes timelineapearline {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}

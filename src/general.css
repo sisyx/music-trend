@@ -1,0 +1,12 @@
+:root {
+    --primary-color: "red";
+    --default-border-radius: 8px;
+    --telegram: #2da5dc;
+}
+* {
+    scroll-behavior: smooth;
+    box-sizing: border-box;
+}
+.transition-500 {
+    transition: all 500ms;
+}

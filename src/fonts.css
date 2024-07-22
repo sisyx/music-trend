@@ -1,0 +1,18 @@
+/* Noto Sans Korean */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+
+.noto-sans-kr {
+    font-family: "Noto Sans KR";
+}
+
+/* Vazir matn */
+@font-face {
+    font-family: "Vazir";
+    src: url('/src/fonts/Vazirmatn-Regular.ttf'), 
+    url('/src/fonts/Vazirmatn-Bold.ttf'),
+    url('/src/fonts/Vazirmatn-Black.ttf');
+}
+
+.vazirmatn {
+    font-family: "Vazir";
+}

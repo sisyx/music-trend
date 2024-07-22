@@ -1,0 +1,14 @@
+.card {
+    animation: apearstartcard 1s 1 ease-in-out both;
+    overflow: hidden;
+}
+@keyframes apearstartcard {
+    from {
+        transform: scaleY(0.5);
+        top: 500px;
+    }
+    to {
+        transform: scaleY(1);
+        top: 0;
+    }
+}
