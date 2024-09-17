@@ -1,0 +1,128 @@
+.left {
+    flex: 3;
+}
+.right {
+    flex: 4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.right_main {
+    width: 100%;
+    padding: 1rem;
+    column-gap: 1rem;
+    row-gap: 4rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+}
+.right_box {
+    position: relative;
+    background: #fff;
+    backdrop-filter: blur(5px);
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    --padding-y: 3rem;
+    padding-top: var(--padding-y);
+    padding-bottom: var(--padding-y);
+}
+.right_box_icon {
+    position: absolute;
+
+    top: 0;
+    right: 1rem;
+    transform: translateY(-50%);
+
+    padding: 1rem;
+    border-radius: 1rem;
+    z-index: 2;
+    color: white;
+    font-size: 2rem;
+}
+.right_box_icon_bg {
+    position: absolute;
+    background-color: deepskyblue;
+    border-radius: 1rem;
+    display: block;
+    height: 100%;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    z-index: -1;
+    transform: matrix3d(1,0,0,0,0,1,0,.0015,0,0,.1,0,0,0,0,1) translate(-50%, -50%);;
+}
+.right_box_texts {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-right: 2rem;
+}
+
+.left_main {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    background-color: white;
+    gap: 1rem;
+    border-radius: 1rem;
+}
+.left_email_div {
+    background-color: white;
+    min-height: 40px;
+    flex: 1;
+    border: 1px black solid;
+    border-radius: 1rem;
+    font-size: 0.8rem;
+}
+.email_input {
+    background: none;
+    max-width: none;
+    min-width: 50px;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    padding-right: 1rem;
+}
+.left_email_div_textarea {
+    border-radius: 0;
+}
+.textarea {
+    height: 300px;
+    width: 100%;
+    resize: none;
+    padding: 1rem;
+}
+.title {
+    position: relative;
+}
+.title::before {
+    content: "";
+    width: 15px;
+    aspect-ratio: 1;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 40%;
+    --color: rebeccapurple;
+    background-color: var(--color);
+    box-shadow: 0 0 15px var(--color);
+    rotate: 20deg;
+    border-radius: 8px;
+}
+.title::after {
+    content: "";
+    width: 10px;
+    aspect-ratio: 1;
+    display: block;
+    position: absolute;
+    bottom: 20px;
+    right: 40%;
+    --color: deepskyblue;
+    background-color: var(--color);
+    box-shadow: 0 0 15px var(--color);
+    rotate: 20deg;
+    border-radius: 8px;
+}

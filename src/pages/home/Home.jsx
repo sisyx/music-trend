@@ -1,20 +1,45 @@
 import Footer from "../../components/Footer";
-import Aboutus from "../../components/home/Aboutus";
-import Chart from "../../components/home/Chart";
+import HomeAbout from "../../components/home/HomeAbout";
+// import Chart from "../../components/home/Chart";
+import HomeChart from "../../components/home/HomeChart";
+import HomeCommonQues from "../../components/home/HomeCommonQues";
+import HomeDifferentBolgs from "../../components/home/HomeDifferentBolgs";
+import HomeLand from "../../components/home/HomeLand";
+import HomeTags from "../../components/home/HomeTags";
+import HomeTimeline from "../../components/home/HomeTimeline";
+import MoreExplanations from "../../components/home/MoreExplanations";
+import NoBg from "../../components/home/NoBg";
+import TsParticles from "../../components/home/TsParticles";
 import XCards from "../../components/home/XCards";
 import Navbar from "../../components/Navbar";
+import Separator from "../../components/Separator";
 import Wave from "../../components/Wave";
+import {  configs4 } from "../../constatnts";
+import SmallContact from "../../components/contact/SmallContact";
 
 function Home() {
     return ( 
         <div>
         <Navbar />
-        {/* <div className="h-screen"></div> */}
+        {/* <Wave topcolor="#2da5dc" bottomcolor="#fff" className="mt-12" />
         <XCards />
-        <Wave topcolor="white" bottomcolor="#f3f4f6" rotate={true} height="150px" />
-        <Aboutus />
+        <Wave topcolor="white" bottomcolor="#f3f4f6" rotate={true} height="150px" /> */}
+        <HomeLand />
+        <HomeTags />
+        <HomeDifferentBolgs />
+        <HomeAbout />
+        <MoreExplanations />
+        <HomeCommonQues />
+        <SmallContact />
+        {/* <Wave topcolor="#f3f4f6" bottomcolor="#fff" rotate={true} styles={{boxShadow: "0 0 5px black"}}/> */}
         {/* <Chart /> */}
-        <Wave topcolor="#f3f4f6" bottomcolor="#111827" styles={{boxShadow: "0 0 5px black"}}/>
+        {/* <HomeTimeline />
+        <Separator topcolor="#fff" bottomcolor="#0000" reverse="true" />
+        <NoBg />
+        <Separator topcolor="#0000" bottomcolor="#5e298e" />
+        <HomeChart />
+        <Wave topcolor="#5e298e" bottomcolor="#111827" styles={{boxShadow: "0 0 5px black"}}/>
+        <TsParticles options={configs4} /> */}
         <Footer />
         </div>
      );

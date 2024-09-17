@@ -1,12 +1,16 @@
 :root {
-    --primary-color: "red";
+    --primary-color: "#e31e78";
     --default-border-radius: 8px;
     --telegram: #2da5dc;
 }
 * {
     scroll-behavior: smooth;
     box-sizing: border-box;
+    font-family: "Vazir" !important;
 }
 .transition-500 {
     transition: all 500ms;
+}
+.max-z {
+    z-index: 100000000000000000000000000000000000000000000000000000000000000 !important;
 }

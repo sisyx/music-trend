@@ -6,9 +6,9 @@
     top: 0;
     left: 0;
     z-index: -5;
-}
-
-
+  }
+  
+  
 
 .hero {
   position: relative;
@@ -17,7 +17,7 @@
   font-family: "Montserrat", sans-serif;
 }
 .hero.has_bg {
-  background-color: var(--primary-color);
+  background-color: #5e298e;
 }
 
 .hero__title {

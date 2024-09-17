@@ -12,3 +12,24 @@
         height: 100px;
     }
 }
+.cart_influ {
+    animation: apearincart 500ms 1 ease-in-out both;
+}
+@keyframes apearincart {
+    0% {
+        scale: 0;
+        font-size: 0;
+        /* height: 0; */
+    }
+    75% {
+        scale: 1.1;
+    }
+    100% {
+        scale: 1;
+        font-size: unset;
+        /* height: unset; */
+    }
+}
+.cart_influ_img {
+    animation: apearincart 500ms 1 ease-in-out both;
+}

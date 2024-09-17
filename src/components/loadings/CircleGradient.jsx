@@ -56,14 +56,14 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 
 // From https://github.com/mui/material-ui/issues/9496#issuecomment-959408221
 
-export default function CircleGradient() {
+export default function CircleGradient({stopColor = "#e01cd5", startColor = "#1CB5E0"}) {
   return (
     <React.Fragment>
       <svg width={0} height={0}>
         <defs>
           <linearGradient id="my_gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#e01cd5" />
-            <stop offset="100%" stopColor="#1CB5E0" />
+            <stop offset="0%" stopColor={stopColor} />
+            <stop offset="100%" stopColor={startColor} />
           </linearGradient>
         </defs>
       </svg>

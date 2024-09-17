@@ -1,0 +1,11 @@
+.toolbar {
+    animation: apearadmintoolbar 200ms 1 ease-in-out both;
+}
+@keyframes apearadmintoolbar {
+    from {
+        margin-top: -50px;
+    }
+    to {
+        margin-top: 0;
+    }
+}

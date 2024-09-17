@@ -8,7 +8,8 @@ export default {
     extend: {
       colors: {
         telegram: {
-          DEFAULT: "#2da5dc"
+          DEFAULT: "#2da5dc",
+          transparent80: "#2da5dccc"
         },
         primary: {
           DEFAULT: "#e31e78",

@@ -1,0 +1,46 @@
+
+.left {
+    flex: 2;
+    /* height: 700px; */
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    font-size: 0.8rem;
+}
+.left_content {
+    z-index: 1;
+    padding: 150px;
+    display: flex;
+    gap: 150px;
+    flex: 1;
+}
+.title {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.left::before {
+    content: "";
+    height: 130%;
+    width: 100%;
+    position: absolute;
+    background: #2da5dc;
+    border-radius: 150px 150px 0 0;
+    transform: rotate(-6deg);
+    top: 0;
+    right: 0;
+    z-index: 1;
+    border: 20px #46b3e6 solid ;
+}
+.logo {
+    width: 500px;
+}
+.site_name {
+    /* font-size: 3rem; */
+    color: #2279b2;
+    font-family: "Archivo Black" !important;
+    font-weight: bolder;
+}

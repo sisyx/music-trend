@@ -1,0 +1,36 @@
+.publisher {
+    font-size: 0;
+    animation: apearpublisherinpubslist 1 300ms ease-in-out both;
+}
+
+
+/* scrollbar width */
+.list::-webkit-scrollbar {
+    width: 5px;
+}
+ 
+/* scrollbar Track */
+.list::-webkit-scrollbar-track {
+    background: #888;
+    border-radius: 5px;
+}
+ 
+/* scrollbar Handle */
+.list::-webkit-scrollbar-thumb {
+    background: #000;
+    border-radius: 5px;
+}
+ 
+/* scrollbar Handle on hover */
+.list::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+@keyframes apearpublisherinpubslist {
+    from {
+        font-size: 0;
+    }
+    to {
+        font-size: 1rem;
+    }
+}

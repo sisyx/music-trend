@@ -1,0 +1,39 @@
+.btn {
+    color: #fff;
+    cursor: pointer;
+    /* line-height: 45px; */
+    /* margin: 0 0 2em; */
+    position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
+    background: linear-gradient(to top right, #1b678a, #2da5dc);
+}
+.btn_4 {
+    overflow: hidden;
+    position: relative;
+}
+.btn_4 span {
+    z-index: 20;
+}
+.btn_4::after {
+    background: linear-gradient(#fff, #ffff);
+    content: "";
+    height: 155px;
+    left: -75px;
+    opacity: 0.2;
+    position: absolute;
+    bottom: -50px;
+    transform: rotate(-35deg);
+    transition: all 1000ms cubic-bezier(0.19, 1, 0.22, 1);
+    width: 50px;
+}
+
+.btn_4:hover:after {
+    left: 120%;
+    transition: all 1500ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+.span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

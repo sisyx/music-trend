@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
-import { influencers } from "../../constatnts";
-import Loading from "../../components/loadings/Loading";
-import CircleGradient from "../../components/loadings/CircleGradient";
-import Navbar from "../../components/Navbar";
+import { cartCookieCampidName, cartCookieSelectedInflus, cartCookieSelectedPrices, influencers, saveLocalCartDays } from "../../constatnts";
 import Timeline from "../../components/start/Timeline";
 import { Button } from "@mui/material";
 import RightFilters from "../../components/start/RightFilters";
 import StartCards from "../../components/start/StartCards";
 import Wave from "../../components/Wave";
 import styles from './Start.module.css';
+import { Link, useNavigate } from "react-router-dom";
+import StartNav from "../../components/start/StartNav";
+import { customAlert, getPages, saveCookie } from "../../functions";
+import CampaignSelect from "../../components/start/CampaignSelect";
+import Left from "../../components/start/Left";
 
 const timelinedata = [
     {
@@ -28,80 +30,102 @@ const timelinedata = [
 
 function Start() {
 
+    const [showCampaignSelect, setShowCampaignSelect] = useState(false);
     const [infs, setInfs] = useState([]);
+    const [search, setSearch] = useState("");
 
     useEffect(() => {
-        setTimeout(() => {
-            setInfs(() => influencers)
-        }, 3000);
-    })
+        init()
+    }, []);
+
+    useEffect(() => {
+        console.log(infs)
+    }, [infs]);
+
+    async function init() {
+        const tmpInfs = await getPages();
+        setInfs(tmpInfs)
+    };
+
+    const searchedInfs = infs.filter(influ => influ?.pageId.includes(search));
+    const selectedInfs = infs.filter(influ => influ.selcted);
+
+    function resetInflus() {
+        setInfs(cur => cur.map(influ => {
+            return {...influ, prices: [], selcted: false};
+        }))
+    }
+
+    function closeCampSelect() {
+        setShowCampaignSelect(false)
+    }
+
+    function saveSelections(campId) {
+        const isCampSaved = saveCookie(cartCookieCampidName, campId, saveLocalCartDays);
+        const priceIdsList = [];
+        const influIdsList = []
+        selectedInfs.forEach(influ => {
+            influIdsList.push(influ.id);
+            influ?.prices.forEach(price => {
+                priceIdsList.push(price.id);
+            })
+        })
+        const priceIdsString = priceIdsList.reduce((acc, cur, index) => acc += `${cur}${index >= priceIdsList.length - 1 ? "" : ","}` , "");
+        const influIdsString = influIdsList.reduce((acc, cur, index) => acc += `${cur}${index >= influIdsList.length - 1 ? "" : ","}` , "");
+        const isPricesSaved = saveCookie(cartCookieSelectedPrices, priceIdsString, saveLocalCartDays);
+        const isPagesSaved = saveCookie(cartCookieSelectedInflus, influIdsString, saveLocalCartDays);
+
+        if (isCampSaved  && isPricesSaved && isPagesSaved ) {
+            customAlert("<div dir='rtl'>سبد خرید شما با موفقیت ذخیره شد<br/> شما میتوانید با مراجعه به ادمین سایت خرید خود را تکمیل کنید</div>")
+        }
+    }
 
     return ( 
         <div>
-            {/* {
-            infs.length ? 
-                <div>
-                    Loaded Dive
-                </div>
-            : <CircleGradient />
-            } */}
-            <Navbar />
-            <Wave topcolor="#2da5dc" bottomcolor="#00000000" rotate="true" className={`w-screen ${styles.wave}`} />
+            <StartNav search={search} setSearch={setSearch} />
             <div className="mt-5 overflow-hidden">
-                
                 {/* top */}
                 <div className="flex items-start justify-between pl-12 pr-12 vazirmatn">
                     {/* top left */}
                     <div>
-                        <Button>بازگشت</Button>
+                        <Link to="/">
+                        <Button variant="contained" sx={{
+                            backgroundColor: "#2da5dc",
+                            ":hover": {
+                                backgroundColor: "#2da5d0"
+                            }
+                        }}>
+                                بازگشت
+                        </Button>
+                            </Link>
                     </div>
                     {/* top center */}
                     <Timeline data={timelinedata} />
                     {/* top right */}
                     <div>
-                        <div>
+                        <div className="border p-2 rounded-md shadow-telegram shadow-md hover:shadow-primary transition-all duration-150 cursor-pointer">
                             ایجاد کمپین جدید
                         </div>
                     </div>
                 </div>
-
                 {/* main */}
                 <div className="w-screen flex justify-center mt-12">
                     {/* inner */}
-                    <div className="flex max-w-screen-xl w-screen  min-h-80">
+                    <div className="flex w-screen justify-center min-h-80">
                         {/* main left */}
-                        <div className="w-72 shadow-md" 
-                        // style={{boxShadow: "5px 5px 5px"}} 
-                        >
-                            <div className="flex justify-between gap-5 p-2 w-full">
-                            <div className="flex-1 text-center text-gray-900 rounded-md border w-fit p-2 cursor-default transition-all duration-500 relative group overflow-hidden">
-                                    <span className="absolute block h-full top-0 bottom-0 right-0 w-2 bg-telegram duration-300 transition-all group-hover:w-full group-hover:bg-transparent"></span>
-                                    <span>
-                                      2542
-                                    </span>
-                                </div>
-                                <div className="flex-1 text-center text-gray-900 rounded-md border w-fit p-2 cursor-default transition-all duration-500 relative group overflow-hidden">
-                                    <span className="absolute block h-full top-0 bottom-0 right-0 w-2 bg-telegram duration-300 transition-all group-hover:w-full group-hover:bg-transparent"></span>
-                                    <span>
-                                        تعداد ناشران
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="h-full flex items-center justify-center">
-                                <span className="text-gray-500">
-                                    سبد خرید شما خالی است
-                                </span>
-                            </div>
-                        </div>
+                        <Left selectedInfs={selectedInfs} setShowCampaignSelect={setShowCampaignSelect} />
                         {/* main center */}
-                        <div className="text-white flex-1 ml-4 shadow-md">
-                            <StartCards influencers={infs} />
+                        <div className="text-white w-full max-w-6xl flex-1 ml-4 shadow-md">
+                            <StartCards influencers={searchedInfs} setInfs={setInfs} />
                         </div>
                         {/* main right */}
                         <div className="w-fit">
                             <RightFilters />
                         </div>
                     </div>
+                    <div className={`fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center z-50 transition-all duration-200 ${showCampaignSelect ? "scale-y-1" : "scale-y-0"}`} onClick={() => setShowCampaignSelect(false)}>
+                        <CampaignSelect resetInflus={resetInflus} saveSelections={saveSelections} closeCampSelect={closeCampSelect} />
+                    </div> 
                 </div>
             </div>
         </div>

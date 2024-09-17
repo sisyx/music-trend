@@ -1,0 +1,54 @@
+.btn {
+    position: relative;
+    z-index: 10;
+    min-height: 150px;
+    min-width: 150px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    cursor: pointer;
+    flex: 1;
+}
+.btn::before {
+    padding: 1rem;
+    content: "";
+    background-color: white;
+    position: absolute;
+    top: 0;
+    display: block;
+    height: 100%;
+    width: 100%;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    /* background: #281359; */
+    z-index: -1;
+    border-radius: 20px;
+    /* -webkit-box-shadow: inset 0 0 0 1px rgba(255,255,255,.1); */
+    /* box-shadow: inset 0 0 0 1px rgba(255,255,255,.1); */
+    transition: all 400ms;
+}
+.btn_children {
+    z-index: 13;
+    /* position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+}
+.btn::before {
+    transform: matrix3d(1,0,0,0,0,1,0,-.0015,0,0,.1,0,0,0,0,1) translateY(-8px);
+}
+.btn:nth-child(2n)::before {
+    transform: matrix3d(1,0,0,0,0,1,0,.0015,0,0,.1,0,0,0,0,1) translateY(8px);;
+}
+.btn:hover::before {
+    transform: matrix3d(1,0,0,0,0,1,0,.0015,0,0,.1,0,0,0,0,1) translateY(8px);;
+}
+.btn:nth-child(2n):hover:before {
+    transform: matrix3d(1,0,0,0,0,1,0,-.0015,0,0,.1,0,0,0,0,1) translateY(-8px);
+}

@@ -1,24 +1,25 @@
 import { useState } from "react";
+import { FaChevronDown } from "react-icons/fa";
 
 function RightFilter({filter, icon, children}) {
     const [istoolbar, setistoolbar] = useState(false);
 
     return ( 
-        <div className="group relative p-4 text-2xl bg-white text-telegram hover:bg-telegram hover:text-white cursor-pointer"
-            onMouseLeave={() => setistoolbar(false)}
-        >
+        <div className="group relative text-2xl border-black border rounded-2xl overflow-hidden min-w-60 bg-white text-black cursor-pointer">
             <span 
+                className="flex items-center justify-between p-2 gap-2 w-full border"
                 onClick={() => setistoolbar(cur => !cur)}
             >
-                {icon}
+                <FaChevronDown fontSize="1rem" />
+                <div className="flex items-center justify-between gap-2 text-sm">
+                    {icon}
+                    <span>
+                        {filter}
+                    </span>
+                </div>
             </span>
-            <div className={`${istoolbar ? "flex flex-col" : "hidden"} absolute border top-0 -right-0 min-w-48  bg-white translate-x-full`}>
+            <div className={`${istoolbar ? "h-32 overflow-y-scroll" : "h-0 overflow-hidden"} flex flex-col transition-all duration-500 w-full  bg-white`}>
                 {children}
-            </div>
-            <div className={`text-xs scale-y-0 ${istoolbar ? "" : "group-hover:scale-y-100"} absolute top-2/4 -left-1 -translate-x-full -translate-y-2/4 bg-black p-4 duration-500 transition-all text-center`}>
-                <span>
-                    {filter}
-                </span>
             </div>
         </div>
      );
