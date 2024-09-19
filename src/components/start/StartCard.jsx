@@ -36,7 +36,7 @@ function StartCard({ setindetails, influencer, index = 0, selectInf }) {
                     توضیحات
                 </div>
                 <div className="text-black">
-                    این اینفلوینسر ماهر با توجه به سابقه کاری ای که دارند میتوانند گزینه ی مناسبی برای انتخاب شما باشند.
+                    {influencer.description}
                 </div>
             </div>
             <div className="w-full bg-red-500">

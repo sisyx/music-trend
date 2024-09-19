@@ -61,6 +61,7 @@ function Start() {
     }
 
     function saveSelections(campId) {
+        console.log(campId)
         const isCampSaved = saveCookie(cartCookieCampidName, campId, saveLocalCartDays);
         const priceIdsList = [];
         const influIdsList = []

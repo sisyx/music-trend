@@ -160,7 +160,7 @@ export default function CardsSwiper({ slides }) {
       >
         {
             slides.map((slide, index) => 
-                <SwiperSlide style={{background: slide.color}}>{slide.text}</SwiperSlide>
+                <SwiperSlide style={{background: `linear-gradient(${slide.color}, ${ index < slides.length - 1 ? slides[index + 1].color : "#2da5dc"})`}}>{slide.text}</SwiperSlide>
             )
         }
       </Swiper>

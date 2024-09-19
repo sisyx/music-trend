@@ -42,6 +42,25 @@ export async function getPagePrices(id) {
     }
 }
 
+export async function getAllPrices () {
+    const token = getCookie("token");
+    try {
+        const req = await fetch(`${root}/api/PricePage/GetAll`)
+
+        if (!req.ok) {
+            throw new Error(req.statusText)
+        }
+
+        const res = await req.json();
+        console.log(res);
+        return res
+    } catch (error) {
+        console.error(error)
+        return []
+    }
+}
+
+
 export async function getPages() {
     const token = getCookie("token");
     try {
@@ -254,25 +273,23 @@ export async function createPublisher(platformid, type, campaignId) {
 }
 
 export async function getPublishers(pages) {
-    
     const result = [];
     
-    // pages?.forEach(async page => {
-    //     const url = `${root}/api/PublisherInstagram/GetPublisherByCampaignId?campaignId=${page}`;
-    //     try {
-    //         const req = await fetch(url);
-    
-    //         if (!req.ok) {
-    //             throw new Error("Failed to get publishers");
-    //         }
-    
-    //         const res = await req.json();
-
-    //         result.push(res);
-    //     } catch (error) {
-    //         console.error(error.message);
-    //     }
-    // });
+    for (let i = 0; i < pages.length; i++) {
+        const page = pages[i];
+        console.log(page)
+        const url = `${root}​/api/Pages/GetPageByPageId?pageID=${page}`;
+        try {
+            const req = await fetch(url);
+            if (!req.ok) {
+                throw new Error(`Failed to get publisher by id ${page}`);
+            }
+            const res = await req.json();
+            result.push(res);
+        } catch (error) {
+            console.error(error.message);
+        }
+    }
 
     return result
 }

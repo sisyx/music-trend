@@ -27,7 +27,7 @@ function Admin() {
         // outer container
         <div className="bg-gray-700 text-white h-screen w-full">
             <div className="flex w-full h-full">
-                <div className="flex-1 bg-gray-100">
+                <div className="flex-1 bg-gray-100 h-full overflow-y-scroll">
                     <AdminHeader />
                     {
                         state === "see users" 

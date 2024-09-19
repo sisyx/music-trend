@@ -5,7 +5,7 @@ import { FaFacebookF } from "react-icons/fa";
 import { FaLinkedinIn } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { root } from "../../constatnts";
 import { customAlert } from "../../functions";
 
@@ -17,6 +17,7 @@ const Home = () => {
     const [newEmail, setNewEmail] = useState("");
     const [isSigningUp, setIsSigningUp] = useState(!!params?.get("signup"));
     const [forgotPass, setForgotPass] = useState(false);
+    const navigate = useNavigate();
 
   function selectSignUp() {
     setForgotPass(false);
@@ -56,7 +57,7 @@ const Home = () => {
                 
                 document.cookie = "token=" + res.objectResult.token + "; expires=" + date
                 customAlert("با موفقیت وارد شدید");
-                location.assign("/");
+                navigate(-1);
             } else {
                 customAlert(res.message)
             }

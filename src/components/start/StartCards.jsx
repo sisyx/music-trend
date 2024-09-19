@@ -46,13 +46,16 @@ function StartCards({ influencers, setInfs }) {
                     <div className={`grid grid-cols-3 gap-3 p-3 w-full transition-500`}>
                         {influencers.slice(0, influsCount).map((influencer, index) => <StartCard index={index} selectInf={selectInf} setindetails={setindetails} influencer={influencer} />)}
                     </div>
-                    <div className="flex items-center gap-2 justify-center w-full py-2 cursor-pointer text-black " onClick={handleShotMoreClick}>
-                        {/* <Pagination count={10} color="secondary" /> */}
-                        <span>
-                            مشاهده بیشتر
-                        </span>
-                        <FaChevronDown />
-                    </div>
+                    {
+                        influsCount < influencers.length &&
+                        <div className="flex items-center gap-2 justify-center w-full py-2 cursor-pointer text-black " onClick={handleShotMoreClick}>
+                            {/* <Pagination count={10} color="secondary" /> */}
+                            <span>
+                                مشاهده بیشتر
+                            </span>
+                            <FaChevronDown />
+                        </div>
+                    }
                 </div> 
                 : <div className="w-full h-full min-h-96 flex items-center justify-center pt-9">
                     <CircleGradient />

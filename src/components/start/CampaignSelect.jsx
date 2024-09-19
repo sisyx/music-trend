@@ -120,15 +120,16 @@ function CampaignSelect({ saveSelections, resetInflus, closeCampSelect }) {
 
     function approveDeletePrevCart() {
         const newCapmName = showAddCardDialog;
+        console.log(newCapmName);
         saveSelections(newCapmName);
-        closeDialog();
-        resetInflus();
-        closeCampSelect();
+        // closeDialog();
+        // resetInflus();
+        // closeCampSelect();
         navigate("/payment");
     }
 
     function closeDialog() {
-        setShowAddCardDialog(undefined);
+        setShowAddCardDialog(() => undefined);
     }
     
     return (

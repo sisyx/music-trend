@@ -8,7 +8,20 @@ export const saveLocalCartDays = 7;
 export const cartCookieCampidName = "selected_campaign_id";
 export const cartCookieSelectedPrices = "selected_price_ids";
 export const cartCookieSelectedInflus = "selected_influs_ids";
+
+export const cartCookies = {
+  saveLocalDays: 7,
+  campidName: "selected_campaign_id",
+  selectedPrices: "selected_price_ids",
+  selectedInflus: "selected_influs_ids",
+} 
 // cart end ----------------------------
+
+// routes start ----------------------------
+export const routes = {
+  login: "/login",
+}
+// routes end ----------------------------
 
 
 export const imagebase = "/src/assets/images"

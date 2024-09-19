@@ -77,7 +77,7 @@ function SeePages() {
         // container
         <div className="w-full p-8">
             {/* title bar and etc */}
-            <div className="flex justify-end items-center w-full bg-transparent ">
+            <div className="flex justify-end items-center w-full bg-transparent">
                 <div className="flex flex-col items-end text-black">
                     <span className="text-2xl font-bold">مدیریت اینفولینسرها</span>
                     <span className="flex items-center  gap-2" dir="rtl">
@@ -100,16 +100,20 @@ function SeePages() {
                     </div>
                 </div>
                 {/* pages list */} 
-                {
-                    isLoading ? 
-                    <div className="flex items-center justify-center  w-full">
-                        <CircleGradient />
-                    </div>
-                    : <div className="grid grid-cols-4 gap-3">
-                    { pages.map(page => 
+                <div className="grid grid-cols-4 gap-3">
+                    { pages?.map(page => 
                             <Page page={page} pageTypes={pageTypes} pageCategories={pageCategories} />
                     )}
-                    </div>
+                    {
+
+                        isLoading ?
+                            <div className="flex items-center justify-center  w-full">
+                            <CircleGradient />
+                        </div>
+                        : ""
+                    }
+                </div>
+                {
                 }
             </div>
 
