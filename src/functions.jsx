@@ -227,6 +227,37 @@ export async function getCampWithId(id) {
         return {}
     }
 }
+// ​/api​/Campaign​/GetCampaignByUserId
+
+
+export async function getUserCamps(userId) {
+    const url = `${root}/api/Campaign/GetCampaignByUserId?userId=${userId}`
+    try {
+        let hasCamp = true;
+        const req = await fetch(url);
+
+        if (!req.ok) {
+            if (req.status !== 404) {
+                throw new Error("Failed to get this user camps");
+            } else {
+                hasCamp = false;
+            }
+        }
+
+        const res = hasCamp ? await req.json() : [];
+        const foundCampaign = res.length ? {
+            ...res[0],
+            pages: removeRepeats(res[0].pageId.split(",")),
+            prices: removeRepeats(res[0].pricePageId.split(",")),
+            startDate: toShamsi(convertDate(res[0].startDate))
+        } : []
+
+        return foundCampaign
+    } catch (error) {
+        console.error(error.message)
+        return {}
+    }
+}
 
 // Publishers
 export async function createPublisher(platformid, type, campaignId) {
