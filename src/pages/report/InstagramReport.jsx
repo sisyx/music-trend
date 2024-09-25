@@ -6,9 +6,9 @@ import Avatar from '@mui/material/Avatar';
 // import { FaShareAlt } from "react-icons/fa";
 import InstaReportChart from '../../components/reports/InstaReportChart';
 import InstagramTableRow from '../../components/reports/InstagramTableRow';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { getCampWithId, getPublishers, copy, getCookie } from '../../functions';
+import { getCampWithId, getPublishers, copy, getCookie, toShamsi } from '../../functions';
 import { Add, Instagram } from '@mui/icons-material';
 import HomeIcon from '@mui/icons-material/Home';
 import ShopIcon from '@mui/icons-material/Shop';
@@ -59,7 +59,8 @@ function InstagramReport() {
     async function init() {
         const id = params.get("id");
         const tmpCamp = await getCampWithId(id);
-        const tmpPubs = await getPublishers(tmpCamp?.pages);
+        const tmpPubs = await getPublishers(id);
+        console.log(tmpCamp)
         setPublishers(() => tmpPubs);
         const sums = {
             postLikes: 0,
@@ -145,9 +146,9 @@ function InstagramReport() {
         // outer container 
         <div>
             {/* container */}
-            <div className='h-screen flex flex-col overflow-hidden'>
+            <div className='h-screen flex flex-col'>
                 {/* header */}
-                <div className="flex justify-center items-center w-full px-5 py-2 text-bold text-center bg-white relative after:absolute after:z-50 after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:translate-y-3/4 after:block after:bg-gray-100 after:w-4 after:h-4  after:content-[''] after:rotate-45">
+                <div className="flex justify-center items-center w-full min-h-14 overflow-hidden text-bold text-center bg-white relative after:absolute after:z-50 after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:translate-y-3/4 after:block after:bg-gray-100 after:w-4 after:h-4  after:content-[''] after:rotate-45">
                     {/* left */}
                     <div className='flex-1 flex items-center gap-4'>
                         <img src='/logo.png' alt='logo' className='w-12 aspect-square' />
@@ -171,19 +172,19 @@ function InstagramReport() {
                 <div className='h-full flex'>
                     {/* left header */}
                     <div className='group text-xl flex flex-col gap-2 h-full bg-white text-white p-4 relative after:absolute after:z-50 after:top-0 after:right-0 after:translate-x-full after:block after:bg-gray-100 after:w-5 after:h-5  after:content-[""] after:rounded-tl-full before:absolute before:z-50 before:top-0 before:right-0 before:translate-x-full before:block before:bg-white before:w-5 before:h-5  before:content-[""]'>
-                        <div className='p-3 flex group-hover:gap-4 items-center justify-center bg-telegram rounded-xl cursor-pointer hover:bg-primary-start hover:text-white transition-all duration-200'>
+                        <Link to='/' className='p-3 flex group-hover:gap-4 items-center justify-center bg-telegram rounded-xl cursor-pointer hover:bg-primary-start hover:text-white transition-all duration-200'>
                             <HomeIcon />
                             <span className=' text-[0px] group-hover:text-base transition-all duration-500 text-end flex-1'>رفتن به خانه</span>
-                        </div>
-                        <div className='p-3 flex group-hover:gap-4 items-center justify-center bg-white text-black rounded-xl cursor-pointer hover:bg-primary-start hover:text-white transition-all duration-200'>
+                        </Link>
+                        <Link to="/start" className='p-3 flex group-hover:gap-4 items-center justify-center bg-white text-black rounded-xl cursor-pointer hover:bg-primary-start hover:text-white transition-all duration-200'>
                             <Add />
                             <span className=' text-[0px] group-hover:text-base transition-all duration-500 text-end flex-1'>ایجاد کمپین جدید</span>
-                        </div>
+                        </Link>
                         <div className='p-3 flex group-hover:gap-4 items-center justify-center bg-white text-black rounded-xl cursor-pointer hover:bg-primary-start hover:text-white transition-all duration-200'>
                             <ShopIcon />
                             <span className=' text-[0px] group-hover:text-base transition-all duration-500 text-end flex-1'>لیست کمپین ها</span>
                         </div>
-                        <div className='p-3 flex group-hover:gap-4 items-center justify-center bg-white text-black rounded-xl cursor-pointer hover:bg-primary-start hover:text-white transition-all duration-200'>
+                        <div onClick={() => location.reload()} className='p-3 flex group-hover:gap-4 items-center justify-center bg-white text-black rounded-xl cursor-pointer hover:bg-primary-start hover:text-white transition-all duration-200'>
                             <RefreshIcon />
                             <span className=' text-[0px] group-hover:text-base transition-all duration-500 text-end flex-1'>ریفرش صفحه</span>
                         </div>
@@ -216,7 +217,7 @@ function InstagramReport() {
                                 <div className="flex gap-2 border border-gray-300 p-2 mb-8" dir="rtl">
                                     <span>تاریخ شروع: </span>
                                     <span>
-                                        {campaign?.startDate}
+                                        {toShamsi(campaign?.startDate)}
                                     </span>
                                 </div>
 
@@ -299,7 +300,7 @@ function InstagramReport() {
                                             <InstagramTableRow publisher={publisher} index={index} />
                                         </>
                                     )
-                                    : ""
+                                    : "تا بحال گزارشی ثبت نشده"
                                 }
                             </table>
                         </div>

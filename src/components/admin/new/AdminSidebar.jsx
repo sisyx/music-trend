@@ -1,6 +1,9 @@
 import { FiHome } from "react-icons/fi";
 import styles from "./AdminSidebar.module.css"
 import { FaAngleLeft } from "react-icons/fa";
+import { RiUserSettingsFill } from "react-icons/ri";
+import { PiInstagramLogoFill } from "react-icons/pi";
+import { TbCategoryFilled } from "react-icons/tb";
 
 function AdminSidebar({ state, setState }) {
     return ( 
@@ -18,7 +21,7 @@ function AdminSidebar({ state, setState }) {
                 <div className={`flex flex-col ${styles.option}`}>
                     <div className={`flex items-center justify-between p-3 cursor-pointer hover:bg-white hover:text-black ${state === "see pages" ? "bg-white text-black" : ""}`} onClick={() => setState("see pages")}>
                         <div className="flex items-center gap-2 text-2xl" dir="rtl">
-                            <FiHome />
+                            <PiInstagramLogoFill />
                             <span className="text-base">
                             مدیریت اینفلوینسرها
                             </span>
@@ -27,7 +30,7 @@ function AdminSidebar({ state, setState }) {
                     </div>
                     <div className={`flex items-center justify-between p-3 cursor-pointer hover:bg-white hover:text-black ${state === "see users" ? "bg-white text-black" : ""}`} onClick={() => setState("see users")}>
                         <div className="flex items-center gap-2 text-2xl" dir="rtl">
-                            <FiHome />
+                            <RiUserSettingsFill />
                             <span className="text-base">
                                 مدیریت کاربران سایت
                             </span>
@@ -36,18 +39,18 @@ function AdminSidebar({ state, setState }) {
                     </div>
                     <div className={`flex items-center justify-between p-3 cursor-pointer hover:bg-white hover:text-black ${state === "see categories" ? "bg-white text-black" : ""}`} onClick={() => setState("see categories")}>
                         <div className="flex items-center gap-2 text-2xl" dir="rtl">
-                            <FiHome />
+                            <TbCategoryFilled />
                             <span className="text-base">
                                 مدیریت دسته بندی ها
                             </span>
                         </div>
                         <FaAngleLeft />
                     </div>
-                    <div className="flex items-center justify-between p-3 cursor-pointer hover:bg-white hover:text-black">
+                    <div className={`flex items-center justify-between p-3 cursor-pointer hover:bg-white hover:text-black ${state === "see camps" ? "bg-white text-black" : ""}`} onClick={() => setState("see camps")}>
                         <div className="flex items-center gap-2 text-2xl" dir="rtl">
                             <FiHome />
                             <span className="text-base">
-                                داشبورد
+                                مدیریت کمپین ها
                             </span>
                         </div>
                         <FaAngleLeft />

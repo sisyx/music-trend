@@ -57,7 +57,7 @@ export default function InstaReportChart() {
                 </div>
             </div>
             <h1 className={styles.title}>
-                پیشبینی پیشرفت شما در 20 روز آینده
+                    پیشرفت پیجهای این کمپین در بیست روز اخیر
             </h1>
         </div>
     </div>

@@ -7,6 +7,7 @@ import AdminHeader from "../../components/admin/new/AdminHeader";
 import SeeUsers from "../../components/admin/new/SeeUsers";
 import SeePages from "../../components/admin/new/SeePages";
 import CreatePageTypes from "../../components/admin/new/CreatePageTypes";
+import SeeCamps from "../../components/admin/new/SeeCamps";
 function Admin() {
     
     const [isLoaded, setIsLoaded] = useState(false);
@@ -33,7 +34,8 @@ function Admin() {
                         state === "see users" 
                         ? <SeeUsers />
                         : state === "see pages" ? <SeePages /> 
-                        : <CreatePageTypes /> 
+                        : state === "see categories" ? <CreatePageTypes /> 
+                        : <SeeCamps />
                     }
                 </div>
                 <AdminSidebar state={state} setState={setState} />

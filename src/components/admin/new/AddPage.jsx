@@ -47,7 +47,7 @@ function AddPage({ isVisible, pageCategories, pageTypes, setReload, handleCloseA
                 throw new Error(req.statusText)
             }
 
-            const res = await req.json();
+            const res = await req.text();
             console.log(res);
             setReload(cur => cur + 1)
         } catch (error) {

@@ -1,20 +1,12 @@
 import Footer from "../../components/Footer";
 import HomeAbout from "../../components/home/HomeAbout";
 // import Chart from "../../components/home/Chart";
-import HomeChart from "../../components/home/HomeChart";
 import HomeCommonQues from "../../components/home/HomeCommonQues";
 import HomeDifferentBolgs from "../../components/home/HomeDifferentBolgs";
 import HomeLand from "../../components/home/HomeLand";
 import HomeTags from "../../components/home/HomeTags";
-import HomeTimeline from "../../components/home/HomeTimeline";
 import MoreExplanations from "../../components/home/MoreExplanations";
-import NoBg from "../../components/home/NoBg";
-import TsParticles from "../../components/home/TsParticles";
-import XCards from "../../components/home/XCards";
 import Navbar from "../../components/Navbar";
-import Separator from "../../components/Separator";
-import Wave from "../../components/Wave";
-import {  configs4 } from "../../constatnts";
 import SmallContact from "../../components/contact/SmallContact";
 
 function Home() {

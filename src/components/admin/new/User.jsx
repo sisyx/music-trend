@@ -3,12 +3,13 @@ import GlassyButton from "../../GlassyButton";
 import { root } from "../../../constatnts";
 import { customAlert, getCookie } from "../../../functions";
 import { useEffect, useState } from "react";
-import { FaUserGear } from "react-icons/fa6";
 import { FaUserSecret } from "react-icons/fa";
+import UserSettings from "./UserSettings";
 
 function User({user}) {
 
     const [role, setRole] = useState(user.roles);
+    const [isInSettings, setIsInSettings] = useState(false);
 
     useEffect(() => {
         setRole(user.roles)
@@ -59,7 +60,8 @@ function User({user}) {
     return ( 
         <div className={`flex items-center justify-end gap-6 p-3 px-5 rounded-full ${role === "admin" ? "hover:bg-black text-white bg-gray-700" : " bg-gray-100 hover:bg-gray-200" } cursor-pointer`}>
                 {/* left */}
-                <div className="flex-1">
+                <div className="flex-1 flex gap-2">
+                    {/* <GlassyButton onClick={() => setIsInSettings(true)}>مشاهده کاربر</GlassyButton> */}
                     {
                         role === "user" 
                         ? <GlassyButton onClick={updateUser}>ارتقا به کاربر حرفه ای</GlassyButton>
@@ -87,6 +89,15 @@ function User({user}) {
                         }
                     </div>
                 </div>
+                {
+                    isInSettings &&
+                    <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-transparent text-black cursor-default" onClick={e => {
+                        e.stopPropagation();
+                        setIsInSettings(false)
+                    }}>
+                        <UserSettings user={user} />
+                    </div>
+                }
             </div>
      );
 }

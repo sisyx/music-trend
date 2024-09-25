@@ -4,11 +4,6 @@ export const apiroot = "https://mokhatabgostar.ir";
 export const englishAlphabetLC = "abcdefghijklmnopqrstuvwxyz";
 
 // cart start ----------------------------
-export const saveLocalCartDays = 7;
-export const cartCookieCampidName = "selected_campaign_id";
-export const cartCookieSelectedPrices = "selected_price_ids";
-export const cartCookieSelectedInflus = "selected_influs_ids";
-
 export const cartCookies = {
   saveLocalDays: 7,
   campidName: "selected_campaign_id",

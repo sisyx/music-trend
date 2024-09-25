@@ -28,7 +28,7 @@ function SeeUsers() {
     const [filter, setFilter] = useState(filters[filters.length - 1])
     const [users, setUsers] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [search, setSearch] = useState("")
+    const [search, setSearch] = useState("");
     
     useEffect(() => {
         init()

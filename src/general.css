@@ -7,6 +7,7 @@
     scroll-behavior: smooth;
     box-sizing: border-box;
     font-family: "Vazir" !important;
+    user-select: none;
 }
 .transition-500 {
     transition: all 500ms;

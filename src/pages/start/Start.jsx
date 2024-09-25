@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { cartCookieCampidName, cartCookieSelectedInflus, cartCookieSelectedPrices, influencers, saveLocalCartDays } from "../../constatnts";
+import { cartCookies } from "../../constatnts";
 import Timeline from "../../components/start/Timeline";
 import { Button } from "@mui/material";
 import RightFilters from "../../components/start/RightFilters";
@@ -62,9 +62,10 @@ function Start() {
 
     function saveSelections(campId) {
         console.log(campId)
-        const isCampSaved = saveCookie(cartCookieCampidName, campId, saveLocalCartDays);
+        console.log(cartCookies)
+        const isCampSaved = saveCookie(cartCookies.campidName, campId, cartCookies.saveLocalDays);
         const priceIdsList = [];
-        const influIdsList = []
+        const influIdsList = [];
         selectedInfs.forEach(influ => {
             influIdsList.push(influ.id);
             influ?.prices.forEach(price => {
@@ -73,12 +74,14 @@ function Start() {
         })
         const priceIdsString = priceIdsList.reduce((acc, cur, index) => acc += `${cur}${index >= priceIdsList.length - 1 ? "" : ","}` , "");
         const influIdsString = influIdsList.reduce((acc, cur, index) => acc += `${cur}${index >= influIdsList.length - 1 ? "" : ","}` , "");
-        const isPricesSaved = saveCookie(cartCookieSelectedPrices, priceIdsString, saveLocalCartDays);
-        const isPagesSaved = saveCookie(cartCookieSelectedInflus, influIdsString, saveLocalCartDays);
+        const isPricesSaved = saveCookie(cartCookies.selectedPrices, priceIdsString, cartCookies.saveLocalDays);
+        const isPagesSaved = saveCookie(cartCookies.selectedInflus, influIdsString, cartCookies.saveLocalDays);
 
         if (isCampSaved  && isPricesSaved && isPagesSaved ) {
             customAlert("<div dir='rtl'>سبد خرید شما با موفقیت ذخیره شد<br/> شما میتوانید با مراجعه به ادمین سایت خرید خود را تکمیل کنید</div>")
         }
+
+        return 1
     }
 
     return ( 

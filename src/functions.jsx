@@ -24,6 +24,23 @@ export async function getUsers() {
     }
 }
 
+export async function getAllCamps() {
+    try {
+        const req = await fetch(`${root}​/api/Campaign/GetAll`)
+
+        if (!req.ok) {
+            throw new Error("failed to get all camps");
+        }
+
+        console.log(req)
+        const res = await req.json();
+        return res
+    } catch (error) {
+        console.error(error)
+        return []
+    }
+}
+
 export async function getPagePrices(id) {
     const token = getCookie("token");
     try {
@@ -124,52 +141,6 @@ export function getCookie(name) {
 
 // Campaigns
 
-export async function getAllCamps() {
-    try {
-        let hasCampInsta = true;
-        let hasCampTel = true;
-        const reqInsta = await fetch(`${root}/api/CampInstagram/GetAll`);
-        const reqTel = await fetch(`${root}/api/CampTel/GetAll`);
-
-        if (!reqInsta.ok) {
-            if (reqInsta.status !== 404) {
-                throw new Error("Failed to get All camps");
-            } else {
-                hasCampInsta = false;
-            }
-        }
-        
-        if (!reqTel.ok) {
-            if (reqTel.status !== 404) {
-                throw new Error("Failed to get All camps")
-            }
-            else {
-                hasCampTel = false;
-            }
-        }
-
-        const resInsta = hasCampInsta ? await reqInsta.json() : [];
-        const resTel = hasCampTel ? await reqTel.json() : [];
-        console.log(resInsta);
-        const formatedResInsta = resInsta.map(camp =>  {
-            return {
-                name: camp.campaignName,
-                type: "instagram",
-                id: camp.id
-            }});
-        const formatedResTel = resTel.map(camp => {
-            return {
-                name: camp.campaignName,
-                type: "telegram",
-                id: camp.id
-            }});
-        return [...formatedResInsta, ...formatedResTel];
-    } catch (error) {
-        console.error(error.message);
-        return []
-    }
-}
-
 export async function createCampaign(name, type) {
     const reqBody = {
         campaignName: name,
@@ -209,50 +180,24 @@ export async function getCampWithId(id) {
                 throw new Error("Failed to get All camps");
             } else {
                 hasCampInsta = false;
+                throw new Error("error")
             }
         }
 
-        const res = hasCamp ? await req.json() : [];
-        const foundCampaign = res.length ? {
-            ...res[0],
-            pages: removeRepeats(res[0].pageId.split(",")),
-            prices: removeRepeats(res[0].pricePageId.split(",")),
-            startDate: toShamsi(convertDate(res[0].startDate))
-        } : []
+        // const res = hasCamp ? await req.json() : [];
+        // const foundCampaign = res.length ? {
+        //     ...res[0],
+        //     pages: removeRepeats(res[0].pageId.split(",")),
+        //     prices: removeRepeats(res[0].pricePageId.split(",")),
+        //     startDate: toShamsi(convertDate(res[0].startDate))
+        // } : []
 
-        console.log(foundCampaign);
-        return foundCampaign
-    } catch (error) {
-        console.error(error.message)
-        return {}
-    }
-}
-// ​/api​/Campaign​/GetCampaignByUserId
+        // console.log(foundCampaign);
+        // return foundCampaign
 
-
-export async function getUserCamps(userId) {
-    const url = `${root}/api/Campaign/GetCampaignByUserId?userId=${userId}`
-    try {
-        let hasCamp = true;
-        const req = await fetch(url);
-
-        if (!req.ok) {
-            if (req.status !== 404) {
-                throw new Error("Failed to get this user camps");
-            } else {
-                hasCamp = false;
-            }
-        }
-
-        const res = hasCamp ? await req.json() : [];
-        const foundCampaign = res.length ? {
-            ...res[0],
-            pages: removeRepeats(res[0].pageId.split(",")),
-            prices: removeRepeats(res[0].pricePageId.split(",")),
-            startDate: toShamsi(convertDate(res[0].startDate))
-        } : []
-
-        return foundCampaign
+        const res = await req.json();
+        res.startDate = toShamsi(res.startDate)
+        return res[0]
     } catch (error) {
         console.error(error.message)
         return {}
@@ -303,26 +248,31 @@ export async function createPublisher(platformid, type, campaignId) {
     }
 }
 
-export async function getPublishers(pages) {
-    const result = [];
-    
-    for (let i = 0; i < pages.length; i++) {
-        const page = pages[i];
-        console.log(page)
-        const url = `${root}​/api/Pages/GetPageByPageId?pageID=${page}`;
-        try {
-            const req = await fetch(url);
-            if (!req.ok) {
-                throw new Error(`Failed to get publisher by id ${page}`);
-            }
-            const res = await req.json();
-            result.push(res);
-        } catch (error) {
-            console.error(error.message);
+export async function getPublishers(campid) {
+    console.log(campid)
+    const url = `${root}​/api/Pages/GetPageVersionByCampID?campaignId=${campid}`;
+    try {
+        const req = await fetch(url);
+        if (!req.ok) {
+            throw new Error(`Failed to get publisher by id ${page}`);
         }
-    }
+        const res = await req.json();
+        const formated = [];
+        
+        for (let i = 0; i < res.length; i++) {
+            const currentPage = res[i];
 
-    return result
+            const isInFormated = formated.find(fpage => fpage.page.id === currentPage.page.id)
+            console.log("isInFormated: ", isInFormated)
+            if (!isInFormated) {
+                formated.push(currentPage)
+            }
+        }
+
+        return formated
+    } catch (error) {
+        return []
+    }
 }
 
 export async function updatePublisher(publisherId, newData, type) {
@@ -430,6 +380,8 @@ export function saveCookie(name, value, days = 1) {
         console.error("could not get cookie name or cookie value. please try another way.")
         return
     }
+
+    console.log(value)
     const date = new Date();
     date.setDate(date.getDate() + days)
 
@@ -462,7 +414,7 @@ function convertDate(dateString) {
     return `${year}/${month}/${day}`;
 }
 
-function toShamsi(dateString) {
+export function toShamsi(dateString) {
     // Convert to Shamsi (Jalali) date
     const shamsiDate = moment(dateString, 'YYYY/MM/DD').format('jYYYY/jMM/jDD');
 

@@ -8,9 +8,9 @@ import { shortAboutus, threefeatures } from "../../texts-source";
 function AboutUsMain() {
     return (
         //  outer container
-        <div className="py-48 w-screen flex flex-col gap-0 items-center justify-center bg-gray-100 min-h-screen ">
+        <div className="py-28 w-screen flex flex-col items-center justify-center bg-gray-100 min-h-screen ">
             {/* title */}
-            <div className={`flex w-full justify-between max-w-7xl p-12 ${styles.title}`} dir="rtl">
+            <div className={`flex w-full justify-between max-w-7xl p-12 pb-0 ${styles.title}`} dir="rtl">
                 <div className="text-3xl font-extrabold">درباره ما</div>
                 <div className="flex items-center">
                     <Link to='/' className="text-telegram cursor-pointer" >
@@ -22,7 +22,7 @@ function AboutUsMain() {
                     </span>
                 </div>
             </div>
-            <div className="flex items-center justify-evenly flex-col md:flex-row p-2  w-full max-w-7xl py-32">
+            <div className="flex items-center justify-evenly flex-col md:flex-row p-2  w-full max-w-7xl py-20">
                 {/* LEFT */}
                 <div className="flex-1" dir="rtl">
                     {/* text and detail */}
@@ -47,7 +47,7 @@ function AboutUsMain() {
                 </div>
             </div>
             {/* buttons */}
-            <div className="flex gap-8 mb-12 w-full max-w-7xl">
+            <div className="flex gap-8 flex-wrap mb-0 w-full max-w-7xl">
                 {
                     threefeatures.map(feature =>
                         <X3DButton>

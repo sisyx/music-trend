@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { cartCookieCampidName, root } from "../../constatnts";
+import { cartCookies, root } from "../../constatnts";
 import { customAlert, getCookie } from "../../functions";
 import { Button, TextField } from "@mui/material";
-import { Add, AddCircleRounded, AddReaction, Cancel } from "@mui/icons-material";
+import { Add } from "@mui/icons-material";
 import CircleGradient from "../loadings/CircleGradient";
 import { useNavigate } from "react-router-dom";
 
-function CampaignSelect({ saveSelections, resetInflus, closeCampSelect }) {
+function CampaignSelect({ saveSelections }) {
     const [camps, setCamps] = useState([]);
     const [isAdding, setIsAdding] = useState(false);
     const [reload, setReload] = useState(0);
@@ -71,6 +71,8 @@ function CampaignSelect({ saveSelections, resetInflus, closeCampSelect }) {
         }
 
         try {
+            const date = new Date();
+            const startDate = date.toISOString();
             const req = await fetch(`${root}/api/Campaign/CreateCampaign`, {
                 method: "POST",
                 body: JSON.stringify(
@@ -78,7 +80,8 @@ function CampaignSelect({ saveSelections, resetInflus, closeCampSelect }) {
                         "name": campname,
                         "userId": userId,
                         "pricePageId": "",
-                        "pageId": ""
+                        "pageId": "",
+                        "startDate": startDate
                     }
                 ),
                 headers: {
@@ -89,7 +92,8 @@ function CampaignSelect({ saveSelections, resetInflus, closeCampSelect }) {
                 throw new Error("مشکلی در ایجاد کمپین ایجاد شده. لطفا دوباره تلاش کنید!");
             }
 
-            const res = await req.json();
+            const res = await req.text();
+            customAlert(res);
             console.log(res);
             realoadCamps();
         } catch (error) {
@@ -113,15 +117,17 @@ function CampaignSelect({ saveSelections, resetInflus, closeCampSelect }) {
     }
 
     function onChooseCampaign(campId) {
-        const prevCart = getCookie(cartCookieCampidName)
+        console.log("campaign id: " + campId)
+        // return
+        const prevCart = getCookie(cartCookies.campidName);
         if (prevCart) setShowAddCardDialog(campId);
-        else approveDeletePrevCart()
+        else approveDeletePrevCart(campId);
     }
 
-    function approveDeletePrevCart() {
-        const newCapmName = showAddCardDialog;
-        console.log(newCapmName);
-        saveSelections(newCapmName);
+    async function approveDeletePrevCart(campId) {
+        const newCapmName = campId;
+
+        await saveSelections(newCapmName);
         // closeDialog();
         // resetInflus();
         // closeCampSelect();
@@ -171,7 +177,7 @@ function CampaignSelect({ saveSelections, resetInflus, closeCampSelect }) {
                     آیا ادامه میدهید؟
                 </span>
                 <div className="flex flex-col gap-2">
-                    <Button startIcon={<Add />}  variant="contained" onClick={approveDeletePrevCart} >ادامه</Button>
+                    <Button startIcon={<Add />}  variant="contained" onClick={() => approveDeletePrevCart(showAddCardDialog)} >ادامه</Button>
                     <Button onClick={closeDialog} >بازگشت</Button>
                 </div>
             </div>

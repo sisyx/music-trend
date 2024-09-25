@@ -4,12 +4,12 @@ import { FaUserTie } from "react-icons/fa6";
 
 function HomeLand() {
     return ( 
-        <div className="bg-gray-100 pt-60 pb-60 min-h-screen flex justify-center vazirmatn">
+        <div className="bg-gray-100 md:pt-36 pb-60      min-h-screen flex justify-center vazirmatn">
             {/* inner container */}
             <div className="flex flex-col-reverse md:flex-row px-0 md:px-5 items-center max-w-7xl">
                 {/* Left */}
                 <div className="w-1/2 flex items-center justify-center">
-                    <video autoPlay="true" loop="true" src="/src/assets/videos/landing.mp4"></video>
+                    <img src="/src/assets/images/homeland.png" />
                 </div>
 
                 {/* Right */}

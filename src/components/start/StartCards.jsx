@@ -2,25 +2,15 @@ import { useEffect, useState } from "react";
 import StartCard from "./StartCard";
 
 // icons
-import { HiMiniLanguage } from "react-icons/hi2";
-import { MdOutlineLocationCity } from "react-icons/md";
-import { BsArrowDown, BsGenderTrans } from "react-icons/bs";
-import { MdCategory } from "react-icons/md";
 import CircleGradient from "../loadings/CircleGradient";
 import { useSearchParams } from "react-router-dom";
-import { Button, Pagination } from "@mui/material";
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import { toKFormat, toPercentFormat } from "../../funcs";
-import { RiCloseLargeFill } from "react-icons/ri";
-import { IoCaretBack } from "react-icons/io5";
 import InfluencerInfo from "./InfluencerInfo";
-import { ArrowDownward } from "@mui/icons-material";
 import { FaChevronDown } from "react-icons/fa";
 
 function StartCards({ influencers, setInfs }) {
     const [selectedInf, seSelectedInf] = useState({});
     const [indetails, setindetails] = useState(false);
-    const [params, setparams] = useSearchParams();
+    const [params] = useSearchParams();
     const page = params.get("page");
     const [influsCount, setInflusCount] = useState(0);
     
