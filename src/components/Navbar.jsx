@@ -5,7 +5,7 @@ import { FaBagShopping, FaChevronLeft } from "react-icons/fa6";
 import styles from "./Navbar.module.css";
 import GlassyButton from "./GlassyButton";
 import AccountMenu from "./AccountBtn";
-import { getCookie, getRole, getUser, isLoggedin } from "../functions";
+import { getCookie, getRole, getUser, isLoggedin, toPersianNumbers } from "../functions";
 import { useEffect, useState } from "react";
 import { cartCookies } from "../constatnts";
 
@@ -27,7 +27,7 @@ function Navbar() {
     return ( 
         // border outer
         <div className="w-screen md:p-5 md:fixed md:top-0 flex justify-center max-z">
-            <nav className="max-w-7xl w-screen shadow p-2 md:p-5 md:rounded-2xl bg-white bg-opacity-80 flex items-center justify-between backdrop-blur-3xl">
+            <nav className="max-w-7xl w-screen shadow p-2 md:px-5  md:rounded-2xl bg-white bg-opacity-80 flex items-center justify-between backdrop-blur-3xl">
                 {/* left */}
                 <div className="flex items-center gap-4">
                     {/* logo */}
@@ -43,6 +43,24 @@ function Navbar() {
                 {/* right */}
                 <div className="flex items-center gap-5">
                     <div className="items-center gap-5 hidden md:flex">
+                        <div className="relative group p-5 h-full cursor-pointer">
+                            <div className="flex items-center gap-1">
+                                <span className="inline-block border border-black w-[5px] aspect-square bg-transparent rounded-full"></span>
+                                <span className="inline-block border border-black w-[5px] aspect-square bg-transparent rounded-full"></span>
+                                <span className="inline-block border border-black w-[5px] aspect-square bg-transparent rounded-full"></span>
+                            </div>
+                            <div className="
+
+                                    absolute scale-y-0 group-hover:scale-y-100 translate-y-full opacity-0 group-hover:opacity-100  group-hover:bottom-0 -bottom-full right-0 transition-all duration-500
+
+                                    min-w-48 rounded-xl bg-white overflow-hidden
+                                ">
+
+                                <NavLink to="/logout" className="w-full flex justify-end p-4">
+                                    خروج از حساب
+                                </NavLink>
+                            </div>
+                        </div>
                         <NavLink to="/aboutus">
                             درباره ما
                         </NavLink>
@@ -60,15 +78,14 @@ function Navbar() {
                         }
                     </div>
                     <Link to={cart ? "/payment" : "/start"} className={`relative group rounded-full aspect-square border p-2 cursor-pointer hover:border-telegram hover:text-telegram ${cart ? "border-red-500 bg-red-500 text-white hover:bg-telegram hover:text-white" : ""}`}>
-                    <IoBagAddOutline fontSize="1.2rem" />
-                        {
-                            cart ?
-                            <div className="absolute top-0 left-0 bg-red-500 group-hover:bg-telegram rounded-full text-white aspect-square block">
-                                <span className="block ">
-                                    1
-                                </span>
-                            </div> : ""
-                        }
+                        <IoBagAddOutline fontSize="1.2rem" />
+                        <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-6 h-6 flex items-center justify-center bg-red-500 group-hover:bg-telegram rounded-full text-white aspect-square">
+                            <span className="block ">
+                                {
+                                    toPersianNumbers(cart ? "1" : "0")
+                                }
+                            </span>
+                        </div> 
                     </Link>
                     {
                         username 
@@ -77,7 +94,7 @@ function Navbar() {
                             ورود به حساب
                         </GlassyButton>
                     }
-                    <div className="sm:hidden">
+                    <div className="md:hidden">
                         <AccountMenu username={username} />
                     </div>
                 </div>
@@ -87,9 +104,9 @@ function Navbar() {
      );
 }
 
-function NavLink({to = '', children}) {
+function NavLink({to = '', children, className = ""}) {
     return (
-        <Link to={to} className="text-black hover:text-telegram flex items-center gap-1">
+        <Link to={to} className={`text-black hover:text-telegram flex items-center gap-1 ${className}`}>
             <FaChevronLeft fontSize="0.8rem" />
             {children}
         </Link>

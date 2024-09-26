@@ -108,6 +108,8 @@ export function logout() {
         const name = eqPos > -1 ? cookie.substring(0, eqPos) : cookie;
         document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT';
     });
+
+    clearAllCookies()
 }
 
 export function isLoggedin() {
@@ -440,4 +442,36 @@ export function toShamsi(dateString) {
     const formated = `${monthNames[tmp[1] - 1]} ${tmp[0]}`
 
     return formated;
+}
+
+export function toPersianNumbers(digit) {
+    const dict = {
+        "1": "۱",
+        "2": "۲",
+        "3": "۳",
+        "4": "۴",
+        "5": "۵",
+        "6": "۶",
+        "7": "۷",
+        "8": "۸",
+        "9": "۹",
+        "0": "۰",
+    }
+
+    return dict[digit]
+}
+
+function clearAllCookies() {
+    // Get all cookies
+    const cookies = document.cookie.split(";");
+
+    // Loop through the cookies and delete each one
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i];
+        const eqPos = cookie.indexOf("=");
+        const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+
+        // Set the cookie's expiration date to a time in the past
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+    }
 }
