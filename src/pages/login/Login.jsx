@@ -14,7 +14,7 @@ const Home = () => {
     // const { toggleTheme, darkMode } = useTheme();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [newEmail, setNewEmail] = useState("");
+    const [newPhone, setNewPhone] = useState("");
     const [isSigningUp, setIsSigningUp] = useState(!!params?.get("signup"));
     const [forgotPass, setForgotPass] = useState(false);
     const navigate = useNavigate();
@@ -27,6 +27,8 @@ const Home = () => {
   async function login() {
         const xusername = username;
         const xpassword = password;
+
+        rerurn
         try {
             const req = await fetch(`${root}/Security/Login`, {
                 method: "POST",
@@ -69,8 +71,28 @@ const Home = () => {
   async function signup() {
     const xusername = username;
     const xpassword = password;
-    const xemail = newEmail;
-    if (!xusername.length || !xpassword.length || !xemail.length) return
+    const xphone = newPhone;
+
+    if (!xusername.length || !xpassword.length || !xphone.length) {
+        if (!xusername && !xpassword.length && !xphone.length) {
+            customAlert("لطفا نام کاربری و پسورد و شماره تلفن را وارد کنید")
+        } else {
+            if (!xusername) {
+                customAlert("لطفا نام کاربری خودتان را وارد کنید")
+            } else if (!xphone) {
+                customAlert("لطفا یک شماره تلفن وارد کنید")
+            } else if (!xpassword) {
+                customAlert("لطفا رمز عبور را وارد کنید")
+            } 
+        }
+        return
+    }
+
+    if (!validateIranPhoneNumber(xphone)) {
+        customAlert("لطفا یک شماره تلفن معتبر وارد کنید")
+        return
+    }
+
     try {
         const req = await fetch(`${root}/user/insert`, {
             method: "POST",
@@ -84,8 +106,8 @@ const Home = () => {
                 "roles": "user",
                 "pic": "none",
                 "displayName": xusername,
-                "campaignId": 0
-
+                "campaignId": 0,
+                "phoneNumber": xphone.toString()
             })
         })
 
@@ -139,7 +161,7 @@ const Home = () => {
                 <div className="flex flex-col gap-5 w-full">
                     <p className="text-right">یا از طریق ایمیل و رمز حسابتان وارد شوید</p>
                     <CTextField value={username} onChange={e => setUsername(e.target.value)} label="ایمیل" type="email" variant="filled" />
-                    <CTextField value={password} onChange={e => setPassword(e.target.value)} label="رمز ورود" variant="filled" />
+                    <CTextField value={password} onChange={e => setPassword(e.target.value)} type="password" label="رمز ورود" variant="filled" />
                 </div>
                 {/* buttons */}
                 <div className="flex flex-col gap-7 items-center">
@@ -193,7 +215,7 @@ const Home = () => {
                     <div className="flex flex-col gap-5 w-full text-right">
                         <p>یا از ایمیل برای ثبت نام استفاده کنید</p>
                         <CTextField value={username} onChange={e => setUsername(e.target.value)} label="نام کاربری" type="text" variant="filled" />
-                        <CTextField value={newEmail} onChange={e => setNewEmail(e.target.value)} label="ایمیل" type="email" variant="filled" />
+                        <CTextField value={newPhone} onChange={e => setNewPhone(e.target.value)} label="شماره تلفن" type="text" variant="filled" placeholder="ex: 0912 121 1212" />
                         <CTextField value={password} onChange={e => setPassword(e.target.value)} label="رمز ورود" type="password" variant="filled" />
                     </div>
                     {/* buttons */}
@@ -232,3 +254,18 @@ const CButton = styled(Button)(() => ({
 const CTextField = styled(TextField)(() => ({
 fontFamily: "vazir",
 }));
+
+function validateIranPhoneNumber(number) {
+    const xnumber = number.toString();
+    if (!(xnumber.length === 11)) return false
+    
+    const firstTwoDigits = xnumber.slice(0, 2)
+    console.log(firstTwoDigits)
+    if (firstTwoDigits === "09" && isNumeric(xnumber))
+        return true
+}
+
+function isNumeric(str) {
+    const pattern = /^\d+$/; // Matches one or more digits
+    return pattern.test(str);
+}
