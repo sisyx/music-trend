@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Avatar, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { IoBagAddOutline, IoSearchOutline } from "react-icons/io5";
 import { FaBagShopping, FaChevronLeft } from "react-icons/fa6";
@@ -26,7 +26,7 @@ function Navbar() {
 
     return ( 
         // border outer
-        <div className="w-screen md:p-5 md:fixed md:top-0 flex justify-center max-z">
+        <div className="w-screen md:p-5 md:fixed md:top-0 flex justify-center max-z transition-all duration-300">
             <nav className="max-w-7xl w-screen shadow p-2 md:px-5  md:rounded-2xl bg-white bg-opacity-80 flex items-center justify-between backdrop-blur-3xl">
                 {/* left */}
                 <div className="flex items-center gap-4">
@@ -89,8 +89,13 @@ function Navbar() {
                     </Link>
                     {
                         username 
-                        ? <div className="hidden sm:block">{username}</div>
-                        : <GlassyButton to="/login" className="hidden sm:block">
+                        ? <div className="hidden md:flex items-center gap-2 bg-transparent hover:bg-gray-200 p-2 rounded-xl cursor-pointer">
+                            <span>
+                                {username}
+                            </span>
+                            <Avatar />
+                        </div>
+                        : <GlassyButton to="/login" className="hidden md:block">
                             ورود به حساب
                         </GlassyButton>
                     }
@@ -106,7 +111,7 @@ function Navbar() {
 
 function NavLink({to = '', children, className = ""}) {
     return (
-        <Link to={to} className={`text-black hover:text-telegram flex items-center gap-1 ${className}`}>
+        <Link to={to} className={`text-black hover:text-telegram flex items-center gap-1 transition-all duration-150 ${className}`}>
             <FaChevronLeft fontSize="0.8rem" />
             {children}
         </Link>
