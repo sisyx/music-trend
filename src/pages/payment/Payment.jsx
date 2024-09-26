@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { cartCookies, englishAlphabetLC, root } from "../../constatnts";
-import { customAlert, getAllPrices, getCookie, getPages } from "../../functions";
+import { cartCookies, englishAlphabetLC, root, userLevels } from "../../constatnts";
+import { customAlert, getAllPrices, getCookie, getPages, getRole } from "../../functions";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
@@ -13,6 +13,8 @@ function Payment() {
     const [influs, setInflus] = useState([]);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate()
+    const role = getRole();
+    const priceProperty = userLevels.find(xlevel => xlevel.value === role).priceProperty
 
     
     useEffect(() => {
@@ -111,7 +113,7 @@ function Payment() {
                                                 <span>{price.name}</span>
                                                 <span className="flex gap-2 items-center vazir">
                                                     <span>
-                                                        {price?.normalprice}
+                                                        {price[priceProperty] ? price[priceProperty] : ""}
                                                     </span>
                                                     <span>
                                                         تومان

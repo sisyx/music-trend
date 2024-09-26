@@ -1,7 +1,13 @@
 import { Button } from "@mui/material";
 import styles from "./Left.module.css";
+import { getCookie } from '../../functions';
+import { userLevels } from "../../constatnts";
 
 function Left({ selectedInfs, setShowCampaignSelect }) {
+
+    const role = getCookie("role");
+    const priceProperty = userLevels.find(ulevel => ulevel.value === role).priceProperty;
+
     return ( 
         <div className="w-72 shadow-md p-2"
                         // style={{boxShadow: "5px 5px 5px"}} 
@@ -40,7 +46,7 @@ function Left({ selectedInfs, setShowCampaignSelect }) {
                                                         <span>
                                                         {
                                                             influ.prices.reduce((acc, cur) => 
-                                                                acc += cur.normalprice, 0
+                                                                acc += cur[priceProperty], 0
                                                             )
                                                         }
                                                         </span>
@@ -61,7 +67,7 @@ function Left({ selectedInfs, setShowCampaignSelect }) {
                                         <div>
                                             <span>
                                                 {
-                                                    selectedInfs.reduce((acc, cur) => acc += cur.prices.reduce((xacc, xcur) => xacc += xcur.normalprice , 0), 0)
+                                                    selectedInfs.reduce((acc, cur) => acc += cur.prices.reduce((xacc, xcur) => xacc += xcur[priceProperty] , 0), 0)
                                                 }
                                             </span>
                                             <span>

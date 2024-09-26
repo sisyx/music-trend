@@ -3,23 +3,28 @@ import { getUsers } from "../../../functions";
 import { Button } from "@mui/material";
 import User from "./User";
 import CircleGradient from "../../loadings/CircleGradient";
+import { userLevels } from "../../../constatnts";
 
 const filters = [
     {
         text: "ادمین ها",
-        value: ["admin"]
+        value: [userLevels[3].value]
     },
     {
         text: "کاربران حرفه ای",
-        value: ["professional"]
+        value: [userLevels[1].value]
+    },
+    {
+        text: "همکار ها",
+        value: [userLevels[2].value]
     },
     {
         text: "کاربران معمولی",
-        value: ["user"]
+        value: [userLevels[0].value]
     },
     {
         text: "همه",
-        value: ["admin", "professional", "user"]
+        value: userLevels.reduce((acc, cur) => [...acc, cur.value], [])
     },
 ]
 
@@ -79,7 +84,7 @@ function SeeUsers() {
                         <CircleGradient />
                     </div>
                     : filteredUser.map(user => 
-                        <User user={user} />
+                        <User user={user} setUsers={setUsers} />
                     )
                 }
             </div>

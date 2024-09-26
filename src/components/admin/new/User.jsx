@@ -1,24 +1,26 @@
 import { Avatar, Button } from "@mui/material";
 import GlassyButton from "../../GlassyButton";
-import { root } from "../../../constatnts";
+import { root, userLevels } from "../../../constatnts";
 import { customAlert, getCookie } from "../../../functions";
 import { useEffect, useState } from "react";
 import { FaUserSecret } from "react-icons/fa";
 import UserSettings from "./UserSettings";
 
-function User({user}) {
+function User({user, setUsers}) {
 
     const [role, setRole] = useState(user.roles);
     const [isInSettings, setIsInSettings] = useState(false);
+    const nextUserLevel = userLevels.find(xrole => xrole.prev === role);
 
     useEffect(() => {
         setRole(user.roles)
     }, [user])
 
     async function updateUser() {
+        console.log(nextUserLevel);
         const newUserData = {
             ...user,
-            roles: role === "professional" ? "admin" : "professional"
+            roles: nextUserLevel.value
         }
 
         const token = getCookie("token");
@@ -44,12 +46,13 @@ function User({user}) {
                 کاربر
                 <code>${user.username}</code>
                 به 
-                ${role === "user" ? "کاربر حرفه ای" : "ادمین سایت"}
+                ${nextUserLevel.persianName}
                 ارتقاع یافت
             </div>`)
-            setRole(cur =>
-                cur === "user" ? "professional" : "admin"
-            )
+            setUsers(cur => cur.map(xuser => xuser.id === user.id ? {...user, roles: nextUserLevel.value } : xuser));
+            setRole(() =>
+                nextUserLevel.value
+            );
             return res
         } catch (error) {
             customAlert("ارتقاع ناموفق بود!")
@@ -58,15 +61,13 @@ function User({user}) {
     }
 
     return ( 
-        <div className={`flex items-center justify-end gap-6 p-3 px-5 rounded-full ${role === "admin" ? "hover:bg-black text-white bg-gray-700" : " bg-gray-100 hover:bg-gray-200" } cursor-pointer`}>
+        <div className={`flex items-center justify-end gap-6 p-3 px-5 rounded-full ${role === userLevels[3].value ? "hover:bg-black text-white bg-gray-700" : role === userLevels[2].value ? "bg-gray-100 hover:bg-gray-200 border-black border" : " bg-gray-100 hover:bg-gray-200" } cursor-pointer`}>
                 {/* left */}
                 <div className="flex-1 flex gap-2">
                     {/* <GlassyButton onClick={() => setIsInSettings(true)}>مشاهده کاربر</GlassyButton> */}
                     {
-                        role === "user" 
-                        ? <GlassyButton onClick={updateUser}>ارتقا به کاربر حرفه ای</GlassyButton>
-                        : role === "professional"
-                            ? <GlassyButton onClick={updateUser}>ارتقاع به ادمین سایت</GlassyButton>
+                        nextUserLevel?.persianName
+                        ? <GlassyButton onClick={updateUser}>ارتقاع به {nextUserLevel.persianName}</GlassyButton>
                         : ""
                     }
                 </div>
@@ -74,7 +75,7 @@ function User({user}) {
                 <div className="flex flex-1 justify-between gap-6">
                     <div className="flex items-center gap-2">
                         <span>
-                            {role === "admin" ? "ادمین سایت" : role === "professional" ? "کاربر حرفه ای" : "کاربر معمولی"}
+                            {userLevels.find(xrole => xrole.value === role).persianName}
                         </span>
                         {/* <Avatar /> */}
                     </div>
@@ -83,7 +84,7 @@ function User({user}) {
                             {user.username}
                         </span>
                         {
-                            role === "admin"
+                            role === userLevels[3].value
                             ? <FaUserSecret fontSize="2rem" />
                             : <Avatar />
                         }
