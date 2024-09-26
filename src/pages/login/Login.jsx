@@ -28,7 +28,6 @@ const Home = () => {
         const xusername = username;
         const xpassword = password;
 
-        rerurn
         try {
             const req = await fetch(`${root}/Security/Login`, {
                 method: "POST",
