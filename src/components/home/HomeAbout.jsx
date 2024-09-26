@@ -13,7 +13,7 @@ function HomeAbout() {
                 <div className="flex-1" dir="rtl">
                     
                     {/* buttons */}
-                    <div className="flex md:gap-8 flex-wrap p-2 gap-2 mb-12">
+                    <div className="flex md:gap-8 flex-wrap p-2 gap-2 mb-12 overflow-hidden">
                         {
                             threefeatures.map(feature =>
                                 <X3DButton>
