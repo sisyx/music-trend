@@ -29,6 +29,17 @@
     padding-top: var(--padding-y);
     padding-bottom: var(--padding-y);
 }
+@media (max-width: 768px) {
+    .right_main {
+        padding-inline: 0;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: 1fr 1fr 1fr 1fr ;
+
+    }
+    .right_box {
+        width: 95vw;
+    }
+}
 .right_box_icon {
     position: absolute;
 

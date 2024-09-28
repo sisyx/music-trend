@@ -25,7 +25,7 @@ function ContactMain() {
                 </div>
             </div>
             <div className="flex w-full max-w-7xl">
-                <div className=" flex w-full max-w-7xl">
+                <div className=" flex flex-col-reverse items-center md:flex-row w-full max-w-7xl">
                     {/* left */}
                     <div className={`h-full flex items-center justify-center ${styles.left}`}>
                         <div className={`w-full ${styles.left_main}`}>
