@@ -73,7 +73,7 @@ function Navbar() {
                         <NavLink to="/aboutus">
                             درباره ما
                         </NavLink>
-                        <NavLink to="/contactus">
+                        <NavLink to="/contact">
                             تماس با ما
                         </NavLink>
                         <NavLink to="/start">
