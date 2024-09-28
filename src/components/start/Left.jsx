@@ -6,7 +6,7 @@ import { userLevels } from "../../constatnts";
 function Left({ selectedInfs, setShowCampaignSelect }) {
 
     const role = getCookie("role");
-    const priceProperty = userLevels.find(ulevel => ulevel.value === role).priceProperty;
+    const priceProperty = userLevels.find(ulevel => ulevel.value === role)?.priceProperty || "normalprice";
 
     return ( 
         <div className="w-72 shadow-md p-2"
