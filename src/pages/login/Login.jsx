@@ -8,9 +8,10 @@ import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { root } from "../../constatnts";
 import { customAlert } from "../../functions";
+import CircleGradient from "../../components/loadings/CircleGradient";
 
 const Home = () => {
-    const [params, setParams] = useSearchParams();
+    const [params] = useSearchParams();
     // const { toggleTheme, darkMode } = useTheme();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -18,6 +19,7 @@ const Home = () => {
     const [isSigningUp, setIsSigningUp] = useState(!!params?.get("signup"));
     const [forgotPass, setForgotPass] = useState(false);
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
 
   function selectSignUp() {
     setForgotPass(false);
@@ -25,8 +27,15 @@ const Home = () => {
   }
 
   async function login() {
+        setIsLoading(() => true)
         const xusername = username;
         const xpassword = password;
+
+        if (!xpassword || !xusername) {
+            setIsLoading(() => false);
+            customAlert("لطفا اطلاعات را کامل وارد کنید")
+            return
+        }
 
         try {
             const req = await fetch(`${root}/Security/Login`, {
@@ -58,16 +67,19 @@ const Home = () => {
                 
                 document.cookie = "token=" + res.objectResult.token + "; expires=" + date
                 customAlert("با موفقیت وارد شدید");
-                navigate(-1);
+                navigate("/");
             } else {
                 customAlert(res.message)
             }
         } catch (error) {
             console.error(error)
         }
+
+        setIsLoading(() => false)
   }
 
   async function signup() {
+    setIsLoading(() => true);
     const xusername = username;
     const xpassword = password;
     const xphone = newPhone;
@@ -84,11 +96,13 @@ const Home = () => {
                 customAlert("لطفا رمز عبور را وارد کنید")
             } 
         }
+        setIsLoading(() => false);
         return
     }
 
     if (!validateIranPhoneNumber(xphone)) {
         customAlert("لطفا یک شماره تلفن معتبر وارد کنید")
+        setIsLoading(() => false);
         return
     }
 
@@ -123,6 +137,7 @@ const Home = () => {
     } catch (error) {
         console.error(error)
     }
+    setIsLoading(() => true);
   }
 
   return (
@@ -170,10 +185,21 @@ const Home = () => {
                         </a>
                     </div>
                     <Button
+                        disabled={isLoading}
                         onClick={login} 
                         sx={{backgroundColor: "red", fontFamily: "vazir", color: "white", width: "fit-content", paddingInline: "40px", borderRadius: "10px", "&:hover": {
                         backgroundColor: "red"
-                    }}}>ورود</Button>
+                    }}}>
+                        {
+                            isLoading 
+                            ? <span>
+                                در حال ورود
+                            </span> 
+                            : <span>
+                                ورود
+                            </span>
+                        }
+                    </Button>
                 </div>
             </div>
             <div className={`w-full max-w-96 flex flex-col gap-10 items-center justify-center pt-12 pb-12 pr-5 pl-5 z-10 ${forgotPass ? "" : 'absolute -translate-x-full'} transition-500 ease-in-out`}>
@@ -220,10 +246,16 @@ const Home = () => {
                     {/* buttons */}
                     <div className="flex flex-col gap-7 items-center">
                         <CButton
+                            disabled={isLoading}
                             onClick={signup} 
                             sx={{backgroundColor: "red", color: "white", width: "fit-content", paddingInline: "40px", borderRadius: "10px", "&:hover": {
                             backgroundColor: "red"
-                        }}}>ایجاد حساب</CButton>
+                        }}}>
+                            {
+                                isLoading ? <span>در حال ایجاد</span>
+                                : <span>ایجاد حساب</span>
+                            }
+                        </CButton>
                     </div>
                 </div> 
                 <div className={`w-full md:hidden transition-all duration-700 ${isSigningUp ? "absolute translate-y-full" : ""}`}>
