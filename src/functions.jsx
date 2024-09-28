@@ -277,6 +277,68 @@ export async function getPublishers(campid) {
     }
 }
 
+export async function getFilteredPublishers(ptype = undefined, pcat = undefined) {
+    console.log("pcat us", pcat)
+    console.log("ptype us", ptype)
+    const typeFiltered = [];
+    const catFiltered = [];
+    if (typeof(ptype) === "string") {
+        try {
+            const req = await fetch(`${root}/api/Pages/GetPagesByFilterType?pageTypeName=${ptype}`)
+            if (!req.ok) {
+                throw new Error(req.statusText);
+            }
+            const res = await req.json();
+            for (let i = 0; i < res.length; i++) {
+                const tmpPage = res[i];
+                typeFiltered.push(tmpPage);
+            }
+        } catch {}
+    }
+
+    if (typeof(pcat) === "string") {
+        try {
+            const req = await fetch(`${root}/api/Pages/GetPageByFilterCategory?pageCategoryName=${pcat}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            if (!req.ok) {
+                throw new Error(req.statusText);
+            }
+            const res = await req.json();
+            for (let i = 0; i < res.length; i++) {
+                const tmpPage = res[i];
+                catFiltered.push(tmpPage);
+            }
+        } catch {}
+    }
+
+    console.log("cat filtered: ");
+    console.log(catFiltered);
+    console.log()
+    console.log("type filtered: ")
+    console.log(typeFiltered)
+
+    let typeNcat = [];
+    if (typeFiltered.length && !!ptype) {
+        if (catFiltered.length && !!pcat) {
+            typeNcat = typeFiltered.filter(xpage => !!catFiltered.find(xxpage => xxpage.id === xpage.id));
+        } else {
+            typeNcat = typeFiltered
+        }
+    } else {
+        if (catFiltered.length && !!pcat) {
+            typeNcat = catFiltered
+        } else {
+            typeNcat = []
+        }
+    }
+
+    return typeNcat;
+}
+
 export async function updatePublisher(publisherId, newData, type) {
     let url;
     if (type === "instagram") {
@@ -303,6 +365,45 @@ export async function updatePublisher(publisherId, newData, type) {
     } catch (error) {
         console.log(error.message);
         return "مشکلی در ادیت کردن پابلیشر ایجاد شده. لطفا دوباره امتحان کنید"
+    }
+}
+
+export async function getPageTypes() {
+    const token = getCookie ("token");
+    try {
+        const req = await fetch(`${root}/api/PageType/GetAll`)
+
+        if (!req.ok) {
+            throw new Error(req.statusText);
+        }
+
+        const res = await req.json();
+        return res
+    } catch (error) {
+        console.error(error);
+        return []
+    }
+}
+
+export async function getPageCategories() {
+    const token = getCookie ("token");
+    try {
+        const req = await fetch(`${root}/api/PageTypeCategory/GetAll`, {
+            headers: {
+                "Autherization": `Bearer ${token}`
+            }
+        })
+
+        if (!req.ok) {
+            throw new Error(req.statusText)
+        }
+
+        const res = await req.json();
+        return res
+    } catch (error) {
+        console.error(error);
+
+        return []
     }
 }
 
