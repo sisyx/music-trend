@@ -55,7 +55,7 @@ export default function SeeCamps() {
                         <CircleGradient />
                     </div>
                     : 
-                    <div className="grid grid-cols-4 gap-3">
+                    <div className="grid grid-cols-4 gap-3 overflow-y-scroll">
                     {
                         camps.map(camp => 
                             <Camp camp={camp} />

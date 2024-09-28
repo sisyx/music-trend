@@ -118,7 +118,7 @@ function Navbar() {
      );
 }
 
-function NavLink({to = '', children, className = ""}) {
+export function NavLink({to = '', children, className = ""}) {
     return (
         <Link to={to} className={`text-black hover:text-telegram flex items-center gap-1 transition-all duration-150 ${className}`}>
             <FaChevronLeft fontSize="0.8rem" />

@@ -7,7 +7,7 @@ import { TbCategoryFilled } from "react-icons/tb";
 
 function AdminSidebar({ state, setState }) {
     return ( 
-        <div className={`w-96 pt-8 ${styles.container}`}>
+        <div className={`w-80 pt-8 ${styles.container}`}>
             {/* title and icon */}
             <div className="flex items-center justify-center">
                 <div className="text-2xl">Mokhatab Gostar</div>

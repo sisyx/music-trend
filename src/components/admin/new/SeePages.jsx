@@ -100,7 +100,7 @@ function SeePages() {
                     </div>
                 </div>
                 {/* pages list */} 
-                <div className="grid grid-cols-4 gap-3">
+                <div className="grid grid-cols-4 gap-3 overflow-y-scroll">
                     { pages?.map(page => 
                             <Page page={page} pageTypes={pageTypes} pageCategories={pageCategories} />
                     )}
