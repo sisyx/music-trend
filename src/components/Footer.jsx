@@ -6,7 +6,7 @@ import { imagebase } from "../constatnts";
 function Footer() {
     return ( 
         // outer container
-        <footer className="bg-gray-100 w-screen flex justify-center pt-72 overflow-hidden">
+        <footer className="bg-gray-100 w-screen flex justify-center pt-20 overflow-hidden">
             <div className="w-full flex md:flex-row flex-col-reverse gap-y-28">
                 {/* left */}
                 <div className={styles.left} dir="rtl">

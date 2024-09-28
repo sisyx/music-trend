@@ -56,8 +56,17 @@ function Navbar() {
                                     min-w-48 rounded-xl bg-white overflow-hidden
                                 ">
 
-                                <NavLink to="/logout" className="w-full flex justify-end p-4">
-                                    خروج از حساب
+                                <NavLink to={isLoggedin() ? "/logout" : "/login"} className="w-full flex justify-end p-4">
+                                    {
+                                        isLoggedin() ?
+                                        <span>
+                                            خروج از حساب
+                                        </span>
+                                        : <span>
+                                            ورود به حساب کاربری
+                                        </span>
+                                    }
+
                                 </NavLink>
                             </div>
                         </div>

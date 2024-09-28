@@ -115,7 +115,7 @@ export default function AccountMenu({username}) {
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-          {`${username ? "Logout" : "Login"}`}
+          {`${username ? "خروج از حساب" : "ورود به حساب"}`}
         </MenuItem>
         </Link>
       </Menu>
