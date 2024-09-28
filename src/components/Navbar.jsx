@@ -104,9 +104,19 @@ function Navbar() {
                             </span>
                             <Avatar />
                         </div>
-                        : <GlassyButton to="/login" className="hidden md:block">
-                            ورود به حساب
-                        </GlassyButton>
+                        : 
+                        <div style={{
+                            boxShadow: "0 0 25px #2da5dcc",
+                            width: "fit-content",
+                            borderRadius: "50px",
+                            padding: "0",
+                            background: "#2da5dc",
+                            height: "fot-content",
+                        }}>
+                            <GlassyButton to="/login" className="hidden md:block">
+                                ورود به حساب
+                            </GlassyButton>
+                        </div>
                     }
                     <div className="md:hidden">
                         <AccountMenu username={username} />
