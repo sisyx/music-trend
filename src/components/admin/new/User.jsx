@@ -63,11 +63,19 @@ function User({user, setUsers}) {
     return ( 
         <div className={`flex items-center justify-end gap-6 p-3 px-5 rounded-full ${role === userLevels[3].value ? "hover:bg-black text-white bg-gray-700" : role === userLevels[2].value ? "bg-gray-100 hover:bg-gray-200 border-black border" : " bg-gray-100 hover:bg-gray-200" } cursor-pointer`}>
                 {/* left */}
-                <div className="flex-1 flex gap-2">
+                <div className="md:flex-1 flex gap-2">
                     {/* <GlassyButton onClick={() => setIsInSettings(true)}>مشاهده کاربر</GlassyButton> */}
                     {
                         nextUserLevel?.persianName
-                        ? <GlassyButton onClick={updateUser}>ارتقاع به {nextUserLevel.persianName}</GlassyButton>
+                        ? 
+                            <>
+                            <div className="hidden md:block">
+                                <GlassyButton onClick={updateUser}>ارتقاع به {nextUserLevel.persianName}</GlassyButton>
+                            </div>
+                            <div className="md:hidden underline">
+                                ارتقاع به {nextUserLevel.persianName}
+                            </div>
+                            </>
                         : ""
                     }
                 </div>
@@ -83,11 +91,13 @@ function User({user, setUsers}) {
                         <span>
                             {user.username}
                         </span>
-                        {
-                            role === userLevels[3].value
-                            ? <FaUserSecret fontSize="2rem" />
-                            : <Avatar />
-                        }
+                        <div className="hidden md:block">
+                            {
+                                role === userLevels[3].value
+                                ? <FaUserSecret fontSize="2rem" />
+                                : <Avatar />
+                            }
+                        </div>
                     </div>
                 </div>
                 {

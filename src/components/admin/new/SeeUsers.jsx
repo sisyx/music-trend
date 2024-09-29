@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { getUsers } from "../../../functions";
-import { Button } from "@mui/material";
+import { Button, Tooltip } from "@mui/material";
 import User from "./User";
 import CircleGradient from "../../loadings/CircleGradient";
 import { userLevels } from "../../../constatnts";
+import AccountMenu from "../../MenuComponent";
+import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 
 const filters = [
     {
@@ -29,7 +31,7 @@ const filters = [
 ]
 
 
-function SeeUsers() {
+function SeeUsers({setState}) {
     const [filter, setFilter] = useState(filters[filters.length - 1])
     const [users, setUsers] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -51,15 +53,26 @@ function SeeUsers() {
 
     return ( 
         // container
-        <div className="w-full p-8">
+        <div className="w-full px-0 md:px-8 p-8">
             {/* title bar and etc */}
             <div className="flex justify-end items-center w-full bg-transparent ">
                 <div className="flex flex-col items-end text-black">
-                    <span className="text-2xl font-bold">مدیریت کاربران سایت</span>
-                    <span className="flex items-center  gap-2" dir="rtl">
-                        <span className="hover:bg-gray-200 cursor-pointer">مخاطب گستر</span> /
-                        <span className="hover:bg-gray-200 cursor-pointer">رابط کاربری</span> /
-                        <span className="hover:bg-gray-200 cursor-pointer">مشاهده کاربران</span>
+                    <span className="text-2xl font-bold flex items-center gap-2">
+                        <Tooltip title="مدیریت اینفلویسرها">
+                            <span onClick={() => setState("see pages")} className=" rounded-full hover:border-black cursor-pointer border p-2 block">
+                                <SkipPreviousIcon />
+                            </span>
+                        </Tooltip>
+                        مدیریت کاربران
+                    </span>
+                    <span className="flex md:flex-row flex-col pr-2 md:items-center  gap-2" dir="rtl">
+                        <div>
+                            <span className="hover:bg-gray-200 cursor-pointer">مخاطب گستر</span> /
+                        </div>
+                        <div>
+                            <span className="hover:bg-gray-200 cursor-pointer">رابط کاربری</span> /
+                        </div>
+                        <span className="hover:bg-gray-200 cursor-pointer">مشاهده اینفولینسرها</span>
                         {/* مخاطب گستر / رابط کاربری / مشاهده ی کاربران */}
                     </span>
                 </div>
@@ -71,10 +84,13 @@ function SeeUsers() {
                     <div className="flex items-center border rounded-full overflow-hidden">
                         <input placeholder="جستجو" type="text" dir="rtl" className="pr-2 bg-none border-none outline-none w-full h-full min-w-0 min-h-0" value={search} onChange={event => setSearch(event.target.value)} />
                     </div>
-                    <div className="flex justify-between">
+                    <div className="justify-between md:flex hidden">
                     {
                         filters.map(xfilter => <Button variant={xfilter.text === filter.text ? 'contained' : ""} onClick={() => setFilter(xfilter)}>{xfilter.text}</Button>)
                     }
+                    </div>
+                    <div className="md:hidden">
+                        <AccountMenu items={filters} setFilter={setFilter} />
                     </div>
                 </div>
                 {/* users list */} 

@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import CircleGradient from "../../loadings/CircleGradient";
 import { getAllCamps } from "../../../functions";
 import Camp from "./Camp";
+import { Tooltip } from "@mui/material";
+import { SkipPrevious } from "@mui/icons-material";
 
-export default function SeeCamps() {
+export default function SeeCamps({setState}) {
     
     const [isLoading, setIsLoading] = useState(true);
     const [camps, setCamps] = useState([]);
@@ -22,15 +24,26 @@ export default function SeeCamps() {
 
 
     return ( 
-        <div className="w-full p-8">
+        <div className="w-full px-0 md:px-8 p-8">
             {/* title bar and etc */}
             <div className="flex justify-end items-center w-full bg-transparent ">
                 <div className="flex flex-col items-end text-black">
-                    <span className="text-2xl font-bold">مدیریت کاربران سایت</span>
-                    <span className="flex items-center  gap-2" dir="rtl">
-                        <span className="hover:bg-gray-200 cursor-pointer">مخاطب گستر</span> /
-                        <span className="hover:bg-gray-200 cursor-pointer">رابط کاربری</span> /
-                        <span className="hover:bg-gray-200 cursor-pointer">مشاهده کمپین ها</span>
+                    <span className="text-2xl font-bold flex items-center gap-2">
+                        <Tooltip title="مدیریت کاربران سایت">
+                            <span onClick={() => setState("see users")} className=" rounded-full hover:border-black cursor-pointer border p-2 block">
+                                <SkipPrevious />
+                            </span>
+                        </Tooltip>
+                        مدیریت کمپین ها
+                    </span>
+                    <span className="flex md:flex-row flex-col pr-2 md:items-center  gap-2" dir="rtl">
+                        <div>
+                            <span className="hover:bg-gray-200 cursor-pointer">مخاطب گستر</span> /
+                        </div>
+                        <div>
+                            <span className="hover:bg-gray-200 cursor-pointer">رابط کاربری</span> /
+                        </div>
+                        <span className="hover:bg-gray-200 cursor-pointer">مشاهده اینفولینسرها</span>
                         {/* مخاطب گستر / رابط کاربری / مشاهده ی کاربران */}
                     </span>
                 </div>
@@ -55,7 +68,7 @@ export default function SeeCamps() {
                         <CircleGradient />
                     </div>
                     : 
-                    <div className="grid grid-cols-4 gap-3 overflow-y-scroll">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 overflow-y-scroll">
                     {
                         camps.map(camp => 
                             <Camp camp={camp} />

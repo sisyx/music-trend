@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
-import { getCookie, getPages, getUsers } from "../../../functions";
-import { Button, TextField } from "@mui/material";
-import User from "./User";
+import { getCookie, getPages } from "../../../functions";
+import { Button, Tooltip } from "@mui/material";
 import CircleGradient from "../../loadings/CircleGradient";
 import Page from "./Page";
 import { AddSharp } from "@mui/icons-material";
 import AddPage from "./AddPage";
 import { root } from "../../../constatnts";
+import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 
-function SeePages() {
+
+function SeePages({setState}) {
     const [pages, setPages] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [search, setSearch] = useState("");
@@ -75,14 +76,25 @@ function SeePages() {
     }
     return ( 
         // container
-        <div className="w-full p-8">
+        <div className="w-full px-0 md:px-8 p-8">
             {/* title bar and etc */}
             <div className="flex justify-end items-center w-full bg-transparent">
                 <div className="flex flex-col items-end text-black">
-                    <span className="text-2xl font-bold">مدیریت اینفولینسرها</span>
-                    <span className="flex items-center  gap-2" dir="rtl">
-                        <span className="hover:bg-gray-200 cursor-pointer">مخاطب گستر</span> /
-                        <span className="hover:bg-gray-200 cursor-pointer">رابط کاربری</span> /
+                    <span className="text-2xl font-bold flex items-center gap-2">
+                        <Tooltip title="مدیریت دست بندیها">
+                            <span onClick={() => setState("see categories")} className=" rounded-full hover:border-black cursor-pointer border p-2 block">
+                                <SkipPreviousIcon />
+                            </span>
+                        </Tooltip>
+                        مدیریت اینفلوینسرها
+                    </span>
+                    <span className="flex md:flex-row flex-col pr-2 md:items-center  gap-2" dir="rtl">
+                        <div>
+                            <span className="hover:bg-gray-200 cursor-pointer">مخاطب گستر</span> /
+                        </div>
+                        <div>
+                            <span className="hover:bg-gray-200 cursor-pointer">رابط کاربری</span> /
+                        </div>
                         <span className="hover:bg-gray-200 cursor-pointer">مشاهده اینفولینسرها</span>
                         {/* مخاطب گستر / رابط کاربری / مشاهده ی کاربران */}
                     </span>
@@ -100,7 +112,7 @@ function SeePages() {
                     </div>
                 </div>
                 {/* pages list */} 
-                <div className="grid grid-cols-4 gap-3 overflow-y-scroll">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 overflow-y-scroll">
                     { pages?.map(page => 
                             <Page page={page} pageTypes={pageTypes} pageCategories={pageCategories} />
                     )}

@@ -9,8 +9,7 @@ import SeePages from "../../components/admin/new/SeePages";
 import CreatePageTypes from "../../components/admin/new/CreatePageTypes";
 import SeeCamps from "../../components/admin/new/SeeCamps";
 function Admin() {
-    
-    const [isLoaded, setIsLoaded] = useState(false);
+    const [_isLoaded, setIsLoaded] = useState(false);
     const [state, setState] = useState("see users");
 
     useEffect(() => {
@@ -32,10 +31,10 @@ function Admin() {
                     <AdminHeader />
                     {
                         state === "see users" 
-                        ? <SeeUsers />
-                        : state === "see pages" ? <SeePages /> 
-                        : state === "see categories" ? <CreatePageTypes /> 
-                        : <SeeCamps />
+                        ? <SeeUsers setState={setState} state={state} />
+                        : state === "see pages" ? <SeePages setState={setState} /> 
+                        : state === "see categories" ? <CreatePageTypes setState={setState} /> 
+                        : <SeeCamps setState={setState} />
                     }
                 </div>
                 <AdminSidebar state={state} setState={setState} />

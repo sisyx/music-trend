@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { getCookie } from "../../../functions";
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, Tooltip } from "@mui/material";
 import CircleGradient from "../../loadings/CircleGradient";
-import { AddSharp } from "@mui/icons-material";
+import { AddSharp, SkipPrevious } from "@mui/icons-material";
 import AddPage from "./AddPage";
 import { englishAlphabetLC, root } from "../../../constatnts";
 import AddType from "./addType";
 
-function CreatePageTypes() {
+function CreatePageTypes({ setState }) {
     const [isLoading, setIsLoading] = useState(false);
     const [isCreating, setIsCreating] = useState(false);
     const [addingWhat, setAddingWhat] = useState("type");
@@ -70,15 +70,26 @@ function CreatePageTypes() {
     }
     return ( 
         // container
-        <div className="w-full p-8">
+        <div className="w-full px-0 md:px-8 p-8">
             {/* title bar and etc */}
-            <div className="flex justify-end items-center w-full bg-transparent ">
+            <div className="flex justify-end items-center w-full bg-transparent">
                 <div className="flex flex-col items-end text-black">
-                    <span className="text-2xl font-bold">مدیریت دسته بندی پیج ها</span>
-                    <span className="flex items-center  gap-2" dir="rtl">
-                        <span className="hover:bg-gray-200 cursor-pointer">مخاطب گستر</span> /
-                        <span className="hover:bg-gray-200 cursor-pointer">رابط کاربری</span> /
-                        <span className="hover:bg-gray-200 cursor-pointer">مدیریت دسته بندی پیجها</span>
+                    <span className="text-2xl font-bold flex items-center gap-2">
+                        <Tooltip title="مدیریت کمپین ها">
+                            <span onClick={() => setState("see camps")} className=" rounded-full hover:border-black cursor-pointer border p-2 block">
+                                <SkipPrevious />
+                            </span>
+                        </Tooltip>
+                        مدیریت دسته بندی ها
+                    </span>
+                    <span className="flex md:flex-row flex-col pr-2 md:items-center  gap-2" dir="rtl">
+                        <div>
+                            <span className="hover:bg-gray-200 cursor-pointer">مخاطب گستر</span> /
+                        </div>
+                        <div>
+                            <span className="hover:bg-gray-200 cursor-pointer">رابط کاربری</span> /
+                        </div>
+                        <span className="hover:bg-gray-200 cursor-pointer">مشاهده اینفولینسرها</span>
                         {/* مخاطب گستر / رابط کاربری / مشاهده ی کاربران */}
                     </span>
                 </div>
