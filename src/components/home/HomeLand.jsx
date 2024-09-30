@@ -1,10 +1,12 @@
 import { PiArrowRight } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import { FaUserTie } from "react-icons/fa6";
+import NeonLightBg from "../NeonLightBg";
 
 function HomeLand() {
     return ( 
         <div className="bg-gray-100 pt-24 md:pt-48 pb-24 flex justify-center vazirmatn">
+            <NeonLightBg />
             {/* inner container */}
             <div className="flex flex-col-reverse md:flex-row px-0 md:px-5 items-center max-w-7xl">
                 {/* Left */}

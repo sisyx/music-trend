@@ -7,6 +7,7 @@ import { Button } from "@mui/material";
 import GlassyButton from "../../components/GlassyButton";
 import CircleGradient from "../../components/loadings/CircleGradient";
 import { IoBagCheck } from "react-icons/io5";
+import NeonLightBg from "../../components/NeonLightBg";
 
 function Payment() {
     const [prices, setPrices] = useState([]);
@@ -99,6 +100,7 @@ function Payment() {
 
     return ( 
         <div>
+            <NeonLightBg />
             <div className="w-full h-screen bg-gray-100 flex flex-col gap-5 items-center justify-center">
                 <div className="shadow-xl shadow-gray-500 bg-white overflow-hidden flex flex-col gap-4 pt-4 rounded-xl justify-center items-center">
                     <span>تعرفه ها</span>

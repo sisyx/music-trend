@@ -1,14 +1,15 @@
 import { imagebase } from "../../constatnts";
 import { shortAboutus, threefeatures } from "../../texts-source";
 import GlassyButton from "../GlassyButton";
+import NeonLightBg from "../NeonLightBg";
 import X3DButton from "../X3DButton";
 
 function HomeAbout() {
     return ( 
         // outer container
         <div className="bg-gray-100 flex justify-center w-screen">
+            <NeonLightBg />
             <div className="flex md:flex-row flex-col-reverse items-center justify-evenly  w-full max-w-7xl py-32">
-                
                 {/* LEFT */}
                 <div className="flex-1" dir="rtl">
                     

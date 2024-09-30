@@ -1,0 +1,31 @@
+.title {
+    position: absolute;
+}
+.title::before {
+    content: "";
+    width: 15px;
+    aspect-ratio: 1;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 40%;
+    --color: rebeccapurple;
+    background-color: var(--color);
+    box-shadow: 0 0 15px var(--color);
+    rotate: 20deg;
+    border-radius: 8px;
+}
+.title::after {
+    content: "";
+    width: 10px;
+    aspect-ratio: 1;
+    display: block;
+    position: absolute;
+    bottom: 20px;
+    right: 40%;
+    --color: deepskyblue;
+    background-color: var(--color);
+    box-shadow: 0 0 15px var(--color);
+    rotate: 20deg;
+    border-radius: 8px;
+}
