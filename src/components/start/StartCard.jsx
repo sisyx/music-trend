@@ -41,6 +41,7 @@ function StartCard({ setindetails, influencer, index = 0, selectInf }) {
             </div>
             <div className="w-full bg-red-500">
                 <GlassyButton 
+                    to={location.href}
                     className="w-full rounded-sm flex justify-center"
                     onClick={() => selectInf(influencer)} 
                 >

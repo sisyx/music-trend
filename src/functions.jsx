@@ -1,4 +1,4 @@
-import { apiroot, root } from "./constatnts";
+import { apiroot, root, userLevels } from "./constatnts";
 import moment from "moment-jalaali";
 
 // admins
@@ -277,11 +277,10 @@ export async function getPublishers(campid) {
     }
 }
 
-export async function getFilteredPublishers(ptype = undefined, pcat = undefined) {
-    console.log("pcat us", pcat)
-    console.log("ptype us", ptype)
+export async function getFilteredPublishers(ptype = undefined, pcat = undefined, maxp, minp) {
     const typeFiltered = [];
     const catFiltered = [];
+    const priceFiltered = [];
     if (typeof(ptype) === "string") {
         try {
             const req = await fetch(`${root}/api/Pages/GetPagesByFilterType?pageTypeName=${ptype}`)
@@ -315,28 +314,34 @@ export async function getFilteredPublishers(ptype = undefined, pcat = undefined)
         } catch {}
     }
 
-    console.log("cat filtered: ");
-    console.log(catFiltered);
-    console.log()
-    console.log("type filtered: ")
-    console.log(typeFiltered)
-
-    let typeNcat = [];
-    if (typeFiltered.length && !!ptype) {
-        if (catFiltered.length && !!pcat) {
-            typeNcat = typeFiltered.filter(xpage => !!catFiltered.find(xxpage => xxpage.id === xpage.id));
-        } else {
-            typeNcat = typeFiltered
+    if (typeof(maxp) === "string" && typeof(minp) === "string") {
+        const role = getRole();
+        if (!role) {
+            return []
         }
-    } else {
-        if (catFiltered.length && !!pcat) {
-            typeNcat = catFiltered
-        } else {
-            typeNcat = []
-        }
+        // const uri = ​api​/Pages​/GetPageByFilterAllPricePage;
+        try {
+            const req = await fetch(`${root}​/api/Pages/GetPageByFilterAllPricePage?minPrice=${minp}&maxPrice=${maxp}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            if (!req.ok) {
+                throw new Error(req.statusText);
+            }
+            const res = await req.json();
+            for (let i = 0; i < res.length; i++) {
+                const tmpPage = res[i];
+                priceFiltered.push(tmpPage);
+            }
+        } catch {}
     }
 
-    return typeNcat;
+    const all = [...typeFiltered, ...catFiltered, ...priceFiltered];
+    all.reduce((acc, cur) => !!acc.find(xcur => xcur.id === cur.id) ? acc : [...acc, cur], []);
+
+    return all;
 }
 
 export async function updatePublisher(publisherId, newData, type) {
@@ -575,4 +580,46 @@ function clearAllCookies() {
         // Set the cookie's expiration date to a time in the past
         document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
     }
+}
+
+export function toPersianUnits(num) {
+    // if (num >= 1000000) {
+    //     return (num / 1000000).toFixed(0) + ' میلیون';
+    // } else if (num >= 1000) {
+    //     return (num / 1000).toFixed(0) + ' هزار';
+    // } else {
+    //     return num.toString();
+    // }
+
+    let result = '';
+
+    if (num >= 1000000) {
+        const millions = Math.floor(num / 1000000);
+        result += millions + ' میلیون';
+        num %= 1000000; // باقی‌مانده بعد از محاسبه میلیون‌ها
+    }
+
+    if (num >= 1000) {
+        const thousands = Math.floor(num / 1000);
+        if (result) result += ' و '; // اگر قبلاً میلیون‌ها وجود دارد، "و" اضافه می‌کنیم
+        result += thousands + ' هزار';
+        num %= 1000; // باقی‌مانده بعد از محاسبه هزارها
+    }
+
+    if (num > 0) {
+        if (result) result += ' و '; // اگر قبلاً میلیون‌ها یا هزارها وجود دارد، "و" اضافه می‌کنیم
+        result += num; // عدد باقی‌مانده را اضافه می‌کنیم
+    }
+
+    return result || '0'; // اگر هیچ عددی وجود نداشت، 0 را برمی‌گردانیم
+}
+
+function findSimilarItems(list1, list2) {
+    // Create a Set to store the IDs from the first list for quick lookup
+    const idsSet = new Set(list1.map(item => item.id));
+    
+    // Filter the second list to find items with matching IDs
+    const similarItems = list2.filter(item => idsSet.has(item.id));
+    
+    return similarItems;
 }

@@ -1,5 +1,5 @@
 // icons
-import { HiMiniLanguage } from "react-icons/hi2";
+import { HiCurrencyDollar, HiMiniLanguage } from "react-icons/hi2";
 import { MdFilterListAlt, MdOutlineLocationCity } from "react-icons/md";
 import { BsGenderTrans } from "react-icons/bs";
 import { MdCategory } from "react-icons/md";
@@ -7,18 +7,30 @@ import RightFilter from "./RightFilter";
 import { Button, Checkbox, styled } from "@mui/material";
 import { FaFilterCircleXmark } from "react-icons/fa6";
 import { useEffect, useState } from "react";
-import { getPageCategories, getPageTypes } from "../../functions";
+import { getPageCategories, getPageTypes, toPersianUnits } from "../../functions";
 import { useSearchParams } from "react-router-dom";
 import { TbCategoryFilled } from "react-icons/tb";
+import MinMaxSlider from "./MinMaxSlider";
 function RightFilters() {
 
     const [pagetypes, setPagetypes] = useState([]);
     const [pageCats, setPageCats] = useState([]);
     const [params, setParams] = useSearchParams();
+    const [maxPrice, setMaxPrice] = useState(100)
+    const [minPrice, setMinPrice] = useState(100)
 
     useEffect(() => {
         init();
     }, [])
+
+    useEffect(() => {
+        updateParam("maxp", maxPrice)
+    }, [maxPrice])
+
+
+    useEffect(() => {
+        updateParam("minp", minPrice)
+    }, [minPrice])
 
     async function init() {
         const xtypes = await getPageTypes();
@@ -41,8 +53,10 @@ function RightFilters() {
     function clearAllFilters() {
         // Create a new URLSearchParams object from the current search params
         const newParams = new URLSearchParams(params);
-        newParams.delete("pcat")
-        newParams.delete("ptype")
+        newParams.delete("pcat");
+        newParams.delete("ptype");
+        newParams.delete("maxp");
+        newParams.delete("minp");
         setParams(newParams);
     }
 
@@ -100,24 +114,24 @@ function RightFilters() {
                     )
                 }
             </RightFilter>
-            {/* <RightFilter filter="شهر" icon={<MdOutlineLocationCity />}>
-                <div dir="rtl" className="text-sm">
-                    <Checkbox checked={false} onChange={e => e.target.value = true} />
-                    همه</div>
-                <div dir="rtl" className="text-sm">
-                    <Checkbox checked={false} onChange={e => e.target.value = true} />
-                    تهران</div>
-                <div dir="rtl" className="text-sm">
-                    <Checkbox checked={false} onChange={e => e.target.value = true} />
-                    شیراز</div>
-                <div dir="rtl" className="text-sm">
-                    <Checkbox checked={false} onChange={e => e.target.value = true} />
-                    اصفهان</div>
-                <div dir="rtl" className="text-sm">
-                    <Checkbox checked={false} onChange={e => e.target.value = true} />
-                    مشهد</div>
+            <RightFilter filter="قیمت" icon={<HiCurrencyDollar />}>
+                <div className="flex flex-col px-4 pt-4 w-full overflow-x-hidden">
+                    <div dir="rtl" className="flex flex-col text-sm max-w-64">
+                        <div className="flex flex-wrap gap-2 justify-start">
+                            <span>از</span>
+                            <span>{toPersianUnits(minPrice)}</span>
+                            <span>تومان</span>
+                        </div>
+                        <div className="flex flex-wrap gap-2 justify-start">
+                            <span>تا</span>
+                            <span>{toPersianUnits(maxPrice)}</span>
+                            <span>تومان</span>
+                        </div>
+                    </div>
+                    <MinMaxSlider setMaxPrice={setMaxPrice} setMinPrice={setMinPrice} />
+                </div>
             </RightFilter>
-            <RightFilter filter="جنسیت" icon={<BsGenderTrans />}>
+            {/* <RightFilter filter="جنسیت" icon={<BsGenderTrans />}>
                 <div dir="rtl" className="text-sm">
                     <Checkbox checked={false} onChange={e => e.target.value = true} />
                     همه</div>

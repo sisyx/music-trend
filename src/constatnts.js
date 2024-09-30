@@ -26,7 +26,8 @@ export const userLevels = [
     persianName: "کاربر معمولی",
     englishName: "Normal User",
     priceProperty: "normalprice",
-    next: "professional"
+    next: "professional",
+    url: "/api/Pages/GetPageByFilteNormalPrice"
   },
   {
     value: "professional",
@@ -35,6 +36,7 @@ export const userLevels = [
     englishName: "Professional User",
     priceProperty: "specialPrice",
     next: "coworker",
+    url: "/api/Pages/GetPageByFilteSpecialPrice"
   },
   {
     value: "coworker",
@@ -43,6 +45,7 @@ export const userLevels = [
     englishName: "coworker user",
     priceProperty: "hamkarPrice",
     next: "admin",
+    url: "/api/Pages/GetPageByFilterHamkarPrice"
   },
   {
     value: "admin",
@@ -50,9 +53,15 @@ export const userLevels = [
     persianName: "ادمین",
     englishName: "Admin",
     priceProperty: "normalprice",
-    next: undefined
+    next: undefined,
+    url: "/api/Pages/GetPageByFilteNormalPrice"
   }
 ]
 // user levels end ----------------------------
+
+export const priceSettings = {
+  min: 0,
+  max: 100000000
+}
 
 export const imagebase = "/src/assets/images"; // base source for addressing images in <img /> tags

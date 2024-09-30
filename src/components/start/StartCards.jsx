@@ -22,7 +22,7 @@ function StartCards({ influencers, setInfs }) {
 
     useEffect(()=> {
         applyFilters();
-    }, [params.get("ptype"), params.get("pcat")])
+    }, [params.get("ptype"), params.get("pcat"), params.get("maxp"), params.get("minp")])
     
     async function init() {
         setInflusCount(6);
@@ -35,8 +35,14 @@ function StartCards({ influencers, setInfs }) {
         const allpagecats = await getPageCategories();
         const ptype = params.get("ptype");
         const pcat = params.get("pcat");
-        const filteredPages = await getFilteredPublishers(!!ptype && ptype != 0 ? allpagetypes[ptype - 1].name : undefined, !!pcat && pcat != 0 ? allpagecats[pcat - 1].categoryName : undefined);
-        if ((ptype  && ptype != 0)|| (pcat && pcat != 0)) setInfs(filteredPages);
+        const maxp = params.get("maxp");
+        const minp = params.get("minp");
+        const valuePTYPE = !!ptype && ptype != 0 ? allpagetypes[ptype - 1].name : undefined;
+        const valuePCAT = !!pcat && pcat != 0 ? allpagecats[pcat - 1].categoryName : undefined;
+        const valueMAXP = !!maxp ? maxp : undefined;
+        const valueMINP = !!minp ? minp : undefined;
+        const filteredPages = await getFilteredPublishers(valuePTYPE, valuePCAT, valueMAXP, valueMINP);
+        if (filteredPages.length) setInfs(filteredPages);
         else {
             const allpages = await getPages()
             setInfs(allpages)

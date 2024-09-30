@@ -66,7 +66,12 @@ function AddPriceToPage({ page, isVisible,  setReload = () => {return}, handleCl
             }
 
             const res = await req.json();
-            customAlert(`تعرفه با موفقیت به ${page.pageId} با موفقیت اضافه شد`)
+            
+            const req2 = await fetch(`${root}/api/PricePage/CreatePricePage?pageId=${page.id}&pricePageId=${res.price.id}`);
+            if (!req2.ok) throw new Error(req2.statusText);
+            const res2 = await req2.json();
+
+            customAlert(res2.message);
             setReload(cur => cur + 1)
         } catch (error) {
             console.error(error)
