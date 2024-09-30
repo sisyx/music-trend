@@ -78,6 +78,32 @@ const Home = () => {
         setIsLoading(() => false)
   }
 
+  async function resetPass() {
+    setIsLoading(() => true);
+    const xphone = newPhone;
+    if (!validateIranPhoneNumber(xphone)) {
+        customAlert("لطفا یک شماره تلفن معتبر وارد کنید")
+        setIsLoading(() => false);
+        return
+    }
+
+    try {
+        const req = await fetch(`${root}​/api/MessageOTP/SendPhone?phone=${xphone}`, {
+            method: "POST"
+        });
+        if (!req.ok) throw new Error("خطایی در ارسال کد رخ داده.");
+        const res = await req.json();
+        if (res.data.messageId) {
+            setIsSigningUp(() => false);
+            setForgotPass(() => false)
+            customAlert(`<span dir="rtl">پیامکی حاوی رمز عبور جدید شما به شماره تلفن ${xphone} ارسال شده.</span>`)
+        }
+    } catch (error) {
+        customAlert(error.message)
+    }
+    setIsLoading(() => false);
+  }
+
   async function signup() {
     setIsLoading(() => true);
     const xusername = username;
@@ -208,13 +234,20 @@ const Home = () => {
                 {/* inputs */}
                 <div className="flex flex-col gap-5 w-full text-right">
                     <p>برای بازیابی رمز ایمیلتان را وارد کنید</p>
-                    <CTextField label="ایمیل" type="email" variant="filled" />
+                    <CTextField label="شماره تلفن" placeholder="ex: 0912 121 1212" type="text" variant="filled" value={newPhone} onChange={event => setNewPhone(event.target.value)} />
                 </div>
                 {/* buttons */}
                 <div className="flex flex-col gap-7 items-center">
-                    <Button sx={{backgroundColor: "red", color: "white", fontFamily: "vazir", width: "fit-content", paddingInline: "40px", borderRadius: "10px", "&:hover": {
-                        backgroundColor: "red"
-                    }}}>بازیابی رمز</Button>
+                    <Button 
+                        sx={
+                            {
+                                backgroundColor: "red", color: "white", fontFamily: "vazir", width: "fit-content", paddingInline: "40px", borderRadius: "10px", 
+                                "&:hover": {backgroundColor: "red"}
+                            }
+                        }
+                        onClick={resetPass}
+                        disabled={isLoading}
+                    >بازیابی رمز</Button>
                 </div>
             </div>
             <div className={`h-full w-full max-w-96 overflow-hidden z-10`}>
