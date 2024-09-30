@@ -13,6 +13,7 @@ import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
+import { TbHomeExclamation } from 'react-icons/tb';
 
 export default function AccountMenu({username}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -116,6 +117,14 @@ export default function AccountMenu({username}) {
             <Logout fontSize="small" />
           </ListItemIcon>
           {`${username ? "خروج از حساب" : "ورود به حساب"}`}
+        </MenuItem>
+        </Link>
+        <Link to="/">
+        <MenuItem onClick={handleClose}>
+          <ListItemIcon>
+            <TbHomeExclamation />
+          </ListItemIcon>
+          خانه
         </MenuItem>
         </Link>
       </Menu>

@@ -31,10 +31,10 @@ function Navbar() {
                 {/* left */}
                 <div className="flex items-center gap-4">
                     {/* logo */}
-                    <div>
+                    <Link to='/'>
                         <span></span>
                         <img src="/logo.png" alt="" className=" w-10 md:w-14 rounded-full aspect-square object-cover object-center" />
-                    </div>
+                    </Link>
                     {/* search */}
                     <div className=" text-2xl p-2 hover:text-gray-400 cursor-pointer">
                         <IoSearchOutline />
@@ -51,7 +51,7 @@ function Navbar() {
                             </div>
                             <div className="
 
-                                    absolute scale-y-0 group-hover:scale-y-100 translate-y-full opacity-0 group-hover:opacity-100  group-hover:bottom-0 -bottom-full right-0 transition-all duration-500
+                                    absolute scale-y-0 group-hover:scale-y-100 translate-y-full opacity-0 group-hover:opacity-100  group-hover:bottom-0 bottom-[-100px] right-0 transition-all duration-500
 
                                     min-w-48 rounded-xl bg-white overflow-hidden
                                 ">
@@ -66,7 +66,9 @@ function Navbar() {
                                             ورود به حساب کاربری
                                         </span>
                                     }
-
+                                </NavLink>
+                                <NavLink to="/" className="w-full flex justify-end p-4">
+                                    <span>رقتن به صفحه اصلی</span>
                                 </NavLink>
                             </div>
                         </div>
