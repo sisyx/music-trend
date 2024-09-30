@@ -9,7 +9,7 @@ function HomeAbout() {
         // outer container
         <div className="bg-gray-100 flex justify-center w-screen">
             <NeonLightBg />
-            <div className="flex md:flex-row flex-col-reverse items-center justify-evenly  w-full max-w-7xl py-32">
+            <div className="flex md:flex-row flex-col-reverse gap-10 items-center justify-evenly  w-full max-w-7xl py-32">
                 {/* LEFT */}
                 <div className="flex-1" dir="rtl">
                     
@@ -50,7 +50,8 @@ function HomeAbout() {
 
                 {/* RIGHT */}
                 <div className="flex-1">
-                    <img src={`${imagebase}/aboutus1.jpg`} alt="" className="w-full" />
+                    {/* <img src={`${imagebase}/aboutus1.jpg`} alt="" className="w-full" /> */}
+                    <img src="/src/assets/images/homeabout.gif" className="w-full rounded-xl" alt="" />
                 </div>
             </div>
         </div>
