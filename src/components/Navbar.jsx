@@ -10,7 +10,8 @@ import { useEffect, useState } from "react";
 import { cartCookies } from "../constatnts";
 
 function Navbar() {
-
+    const [isSearching, setIsSearching] = useState(false);
+    const [search, setSearch] = useState("");
     const [username, setUsername] = useState(undefined);
     const [cart, setCart] = useState(0);
     const role = getRole();
@@ -24,6 +25,10 @@ function Navbar() {
         console.log(cart)
     }, [cart])
 
+    function handleSearch(event) {
+        setSearch(event.target.value)
+    }
+
     return ( 
         // border outer
         <div className="w-screen md:p-5 md:fixed md:top-0 flex justify-center max-z transition-all duration-300">
@@ -36,9 +41,15 @@ function Navbar() {
                         <img src="/logo.png" alt="" className=" w-10 md:w-14 rounded-full aspect-square object-cover object-center" />
                     </Link>
                     {/* search */}
-                    <div className=" text-2xl p-2 hover:text-gray-400 cursor-pointer">
-                        <IoSearchOutline />
-                    </div>
+                    <label htmlFor="search-nav" className={`relative flex items-center gap-4 text-2xl p-2 hover:text-gray-400 cursor-pointer border rounded-lg ${isSearching ? "border-telegram" : ""} w-48 md:w-unset`}>
+                        <IoSearchOutline className={`${ isSearching ? `text-telegram` : ""}`} />
+                        <input value={search} onChange={handleSearch} type="text" className="bg-none bg-transparent outline-none border-none text-sm min-w-0" name="search-nav" onFocus={() => setIsSearching(() => true)} onBlur={() => setIsSearching(() => false)} />
+                        <div dir="rtl" className={`bg-white text-sm p-4 rounded-b-lg shadow w-full absolute translate-y-full left-0 transition-all duration-300 ${isSearching ? "scale-y-100 -bottom-1" : "scale-y-0 -bottom-20 opacity-15"}`}>
+                            {
+                                search.length ? <p>مورد مطابقی یافت نشد</p> : "لطفا چیزی تایپ کنید"
+                            }
+                        </div>
+                    </label>
                 </div>
                 {/* right */}
                 <div className="flex items-center gap-5">

@@ -8,11 +8,13 @@ import HomeTags from "../../components/home/HomeTags";
 import MoreExplanations from "../../components/home/MoreExplanations";
 import Navbar from "../../components/Navbar";
 import SmallContact from "../../components/contact/SmallContact";
+import SideNav from "../../components/home/SideNav";
 
 function Home() {
     return ( 
         <div>
         <Navbar />
+        <SideNav />
         {/* <Wave topcolor="#2da5dc" bottomcolor="#fff" className="mt-12" />
         <XCards />
         <Wave topcolor="white" bottomcolor="#f3f4f6" rotate={true} height="150px" /> */}
