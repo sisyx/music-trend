@@ -8,6 +8,8 @@ import SeeUsers from "../../components/admin/new/SeeUsers";
 import SeePages from "../../components/admin/new/SeePages";
 import CreatePageTypes from "../../components/admin/new/CreatePageTypes";
 import SeeCamps from "../../components/admin/new/SeeCamps";
+import "./Admin.module.css";
+
 function Admin() {
     const [_isLoaded, setIsLoaded] = useState(false);
     const [state, setState] = useState("see users");
