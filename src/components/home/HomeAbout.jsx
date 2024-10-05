@@ -1,5 +1,6 @@
 import { imagebase } from "../../constatnts";
 import { shortAboutus, threefeatures } from "../../texts-source";
+import AnimatedBackground2 from "../AnimatedBackground2";
 import GlassyButton from "../GlassyButton";
 import NeonLightBg from "../NeonLightBg";
 import X3DButton from "../X3DButton";
@@ -7,7 +8,7 @@ import X3DButton from "../X3DButton";
 function HomeAbout() {
     return ( 
         // outer container
-        <div className="bg-gray-100 flex justify-center w-screen">
+        <div className="relative flex justify-center w-screen">
             <NeonLightBg />
             <div className="flex md:flex-row flex-col-reverse gap-10 items-center justify-evenly  w-full max-w-7xl py-32">
                 {/* LEFT */}
@@ -54,6 +55,7 @@ function HomeAbout() {
                     <img src="/src/assets/images/homeabout.gif" className="w-full rounded-xl" alt="" />
                 </div>
             </div>
+            <AnimatedBackground2 bg="rgb(243, 244, 246)" />
         </div>
      );
 }
