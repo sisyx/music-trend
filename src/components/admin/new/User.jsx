@@ -42,13 +42,11 @@ function User({user, setUsers}) {
             const res = await req.json();
             console.log(res)
             customAlert(
-            `<div>
-                کاربر
-                <code>${user.username}</code>
+            `کاربر
+                ${user.username}
                 به 
                 ${nextUserLevel.persianName}
-                ارتقاع یافت
-            </div>`)
+                ارتقاع یافت`)
             setUsers(cur => cur.map(xuser => xuser.id === user.id ? {...user, roles: nextUserLevel.value } : xuser));
             setRole(() =>
                 nextUserLevel.value

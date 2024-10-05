@@ -1,5 +1,7 @@
+import { notify } from "./App";
 import { apiroot, root, userLevels } from "./constatnts";
 import moment from "moment-jalaali";
+
 
 // admins
 export async function getUsers() {
@@ -452,35 +454,14 @@ export async function getTelegramChannel(channelId) {
 
 // ui scripts
 export async function customAlert(text) {
-    // remove previous alerts
-    document.querySelectorAll(".sisyx-own-custom-alert").forEach(xalert => xalert.remove());
-    const alertHeader = document.createElement("div");
-    alertHeader.classList = "text-red-400 w-full text-right"
-    alertHeader.innerHTML = "پیام سیستم"
-    const div = document.createElement("div");
-    // tailwind classes
-    div.classList = "sisyx-own-custom-alert fixed bg-black text-white bottom-3 right-3 p-2 flex flex-col gap-2";
-    
-    // append elements to document
-    div.appendChild(alertHeader)
-    div.innerHTML += text;
-    document.body.appendChild(div);
-
-    const alertElement = document.querySelector(".sisyx-own-custom-alert");
-    setTimeout(() => {
-        alertElement.remove();
-    }, 5000);
+    notify(text);
 }
 
 
 // other functions
-export function copy(text) {
-const reportText = `<div dir="rtl" class="flex gap-2 items-center">
-        <code class="font-bold text-red" dir="ltr">
-            ${text.slice(0, 30)}${text.length > 30 ? "..." : ""} 
-        </code>
-        در کلیپ برد کپی شد</div>`;
-    customAlert(reportText)
+export function copy() {
+const reportText = "در کلیپ برد کپی شد";
+customAlert(reportText)
 }
 
 export function saveCookie(name, value, days = 1) {

@@ -25,9 +25,7 @@ function CampaignSelect({ saveSelections }) {
         const id = getCookie("id");
 
         if (!id || !token) {
-            customAlert(<div dir="rtl">
-                لطفا ابتدا وارد حساب کاربری شوید!
-            </div>)
+            customAlert("لطفا ابتدا وارد حساب کاربری شوید!")
         }
 
         try {
@@ -57,15 +55,15 @@ function CampaignSelect({ saveSelections }) {
         const userId = getCookie("id");
 
         if (!userId) {
-            customAlert("<div dir='rtl'>لطفا ابتدا وارد حساب کاربری خود شوید!</div>")
+            customAlert("لطفا ابتدا وارد حساب کاربری خود شوید!")
             return
         }
 
         if (campname.length < 3) {
             if (campname.length <= 0) {
-                customAlert("<div dir='rtl'>لطفا ابتدا نام کمپین را وارد کنید</div>")
+                customAlert("لطفا ابتدا نام کمپین را وارد کنید")
             } else {
-                customAlert("<div dir='rtl'>لطفا اسم طولانی تری انتخاب کنید</div>")
+                customAlert("لطفا اسم طولانی تری انتخاب کنید")
             }
             return
         }

@@ -96,7 +96,7 @@ const Home = () => {
         if (res.data.messageId) {
             setIsSigningUp(() => false);
             setForgotPass(() => false)
-            customAlert(`<span dir="rtl">پیامکی حاوی رمز عبور جدید شما به شماره تلفن ${xphone} ارسال شده.</span>`)
+            customAlert(`پیامکی حاوی رمز عبور جدید شما به شماره تلفن ${xphone} ارسال شده.`)
         }
     } catch (error) {
         customAlert(error.message)
