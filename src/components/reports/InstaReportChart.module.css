@@ -36,6 +36,11 @@
     width: 100%;
     text-align: center;
 }
+@media (max-width: 760px) {
+    .title {
+        font-size: 1rem;
+    }
+}
 .chart_box {
     flex: 1;
     width: 100%;

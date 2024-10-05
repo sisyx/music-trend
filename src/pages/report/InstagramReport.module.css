@@ -1,0 +1,17 @@
+.text_info {
+    animation: gotoleft 500ms linear 1;
+    cursor: pointer;
+}
+.text_info:hover {
+    background-color: #fcfcfc;
+}
+@keyframes gotoleft {
+    from {
+        scale: 0 1;
+        transform: translateX(-500px);
+    }
+    to {
+        scale: 1 1;
+        transform: translateX(0);
+    }
+}
