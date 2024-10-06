@@ -1,27 +1,26 @@
 import CardsSwiper from '../../components/CardsSwiper';
 import Avatar from '@mui/material/Avatar';
-// import { FaFileZipper } from "react-icons/fa6";
-// import { FaFileExcel } from "react-icons/fa";
-// import { FaFilePdf } from "react-icons/fa";
-// import { FaShareAlt } from "react-icons/fa";
 import InstaReportChart from '../../components/reports/InstaReportChart';
 import InstagramTableRow from '../../components/reports/InstagramTableRow';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { getCampWithId, getPublishers, copy, getCookie, toShamsi } from '../../functions';
+import { getCampWithId, getPublishers, getCookie, toShamsi } from '../../functions';
 import { Add, Instagram } from '@mui/icons-material';
 import HomeIcon from '@mui/icons-material/Home';
 import ShopIcon from '@mui/icons-material/Shop';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { Doughnut } from 'react-chartjs-2';
 import styles from './InstagramReport.module.css'
+import ReportHeader from '../../components/reports/ReportHeader';
+import CampaignMainInfo from './CampaignMainInfo';
+import ReportLeftHeader from '../../components/reports/ReportLeftHeader';
 
 function InstagramReport() {
-
     const [params] = useSearchParams();
     const [publishers, setPublishers] = useState([]);
     const [campaign, setCampaign] = useState({});
     const [slides, setSlides] = useState([]);
+    const [achivSums, setAchivSums] = useState();
     
     const username = getCookie("username");
 
@@ -79,6 +78,7 @@ function InstagramReport() {
             sums.storyViews += tpub.storyViews;
             sums.storyImprertion += tpub.storyImpertion;
         });
+        setAchivSums(_cur => sums);
         setSlides(() => {
             return [
                 {
@@ -148,81 +148,15 @@ function InstagramReport() {
         <div>
             {/* container */}
             <div className='h-screen flex flex-col'>
-                {/* header */}
-                <div className="flex justify-center items-center w-full min-h-14 overflow-hidden text-bold text-center bg-white relative after:absolute after:z-50 after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:translate-y-3/4 after:block after:bg-gray-100 after:w-4 after:h-4  after:content-[''] after:rotate-45">
-                    {/* left */}
-                    <Link to='/' className='flex-1 flex items-center gap-4'>
-                        <img src='/logo.png' alt='logo' className='w-12 aspect-square' />
-                        <span className="hidden md:block bg-clip-text text-transparent bg-gradient-to-r from-primary to-telegram">
-                            Mokhatab Gostar
-                        </span>
-                    </Link>
-                    {/* center */}
-                    <img src="/src/assets/images/report/header-instagram.webp" alt="insta" className='w-10 aspect-square' />
-                    {/* right */}
-                    <div className='flex-1 flex justify-end items-center gap-4'>
-                        <div className='flex justify-end items-center gap-4 hover:bg-gray-100 rounded-xl cursor-pointer px-4 py-1'>
-                            <span>
-                                {username}
-                            </span>
-                            <Avatar />
-                        </div>
-                    </div>
-                </div>
-                <div className='h-full flex'>
+                <ReportHeader username={username} />
+                <div className='h-full flex flex-1 overflow-hidden'>
                     {/* left header */}
-                    <div className='group text-xl hidden md:flex flex-col gap-2 h-full bg-white text-white p-2 relative after:absolute after:z-50 after:top-0 after:right-0 after:translate-x-full after:block after:bg-gray-100 after:w-5 after:h-5  after:content-[""] after:rounded-tl-full before:absolute before:z-50 before:top-0 before:right-0 before:translate-x-full before:block before:bg-white before:w-5 before:h-5  before:content-[""]'>
-                        <Link to='/' className='p-2 flex group-hover:gap-4 items-center justify-center bg-telegram rounded-xl cursor-pointer hover:bg-primary-start hover:text-white transition-all duration-200'>
-                            <HomeIcon />
-                            <span className=' text-[0px] group-hover:text-sm transition-all duration-500 text-end flex-1'>رفتن به خانه</span>
-                        </Link>
-                        <Link to="/start" className='p-2 flex group-hover:gap-4 items-center justify-center bg-white text-black rounded-xl cursor-pointer hover:bg-primary-start hover:text-white transition-all duration-200'>
-                            <Add />
-                            <span className=' text-[0px] group-hover:text-sm transition-all duration-500 text-end flex-1'>ایجاد کمپین جدید</span>
-                        </Link>
-                        <div className='p-2 flex group-hover:gap-4 items-center justify-center bg-white text-black rounded-xl cursor-pointer hover:bg-primary-start hover:text-white transition-all duration-200'>
-                            <ShopIcon />
-                            <span className=' text-[0px] group-hover:text-sm transition-all duration-500 text-end flex-1'>لیست کمپین ها</span>
-                        </div>
-                        <div onClick={() => location.reload()} className='p-2 flex group-hover:gap-4 items-center justify-center bg-white text-black rounded-xl cursor-pointer hover:bg-primary-start hover:text-white transition-all duration-200'>
-                            <RefreshIcon />
-                            <span className=' text-[0px] group-hover:text-sm transition-all duration-500 text-end flex-1'>ریفرش صفحه</span>
-                        </div>
-                    </div>
+                    <ReportLeftHeader />
                     <main className='z-10 flex-1 overflow-y-scroll bg-gray-100'>
                         {/* top side */}
-                        <div className="flex gap-16 md:gap-0 flex-col-reverse md:flex-row md:p-5">
-                            <div className="flex-1">
-                                <InstaReportChart />
-                            </div>
-                            <div className={`p-5 flex flex-col gap-4 rounded-3xl border md:shadow-xl md:shadow-gray-300 ${styles.text_info}`}>
-                                {/* camp name */}
-                                <div className={`flex gap-2 border-r-8 border-r-telegram hover:border-r-gray-500 p-2`} dir="rtl">
-                                    <span>اسم کمپین: </span>
-                                    <span>
-                                        {campaign?.name}
-                                    </span>
-                                </div>
-                                <div className={`flex gap-2 border-r-8 border-r-telegram hover:border-r-gray-500 p-2 mb-8`} dir="rtl">
-                                    <span>تاریخ شروع: </span>
-                                    <span>
-                                        {toShamsi(campaign?.startDate)}
-                                    </span>
-                                </div>
-                                {/* sums */}
-                                <div className='flex flex-col gap-7 items-center justfy-center backdrop:blur-md p-10 px-14 rounded-3xl'>
-                                    <CardsSwiper slides={slides} />
-                                    <div className='text-xl'>
-                                        دستاورد ها در یک نگاه
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        {/* <div className='w-full bg-white opacity-30 h-screen'></div> */}
-
+                        <CampaignMainInfo sums={achivSums} campaign={campaign} slides={slides} influs={publishers} />
                         {/* report table */}
-                        <div className='w-full overflow-x-scroll px-10 mt-24'>
+                        <div className='hidden w-full overflow-x-scroll px-10 mt-24'>
                             <table className=' min-w-[800px] md:min-w-full max-w-screen' dir='rtl'>
                                 <tr className='border-b border-b-black'>
                                     <td></td>
@@ -249,7 +183,7 @@ function InstagramReport() {
                             </table>
                         </div>
                         
-                        <div className='justify-center py-24 hidden'>
+                        {/* <div className='justify-center py-24 hidden'>
                             <div className='w-full max-w-2xl'>
                                 <Doughnut
                                     // className={styles.chart}
@@ -257,7 +191,7 @@ function InstagramReport() {
                                     options= {options}
                                     />
                             </div>
-                        </div>
+                        </div> */}
                     </main>
                 </div>
             </div>
