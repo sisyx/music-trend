@@ -21,16 +21,16 @@ import { Slide, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export const notify = (text) => toast(text, {
-  position: "bottom-center",
-  autoClose: 5000,
+  position: "bottom-right",
+  autoClose: 3000,
   hideProgressBar: false,
   closeOnClick: true,
   pauseOnHover: true,
   draggable: true,
   progress: undefined,
   theme: "dark",
-  progressClassName: "bg-none bg-white",
-  className: "bg-telegram",
+  progressClassName: "bg-none bg-telegram",
+  className: "bg-black",
   transition: Slide,
 })
 
@@ -51,10 +51,10 @@ function App() {
             <Route path='/payment' element={<Payment />} />
           </Routes>
           <ToastContainer
-            position="bottom-center"
+            position="vorrom-right"
             autoClose={5000}
             hideProgressBar={false}
-            newestOnTop={false}
+            newestOnTop={true}
             closeOnClick
             rtl={true}
             pauseOnFocusLoss

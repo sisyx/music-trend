@@ -1,16 +1,8 @@
-import CardsSwiper from '../../components/CardsSwiper';
-import Avatar from '@mui/material/Avatar';
-import InstaReportChart from '../../components/reports/InstaReportChart';
 import InstagramTableRow from '../../components/reports/InstagramTableRow';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getCampWithId, getPublishers, getCookie, toShamsi } from '../../functions';
-import { Add, Instagram } from '@mui/icons-material';
-import HomeIcon from '@mui/icons-material/Home';
-import ShopIcon from '@mui/icons-material/Shop';
-import RefreshIcon from '@mui/icons-material/Refresh';
-import { Doughnut } from 'react-chartjs-2';
-import styles from './InstagramReport.module.css'
+import { ContactlessOutlined, Instagram } from '@mui/icons-material';
 import ReportHeader from '../../components/reports/ReportHeader';
 import CampaignMainInfo from './CampaignMainInfo';
 import ReportLeftHeader from '../../components/reports/ReportLeftHeader';
@@ -21,32 +13,9 @@ function InstagramReport() {
     const [campaign, setCampaign] = useState({});
     const [slides, setSlides] = useState([]);
     const [achivSums, setAchivSums] = useState();
+    const navigate = useNavigate();
     
     const username = getCookie("username");
-
-    const data2 = {
-        labels: ["A", "B", "C", "D", "E", "F", "G", "Z"],
-        datasets: [{
-            label: '# of Votes',
-            data: [
-                 24, 22, 19, 18, 23, 25, 26,
-            ],
-            borderWidth: 0,
-            borderCapStyle: "round",
-            hoverBackgroundColor: "#000",
-        }]
-    } 
-
-
-    const options = {
-        scales: {
-            y: {
-                beginAtZero: true
-            },
-        },
-        responsive: true
-    }
-
 
     useEffect(() => {
         init()
@@ -57,10 +26,15 @@ function InstagramReport() {
     }, [publishers]);
 
     async function init() {
+        const token = getCookie("token");
+        if (!token) {
+            navigate("/login?return=true")
+        }
         const id = params.get("id");
         const tmpCamp = await getCampWithId(id);
         const tmpPubs = await getPublishers(id);
-        console.log(tmpCamp)
+        console.log("tmpPubs is ")
+        console.log(tmpPubs)
         setPublishers(() => tmpPubs);
         const sums = {
             postLikes: 0,
@@ -71,12 +45,12 @@ function InstagramReport() {
             storyImprertion: 0,
         };
         tmpPubs.forEach(tpub => {
-            sums.postLikes += tpub.postLikes;
-            sums.postViews += tpub.postViews;
-            sums.postComments += tpub.postComments;
-            sums.postImpertion += tpub.postImpertion;
-            sums.storyViews += tpub.storyViews;
-            sums.storyImprertion += tpub.storyImpertion;
+            sums.postLikes += tpub.page.postLikes;
+            sums.postViews += tpub.page.postViews;
+            sums.postComments += tpub.page.postComments;
+            sums.postImpertion += tpub.page.postImpertion;
+            sums.storyViews += tpub.page.storyViews;
+            sums.storyImprertion += tpub.page.storyImpertion;
         });
         setAchivSums(_cur => sums);
         setSlides(() => {

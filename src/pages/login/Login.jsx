@@ -166,6 +166,10 @@ const Home = () => {
     setIsLoading(() => true);
   }
 
+  function featureNotSupported() {
+    customAlert("در حال حاضر این امکان در دسترس نمیباشد.")
+  }
+
   return (
     <div className={`w-screen h-screen flex items-center justify-center noto-sans-kr vazirmatn bg-lightbg`}>
         <div className={`relative rounded-3xl overflow-hidden grid md:grid-cols-2 grid-rows-1 backdrop-blur-sm shadow-lg shadow-orange-200 min-h-login`}>
@@ -184,16 +188,16 @@ const Home = () => {
                 <h1 className="md:text-4xl font-bold">ورود به حساب</h1>
                 {/* icons */}
                 <div className="flex gap-2 justify-between text-darkbg md:text-3xl">
-                    <div className="border border-darkbg rounded-md p-2 hover:text-lightbg hover:bg-darkbg transition-all cursor-pointer">
+                    <div onClick={featureNotSupported} className="border border-darkbg rounded-md p-2 hover:text-lightbg hover:bg-darkbg transition-all cursor-pointer">
                         <GrGooglePlus />
                     </div>
-                    <div className="border border-darkbg rounded-md p-2 hover:text-lightbg hover:bg-darkbg transition-all cursor-pointer">
+                    <div onClick={featureNotSupported} className="border border-darkbg rounded-md p-2 hover:text-lightbg hover:bg-darkbg transition-all cursor-pointer">
                         <FaFacebookF />
                     </div>
-                    <div className="border border-darkbg rounded-md p-2 hover:text-lightbg hover:bg-darkbg transition-all cursor-pointer">
+                    <div onClick={featureNotSupported} className="border border-darkbg rounded-md p-2 hover:text-lightbg hover:bg-darkbg transition-all cursor-pointer">
                         <FaLinkedinIn />
                     </div>
-                    <div className="border border-darkbg rounded-md p-2 hover:text-lightbg hover:bg-darkbg transition-all cursor-pointer">
+                    <div onClick={featureNotSupported} className="border border-darkbg rounded-md p-2 hover:text-lightbg hover:bg-darkbg transition-all cursor-pointer">
                         <FaGithub />
                     </div>
                 </div>
@@ -256,16 +260,16 @@ const Home = () => {
                     <h1 className="text-4xl font-bold">ثبت نام</h1>
                     {/* icons */}
                     <div className="flex gap-2 justify-between text-darkbg md:text-3xl">
-                        <div className="border border-darkbg rounded-md p-2 hover:text-lightbg hover:bg-darkbg transition-all cursor-pointer">
+                        <div onClick={featureNotSupported} className="border border-darkbg rounded-md p-2 hover:text-lightbg hover:bg-darkbg transition-all cursor-pointer">
                             <GrGooglePlus />
                         </div>
-                        <div className="border border-darkbg rounded-md p-2 hover:text-lightbg hover:bg-darkbg transition-all cursor-pointer">
+                        <div onClick={featureNotSupported} className="border border-darkbg rounded-md p-2 hover:text-lightbg hover:bg-darkbg transition-all cursor-pointer">
                             <FaFacebookF />
                         </div>
-                        <div className="border border-darkbg rounded-md p-2 hover:text-lightbg hover:bg-darkbg transition-all cursor-pointer">
+                        <div onClick={featureNotSupported} className="border border-darkbg rounded-md p-2 hover:text-lightbg hover:bg-darkbg transition-all cursor-pointer">
                             <FaLinkedinIn />
                         </div>
-                        <div className="border border-darkbg rounded-md p-2 hover:text-lightbg hover:bg-darkbg transition-all cursor-pointer">
+                        <div onClick={featureNotSupported} className="border border-darkbg rounded-md p-2 hover:text-lightbg hover:bg-darkbg transition-all cursor-pointer">
                             <FaGithub />
                         </div>
                     </div>

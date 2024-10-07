@@ -44,7 +44,7 @@ function Row(props) {
 
   return (
     <React.Fragment>
-      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+      <TableRow sx={{ '& > *': { borderBottom: 'unset' }, cursor: "pointer", transition: "all 75ms", ":hover": {background: "#fcfcfc"} }}>
         <TableCell>
           <IconButton
             aria-label="expand row"
@@ -54,13 +54,13 @@ function Row(props) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
+        <TableCell onClick={() => setOpen(!open)} component="th" scope="row" align='right'>
           {row.name}
         </TableCell>
-        <TableCell align="right">{row.pageId}</TableCell>
-        <TableCell align="right">{row.followers}</TableCell>
-        <TableCell align="right">{row.likes}</TableCell>
-        <TableCell align="right">
+        <TableCell onClick={() => setOpen(!open)} align="right">{row.pageId}</TableCell>
+        <TableCell onClick={() => setOpen(!open)} align="right">{row.followers}</TableCell>
+        <TableCell onClick={() => setOpen(!open)} align="right">{row.likes}</TableCell>
+        <TableCell onClick={() => setOpen(!open)} align="right">
             <a href={row.link} className='hover:text-telegram'>
                 <span className='flex items-center justify-end gap-2'>
                 اینستاگرام
@@ -73,7 +73,7 @@ function Row(props) {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div" className='flex justify-center'>
+              <Typography variant="h6" gutterBottom component="div">
                 جزییات
               </Typography>
               <Table size="small" aria-label="purchases">
@@ -93,7 +93,7 @@ function Row(props) {
                         {historyRow.postComments}
                       </TableCell>
                       <TableCell align='right'>{historyRow.postImp}</TableCell>
-                      <TableCell align="right">{historyRow.amount}</TableCell>
+                      <TableCell align="right">{historyRow.postViews}</TableCell>
                       <TableCell align="right">{historyRow.storyViews}</TableCell>
                       <TableCell align="right">{historyRow.storyImp}</TableCell>
                     </TableRow>
@@ -107,69 +107,42 @@ function Row(props) {
     </React.Fragment>
   );
 }
-
-Row.propTypes = {
-  row: PropTypes.shape({
-    calories: PropTypes.number.isRequired,
-    carbs: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    history: PropTypes.arrayOf(
-      PropTypes.shape({
-        amount: PropTypes.number.isRequired,
-        customerId: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
-      }),
-    ).isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    protein: PropTypes.number.isRequired,
-  }).isRequired,
-};
-
-// const rows = [
-//   createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99),
-//   createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
-//   createData('Eclair', 262, 16.0, 24, 6.0, 3.79),
-//   createData('Cupcake', 305, 3.7, 67, 4.3, 2.5),
-//   createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
-// ];
-
 export default function PagesStatsTable({ data }) {
     const [rows, setRows] = React.useState([]);
 
     React.useEffect(() => {
-        console.log(data);
+        const tmpAcc = [];
         if (data.length) {
-            console.log("Before Setting Rows");
-            console.log(data);
-            const page1 = data[0]
-            console.log(page1)
+            for (let i = 0; i < data.length; i++) {
+            const currentPage = data[i];
             const newData = {
-                name: page1.page.pageId,
-                calories: page1.page.pageId,
-                pageId: page1.page.pageId,
-                fat: "0",
-                likes: page1.postLikes,
-                carbs: "0",
-                comments: page1.postComments,
-                protein: "0",
-                followers: page1?.page?.followers ? page1.page.followers : "-",
-                link: page1.postLink,
-                price: "0",
+                name: currentPage.pageId ? currentPage.pageId : "-",
+                calories: currentPage.pageId ? currentPage.pageId : "-",
+                pageId: currentPage.pageId ? currentPage.pageId : "-",
+                // fat: "0",
+                likes: currentPage.page.postLikes,
+                // carbs: "0",
+                comments: currentPage.page.postComments,
+                // protein: "0",
+                followers: currentPage?.page?.followers ? currentPage.page.followers : "-",
+                link: currentPage.page.postLink,
+                // price: "0",
                 history: [
                   {
-                    postImp: page1.postImpertion,
-                    postComments: page1.postComments,
-                    storyImp: page1.storyImpertion,
-                    storyViews: page1.storyViews,
-                    postViews: page1.postViews,
-                    date: '2020-01-05',
-                    customerId: '11091700',
-                    amount: 3,
+                    postImp: currentPage.page.postImpertion ? currentPage.page.postImpertion : "-",
+                    postComments: currentPage.page.postComments ? currentPage.page.postComments : "-",
+                    storyImp: currentPage.page.storyImpertion ? currentPage.page.storyImpertion : "-",
+                    storyViews: currentPage.page.storyViews ? currentPage.page.storyViews : "-",
+                    postViews: currentPage.page.postViews ? currentPage.page.postViews : "-",
+                    // date: '2020-01-05',
+                    // customerId: '11091700',
+                    // amount: 3,
                   },
                 ],
               };
-            setRows([newData])
+              tmpAcc.push(newData);
+            }
+            setRows(tmpAcc)
         }
     }, [data]);
 
@@ -179,7 +152,7 @@ export default function PagesStatsTable({ data }) {
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell>نام پیج</TableCell>
+            <TableCell align='right'>نام پیج</TableCell>
             <TableCell align="right">آیدی پیج</TableCell>
             <TableCell align="right">تعداد فالور</TableCell>
             <TableCell align="right">لایکهای پست</TableCell>

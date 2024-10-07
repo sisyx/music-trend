@@ -4,7 +4,7 @@ import { logout } from "../../functions";
 function Logout() {
 
     useEffect(() => {
-        logout()
+        logout();
         location.assign("/")
     }, [])
 

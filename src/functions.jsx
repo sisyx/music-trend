@@ -109,6 +109,7 @@ export function logout() {
         const eqPos = cookie.indexOf('=');
         const name = eqPos > -1 ? cookie.substring(0, eqPos) : cookie;
         document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT';
+        customAlert("با موفقیت از حساب خارج شدید")
     });
 
     clearAllCookies()
@@ -254,7 +255,7 @@ export async function createPublisher(platformid, type, campaignId) {
 
 export async function getPublishers(campid) {
     console.log(campid)
-    const url = `${root}​/api/Pages/GetPageVersionByCampID?campaignId=${campid}`;
+    const url = `${root}​/api/Pages/GetEditedPageAndOriginalBuCampID?campaignId=${campid}`;
     try {
         const req = await fetch(url);
         if (!req.ok) {
@@ -264,10 +265,10 @@ export async function getPublishers(campid) {
         const formated = [];
         
         for (let i = 0; i < res.length; i++) {
-            const currentPage = res[i];
+            const currentPage = convertKeysToCamelCase(res[i]);
+            currentPage.page = convertKeysToCamelCase(currentPage.page);
 
             const isInFormated = formated.find(fpage => fpage.page.id === currentPage.page.id)
-            console.log("isInFormated: ", isInFormated)
             if (!isInFormated) {
                 formated.push(currentPage)
             }
@@ -603,4 +604,19 @@ function findSimilarItems(list1, list2) {
     const similarItems = list2.filter(item => idsSet.has(item.id));
     
     return similarItems;
+}
+
+function toCamelCase(str) {
+    return str.charAt(0).toLowerCase() + str.slice(1);
+}
+
+function convertKeysToCamelCase(obj) {
+    const newObj = {};
+    for (const key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            const camelCaseKey = toCamelCase(key);
+            newObj[camelCaseKey] = obj[key];
+        }
+    }
+    return newObj;
 }

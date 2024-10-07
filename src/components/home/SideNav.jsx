@@ -37,7 +37,7 @@ export default function SideNav() {
         <Link to='/campaigns' className={styles.link_btn}>
           <Button variant="contained" className={styles.button}  endIcon={<AutoStoriesIcon className={styles.end_icon} />} dir="rtl">
               <span className={styles.btn_label}>
-              مشاهده کمپین ها
+            کمپین ها
               </span>
           </Button>
           <IconButton className={styles.icon_btn}>

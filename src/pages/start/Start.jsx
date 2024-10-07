@@ -78,7 +78,7 @@ function Start() {
         const isPagesSaved = saveCookie(cartCookies.selectedInflus, influIdsString, cartCookies.saveLocalDays);
 
         if (isCampSaved  && isPricesSaved && isPagesSaved ) {
-            customAlert("سبد خرید شما با موفقیت ذخیره شد<br/> شما میتوانید با مراجعه به ادمین سایت خرید خود را تکمیل کنید")
+            customAlert("سبد خرید شما با موفقیت ذخیره شد\n شما میتوانید با مراجعه به ادمین سایت خرید خود را تکمیل کنید")
         }
 
         return 1
