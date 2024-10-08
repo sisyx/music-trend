@@ -1,16 +1,14 @@
-import { Button, TextField } from "@mui/material";
+import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
-import { root } from "../../../constatnts";
-import { customAlert, getCookie, getPagePrices, getPublishers } from "../../../functions";
-import { AiFillInstagram, AiFillLike } from "react-icons/ai";
-import styles from './Page.module.css';
+import { getPublishers } from "../../../functions";
+import { AiFillInstagram } from "react-icons/ai";
 import CircleGradient from "../../loadings/CircleGradient"
 import { Edit, Instagram } from "@mui/icons-material";
 import EditPublisher from "./EditPublisher";
 
 function EditCamp({isVisible = false, handleCloseEdit, camp}) {
-    const [isInDetails, setIsInDetail] = useState(true);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isInDetails, _setIsInDetail] = useState(true);
+    const [isLoading, _setIsLoading] = useState(false);
     const [pages, setPages] = useState([])
     const [isGettingPrices, setIsGettingPrices] = useState(false);
     const [selectedPage, setSelectedPage] = useState();
@@ -55,7 +53,7 @@ function EditCamp({isVisible = false, handleCloseEdit, camp}) {
                                 <div className="flex items-center gap-2">
                                     {/* title */}
                                     <div>
-                                        {page?.page.pageId}
+                                        {page?.page.pageId || page.pageId}
                                     </div>
                                     <div className="relative overflow-hidden group flex items-center gap-4 border rounded-xl w-fit p-2 text-white  bg-gradient-to-r  from-primary-start hover:to-primary-start hover:from-primary-end  to-primary-end transition-all duration-1000 cursor-pointer">
                                         <span className="absolute block top-0 bottom-0 left-full m-auto bg-brightbefore w-full  transition-500 group-hover:w-full group-hover:bg-transparent group-hover:-left-full"></span>
