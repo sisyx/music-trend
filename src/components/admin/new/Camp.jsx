@@ -1,15 +1,10 @@
-import { Avatar, Button } from "@mui/material";
+import { Tooltip } from "@mui/material";
 import GlassyButton from "../../GlassyButton";
-import { root } from "../../../constatnts";
-import { customAlert, getCookie, toShamsi } from "../../../functions";
+import { toShamsi } from "../../../functions";
 import { useEffect, useState } from "react";
-import { FaUserGear } from "react-icons/fa6";
-import { FaUserSecret } from "react-icons/fa";
-import { MdCategory } from "react-icons/md";
-import { PiInstagramLogoFill } from "react-icons/pi";
 import styles from "./Page.module.css"
-import AddPriceToPage from "./AddPriceToPage";
 import EditCamp from "./EditCamp";
+import { Link } from "react-router-dom";
 
 function Camp({ camp }) {
 
@@ -60,7 +55,14 @@ function Camp({ camp }) {
                         </div>
                     </div>
                 </div>
-                <GlassyButton onClick={handleOpenDetails} className="w-full rounded-none flex items-center justify-center">مشاهده جزییات</GlassyButton>
+                <div className="w-full flex gap-2 p-2">
+                    <Tooltip title="این قابلیت به شما اجازه میدهد کمپین را همانگونه که مخاطب میبیند ببینید">
+                        <Link target="_blank" to={`/reports/instagram?id=${camp.id}`} className="flex-1 border-2 border-black hover:text-white bg-white hover:bg-black rounded-lg flex items-center justify-center transition-all duration-100">
+                        مشاهده کمپین
+                        </Link>
+                    </Tooltip>
+                    <GlassyButton onClick={handleOpenDetails} className="flex-1 rounded-lg flex items-center justify-center">مشاهده جزییات</GlassyButton>
+                </div>
 
                 <EditCamp isVisible={isInDetail} handleCloseEdit={handleCloseDetails} camp={camp} />
             </div>
