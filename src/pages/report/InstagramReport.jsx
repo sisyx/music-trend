@@ -118,7 +118,6 @@ function InstagramReport() {
     }
 
     return (
-        // outer container
         <div>
             {/* container */}
             <div className='h-screen flex flex-col'>
@@ -156,16 +155,6 @@ function InstagramReport() {
                                 }
                             </table>
                         </div>
-                        
-                        {/* <div className='justify-center py-24 hidden'>
-                            <div className='w-full max-w-2xl'>
-                                <Doughnut
-                                    // className={styles.chart}
-                                    data={data2}
-                                    options= {options}
-                                    />
-                            </div>
-                        </div> */}
                     </main>
                 </div>
             </div>

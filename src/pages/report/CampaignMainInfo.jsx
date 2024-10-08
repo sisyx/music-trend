@@ -4,8 +4,14 @@ import SumRect from "./SumRect";
 import PagesStatsTable from "./PagesStatsTable";
 import InstaReportChart from "../../components/reports/InstaReportChart";
 import { AiFillLike } from "react-icons/ai";
+import { useState } from "react";
+import { FaAngleDown } from "react-icons/fa6";
+import SideInfoColapsedItem from "./SideInfoColapsedItem";
 
 function CampaignMainInfo({campaign, slides, sums = {}, influs = []}) {
+
+    const [detailColapesd, setDetaolColapsed] = useState(true);
+
     return ( 
         <div className="flex gap-16 md:gap-0 flex-col md:flex-row md:p-5 md:pr-0">
             <div className={`flex flex-col gap-0 rounded-3xl md:shadow-xl md:shadow-gray-500 bg-white`}>
@@ -26,15 +32,13 @@ function CampaignMainInfo({campaign, slides, sums = {}, influs = []}) {
                         {toShamsi(campaign?.startDate)}
                     </span>
                 </div>
-                <div className={`relative flex md:flex-row flex-col gap-2 bg-white text-gray-600 p-2 md:py-8`} dir="rtl">
-                    <span className="md:absolute top-0 right-2 text-sm">مجموع لایک ها</span>
-                    <span className="md:text-2xl font-extrabold flex items-center gap-1">
-                        <AiFillLike className="text-telegram" />
-                        <span>
-                            {sums?.postLikes} 
-                        </span>
-                    </span>
+                <div onClick={() => setDetaolColapsed(cur => !cur)} className="group flex items-center justify-center py-2 transition-all duration-150 cursor-pointer hover:text-xl before:content=[''] before:block before:absolute relative before:top-0 before:left-0 before:right-0 before:bg-gray-100 before:h-0 hover:before:h-full before:transition-all before:duration-300">
+                    <FaAngleDown className={`${detailColapesd ? "rotate-0" : "-rotate-180"} transition-all duration-300`} />
                 </div>
+                <SideInfoColapsedItem detailColapesd={detailColapesd} value={sums.postLikes} xkey="لایک پست"  />
+                <SideInfoColapsedItem detailColapesd={detailColapesd} value={sums.postViews} xkey="ویو پست"  />
+                <SideInfoColapsedItem detailColapesd={detailColapesd} value={sums.storyViews} xkey="ویو استوری"  />
+                <SideInfoColapsedItem detailColapesd={detailColapesd} value={sums.storyImprertion} xkey="استوری ایمپرشن"  />
                 {/* sums */}
                 <div className='flex flex-col gap-7 items-center justfy-center backdrop:blur-md p-10 px-14 rounded-3xl'>
                     <CardsSwiper slides={slides} />
