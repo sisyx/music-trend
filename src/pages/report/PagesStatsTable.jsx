@@ -1,5 +1,4 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
@@ -15,29 +14,6 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 
-function createData(name, calories, fat, carbs, protein, price) {
-  return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-    price,
-    history: [
-      {
-        date: '2020-01-05',
-        customerId: '11091700',
-        amount: 3,
-      },
-      {
-        date: '2020-01-02',
-        customerId: 'Anonymous',
-        amount: 1,
-      },
-    ],
-  };
-}
-
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
@@ -45,21 +21,6 @@ function Row(props) {
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' }, cursor: "pointer", transition: "all 75ms", ":hover": {background: "#fcfcfc"} }}>
-        <TableCell>
-          <IconButton
-            aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
-        </TableCell>
-        <TableCell onClick={() => setOpen(!open)} component="th" scope="row" align='right'>
-          {row.name}
-        </TableCell>
-        <TableCell onClick={() => setOpen(!open)} align="right">{row.pageId}</TableCell>
-        <TableCell onClick={() => setOpen(!open)} align="right">{row.followers}</TableCell>
-        <TableCell onClick={() => setOpen(!open)} align="right">{row.likes}</TableCell>
         <TableCell onClick={() => setOpen(!open)} align="right">
             <a href={row.link} className='hover:text-telegram'>
                 <span className='flex items-center justify-end gap-2'>
@@ -68,12 +29,27 @@ function Row(props) {
                 </span>
             </a>
         </TableCell>
+        <TableCell onClick={() => setOpen(!open)} align="right">{row.followers}</TableCell>
+        <TableCell onClick={() => setOpen(!open)} align="right">{row.likes}</TableCell>
+        <TableCell onClick={() => setOpen(!open)} component="th" scope="row" align='right'>
+          {row.name}
+        </TableCell>
+        <TableCell onClick={() => setOpen(!open)} align="right">{row.pageId}</TableCell>
+        <TableCell align='right'>
+          <IconButton
+            aria-label="expand row"
+            size="small"
+            onClick={() => setOpen(!open)}
+            >
+            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          </IconButton>
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
+              <Typography variant="h6" gutterBottom component="div" className='flex justify-end'>
                 جزییات
               </Typography>
               <Table size="small" aria-label="purchases">
@@ -151,12 +127,12 @@ export default function PagesStatsTable({ data }) {
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
-            <TableCell />
-            <TableCell align='right'>نام پیج</TableCell>
-            <TableCell align="right">آیدی پیج</TableCell>
+            <TableCell align="right">لینک تبلیغ</TableCell>
             <TableCell align="right">تعداد فالور</TableCell>
             <TableCell align="right">لایکهای پست</TableCell>
-            <TableCell align="right">لینک تبلیغ</TableCell>
+            <TableCell align='right'>نام پیج</TableCell>
+            <TableCell align="right">آیدی پیج</TableCell>
+            <TableCell />
           </TableRow>
         </TableHead>
         <TableBody>

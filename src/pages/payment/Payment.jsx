@@ -70,6 +70,7 @@ function Payment() {
 
         for (let i = 0; i < listPages.length; i++) {
             try {
+                if (listPages[i] == ",") { continue }
                 const req = await fetch(`${root}/api/Campaign/AddPageToCampaign?campaignId=${xdata.campaignId}&pageId=${listPages[i]}`, {
                     method: "POST",
                 })
