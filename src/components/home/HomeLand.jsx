@@ -4,6 +4,9 @@ import { FaUserTie } from "react-icons/fa6";
 import NeonLightBg from "../NeonLightBg";
 
 function HomeLand() {
+
+    const videosUrl = ["advertise1.mp4", "advertise2.mp4", "advertise3.mp4", "advertise4.mp4"]
+    const random = Math.floor(Math.random() * 4);
     return ( 
         <div className="pt-24 md:pt-48 pb-24 flex justify-center vazirmatn">
             <NeonLightBg />
@@ -11,7 +14,8 @@ function HomeLand() {
             <div className="flex flex-col-reverse md:flex-row px-0 md:px-5 items-center max-w-7xl">
                 {/* Left */}
                 <div className="w-1/2 flex items-center justify-center">
-                    <img src="/src/assets/images/homeland.png" />
+                    {/* <img src="/src/assets/images/homeland.png" /> */}
+                    <video src={`/src/assets/videos/${videosUrl[random]}`} className="aspect-video object-cover object-center rounded-xl" playsInline={true} loop={true} muted={true} autoPlay={true}></video>
                 </div>
 
                 {/* Right */}

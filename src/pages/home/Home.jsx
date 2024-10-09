@@ -14,12 +14,9 @@ import AnimatedBackground2 from "../../components/AnimatedBackground2";
 function Home() {
     return ( 
         <div className="relative">
-        <AnimatedBackground2 bg="#f3f4f6" fixed={true} />
+        <AnimatedBackground2 bg="#fff" fixed={true} />
         <Navbar />
         <SideNav />
-        {/* <Wave topcolor="#2da5dc" bottomcolor="#fff" className="mt-12" />
-        <XCards />
-        <Wave topcolor="white" bottomcolor="#f3f4f6" rotate={true} height="150px" /> */}
         <HomeLand />
         <HomeTags />
         <HomeDifferentBolgs />
@@ -27,15 +24,6 @@ function Home() {
         <MoreExplanations />
         <HomeCommonQues />
         <SmallContact />
-        {/* <Wave topcolor="#f3f4f6" bottomcolor="#fff" rotate={true} styles={{boxShadow: "0 0 5px black"}}/> */}
-        {/* <Chart /> */}
-        {/* <HomeTimeline />
-        <Separator topcolor="#fff" bottomcolor="#0000" reverse="true" />
-        <NoBg />
-        <Separator topcolor="#0000" bottomcolor="#5e298e" />
-        <HomeChart />
-        <Wave topcolor="#5e298e" bottomcolor="#111827" styles={{boxShadow: "0 0 5px black"}}/>
-        <TsParticles options={configs4} /> */}
         <Footer />
         </div>
      );
