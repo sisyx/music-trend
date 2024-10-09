@@ -1,4 +1,3 @@
-import { imagebase } from "../../constatnts";
 import { shortAboutus, threefeatures } from "../../texts-source";
 import AnimatedBackground2 from "../AnimatedBackground2";
 import GlassyButton from "../GlassyButton";
@@ -55,7 +54,6 @@ function HomeAbout() {
                     <img src="/src/assets/images/homeabout.gif" className="w-full rounded-xl" alt="" />
                 </div>
             </div>
-            <AnimatedBackground2 bg="rgb(243, 244, 246)" />
         </div>
      );
 }

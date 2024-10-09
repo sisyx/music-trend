@@ -3,7 +3,7 @@ import { hometagslist, hometagstitle1, hometagstitle2 } from "../../texts-source
 function HomeTags() {
     return ( 
         // outer container
-        <div className="w-full flex justify-center  bg-gray-100">
+        <div className="w-full flex justify-center ">
             <div className="flex items-center gap-6 text-sm justify-end p-5 bg w-full max-w-7xl overflow-x-scroll">
                 <div className="flex gap-2">
                     {

@@ -53,7 +53,7 @@ function HomeDifferentBolgs() {
 
     return ( 
         // outer container
-        <div className="w-screen flex justify-center bg-gray-100">
+        <div className="w-screen flex justify-center">
             <div className="w-full max-w-7xl md:p-5 p-1">
                 {/* top */}
                 <div className="w-full flex justify-between">

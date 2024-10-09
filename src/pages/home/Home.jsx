@@ -9,10 +9,12 @@ import MoreExplanations from "../../components/home/MoreExplanations";
 import Navbar from "../../components/Navbar";
 import SmallContact from "../../components/contact/SmallContact";
 import SideNav from "../../components/home/SideNav";
+import AnimatedBackground2 from "../../components/AnimatedBackground2";
 
 function Home() {
     return ( 
-        <div>
+        <div className="relative">
+        <AnimatedBackground2 bg="#f3f4f6" fixed={true} />
         <Navbar />
         <SideNav />
         {/* <Wave topcolor="#2da5dc" bottomcolor="#fff" className="mt-12" />

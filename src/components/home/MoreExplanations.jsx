@@ -8,7 +8,7 @@ function MoreExplanations() {
 
     return ( 
         // outer container
-        <div className="bg-gray-100 w-screen flex justify-center">
+        <div className="w-screen flex justify-center">
             <div className="bg-white rounded-2xl w-full max-w-7xl p-3 md:p-12">
                 {/* title */}
                 <div className="flex items-center gap-4 w-full" dir="rtl">

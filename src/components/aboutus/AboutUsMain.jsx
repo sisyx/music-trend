@@ -8,7 +8,7 @@ import { shortAboutus, threefeatures } from "../../texts-source";
 function AboutUsMain() {
     return (
         //  outer container
-        <div className="py-28 w-screen flex flex-col items-center justify-center bg-gray-100 min-h-screen ">
+        <div className="py-28 w-screen flex flex-col items-center justify-center min-h-screen ">
             {/* title */}
             <div className={`flex w-full justify-between max-w-7xl p-12 pb-0 ${styles.title}`} dir="rtl">
                 <div className="text-3xl font-extrabold">درباره ما</div>

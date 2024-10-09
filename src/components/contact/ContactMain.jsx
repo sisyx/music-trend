@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 function ContactMain() {
     return (
         //  outer container
-        <div className="py-24 w-screen flex flex-col gap-7 items-center justify-center bg-gray-100 min-h-screen ">
+        <div className="py-24 w-screen flex flex-col gap-7 items-center justify-center min-h-screen ">
             {/* title */}
             <div className={`flex w-full justify-between max-w-7xl p-12 ${styles.title}`} dir="rtl">
                 <div className="text-3xl font-extrabold">تماس با ما</div>
