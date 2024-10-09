@@ -1,10 +1,7 @@
 import React, { useState } from 'react'
 import styles from './SideNav.module.css'
 import Button from '@mui/material/Button'
-import GamesIcon from '@mui/icons-material/Games';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-import StyleIcon from '@mui/icons-material/Style';
 import { Link } from 'react-router-dom';
 import { RiHomeFill } from 'react-icons/ri';
 import { TbSquareRoundedLetterMFilled } from 'react-icons/tb';
