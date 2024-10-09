@@ -34,7 +34,7 @@ function Camp({ camp }) {
                 {/* top */}
                 <div className="flex flex-col flex-1 justify-between gap-6 p-3 px-5">
                     <div className="flex flex-col items-center gap-2">
-                        <img src="/logo.png" />
+                        <img src="/logo.png" className="aspect-video object-cover object-center w-24" />
                         <span className={`text-2xl font-extrabold ${styles.pt_serif_regular}`}>
                             {campname}
                         </span>
@@ -57,7 +57,7 @@ function Camp({ camp }) {
                 </div>
                 <div className="w-full flex gap-2 p-2">
                     <Tooltip title="این قابلیت به شما اجازه میدهد کمپین را همانگونه که مخاطب میبیند ببینید">
-                        <Link target="_blank" to={`/reports/instagram?id=${camp.id}`} className="flex-1 border-2 border-black hover:text-white bg-white hover:bg-black rounded-lg flex items-center justify-center transition-all duration-100">
+                        <Link target="_blank" to={`/reports/instagram?id=${camp.id}`} className="flex-1 border-2 border-telegram text-telegram bg-white hover:bg-black rounded-lg flex items-center justify-center transition-all duration-100">
                         مشاهده کمپین
                         </Link>
                     </Tooltip>
