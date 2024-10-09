@@ -3,7 +3,6 @@ import { toShamsi } from "../../functions";
 import SumRect from "./SumRect";
 import PagesStatsTable from "./PagesStatsTable";
 import InstaReportChart from "../../components/reports/InstaReportChart";
-import { AiFillLike } from "react-icons/ai";
 import { useState } from "react";
 import { FaAngleDown } from "react-icons/fa6";
 import SideInfoColapsedItem from "./SideInfoColapsedItem";
@@ -33,7 +32,7 @@ function CampaignMainInfo({campaign, slides, sums = {}, influs = []}) {
                     </span>
                 </div>
                 <div onClick={() => setDetaolColapsed(cur => !cur)} className="group flex items-center justify-center py-2 transition-all duration-150 cursor-pointer hover:text-xl before:content=[''] before:block before:absolute relative before:top-0 before:left-0 before:right-0 before:bg-gray-100 before:h-0 hover:before:h-full before:transition-all before:duration-300">
-                    <FaAngleDown className={`${detailColapesd ? "rotate-0" : "-rotate-180"} transition-all duration-300`} />
+                    <FaAngleDown className={`${detailColapesd ? "rotate-0npm " : "-rotate-180"} transition-all duration-300`} />
                 </div>
                 <SideInfoColapsedItem detailColapesd={detailColapesd} value={sums.postLikes} xkey="لایک پست"  />
                 <SideInfoColapsedItem detailColapesd={detailColapesd} value={sums.postViews} xkey="ویو پست"  />
