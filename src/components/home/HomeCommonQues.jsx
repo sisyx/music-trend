@@ -23,7 +23,7 @@ function HomeCommonQues() {
 
     return (
         // outer container
-        <div className="w-screen flex justify-center">
+        <div className="w-screen flex justify-center mb-16">
             <div className="w-full max-w-7xl py-20 flex flex-col-reverse md:flex-row items-center">
                 <div className="flex-1 h-full">
                     <HomeComments />
