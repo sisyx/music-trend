@@ -751,3 +751,9 @@ export function getFileExtension(filename) {
     const fileExtension = filename.slice(lastDotIndex);
     return fileExtension; 
 }
+
+export function setTitle(text) {
+    if (typeof(text) == "string") {
+        document.title = "مخاطب گستر | " + text;
+    }
+}

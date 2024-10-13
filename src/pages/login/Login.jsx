@@ -1,9 +1,9 @@
 import { Button, styled, TextField } from "@mui/material";
 // import { useTheme } from "../../contexts/themeContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { root } from "../../constatnts";
-import { customAlert } from "../../functions";
+import { customAlert, setTitle } from "../../functions";
 
 const Home = () => {
     const [params] = useSearchParams();
@@ -15,6 +15,11 @@ const Home = () => {
     const [forgotPass, setForgotPass] = useState(false);
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        setTitle("ورود به حساب");
+    })
+
 
   function selectSignUp() {
     setForgotPass(false);

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 // import NoCamp from "../../components/admin/NoCamp";
 // import Main from "../../components/admin/Main";
-import { getRole } from "../../functions";
+import { getRole, setTitle } from "../../functions";
 import AdminSidebar from "../../components/admin/new/AdminSidebar";
 import AdminHeader from "../../components/admin/new/AdminHeader";
 import SeeUsers from "../../components/admin/new/SeeUsers";
@@ -16,6 +16,7 @@ function Admin() {
 
     useEffect(() => {
         init();
+        setTitle("ادمین")
     }, []);
 
 

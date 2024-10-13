@@ -10,8 +10,15 @@ import Navbar from "../../components/Navbar";
 import SmallContact from "../../components/contact/SmallContact";
 import SideNav from "../../components/home/SideNav";
 import AnimatedBackground2 from "../../components/AnimatedBackground2";
+import { useEffect } from "react";
+import { setTitle } from "../../functions";
 
 function Home() {
+
+    useEffect(() => {
+        setTitle("خانه");
+    })
+
     return ( 
         <div className="relative">
         <AnimatedBackground2 bg="#fff" fixed={true} />

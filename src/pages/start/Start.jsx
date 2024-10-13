@@ -8,7 +8,7 @@ import Wave from "../../components/Wave";
 import styles from './Start.module.css';
 import { Link, useNavigate } from "react-router-dom";
 import StartNav from "../../components/start/StartNav";
-import { customAlert, getPages, saveCookie } from "../../functions";
+import { customAlert, getPages, saveCookie, setTitle } from "../../functions";
 import CampaignSelect from "../../components/start/CampaignSelect";
 import Left from "../../components/start/Left";
 
@@ -36,6 +36,7 @@ function Start() {
 
     useEffect(() => {
         init()
+        setTitle("ایجاد کمپین")
     }, []);
 
     useEffect(() => {
