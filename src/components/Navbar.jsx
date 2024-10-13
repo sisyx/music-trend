@@ -32,7 +32,7 @@ function Navbar() {
     return ( 
         // border outer
         <div className="w-screen md:p-5 md:fixed md:top-0 flex justify-center max-z transition-all duration-300">
-            <nav className="max-w-7xl w-screen shadow p-2 md:px-5  md:rounded-2xl bg-white bg-opacity-80 flex items-center justify-between backdrop-blur-3xl">
+            <nav className="max-w-7xl w-screen shadow shadow-xl p-2 md:px-5  md:rounded-2xl bg-white bg-opacity-80 flex items-center justify-between backdrop-blur-3xl">
                 {/* left */}
                 <div className="flex items-center gap-4">
                     {/* logo */}
@@ -64,7 +64,7 @@ function Navbar() {
 
                                     absolute scale-y-0 group-hover:scale-y-100 translate-y-full opacity-0 group-hover:opacity-100  group-hover:bottom-0 bottom-[-100px] right-0 transition-all duration-500
 
-                                    min-w-48 rounded-xl bg-white overflow-hidden
+                                    min-w-48 rounded-xl bg-white overflow-hidden shadow-xl
                                 ">
 
                                 <NavLink to={isLoggedin() ? "/logout" : "/login"} className="w-full flex justify-end p-4">
