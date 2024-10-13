@@ -1,14 +1,9 @@
 import { Button, styled, TextField } from "@mui/material";
 // import { useTheme } from "../../contexts/themeContext";
-import { GrGooglePlus } from "react-icons/gr";
-import { FaFacebookF } from "react-icons/fa";
-import { FaLinkedinIn } from "react-icons/fa";
-import { FaGithub } from "react-icons/fa";
 import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { root } from "../../constatnts";
 import { customAlert } from "../../functions";
-import CircleGradient from "../../components/loadings/CircleGradient";
 
 const Home = () => {
     const [params] = useSearchParams();
