@@ -183,11 +183,11 @@ const Home = () => {
                 <p className="text-white text-center">با وارد شدن از طریق اطلاعات شخصی خودتان، به همه قابلیت های سایت دسترسی داشته باشید</p>
                 <Button sx={{background: "transparent", border: "1px white solid", color: "white", paddingInline: "50px", paddingBlock: "10px"}} onClick={() => setIsSigningUp(false)}>ورود</Button>
             </div>
-            <div className={`w-full max-w-96 flex flex-col gap-10 items-center justify-center pt-12 pb-12 pr-5 pl-5 z-10 ${isSigningUp ? "-translate-y-full absolute" : forgotPass ? "-translate-y-full absolute" : ''} transition-500 ease-in-out`}>
+            <div className={`w-full max-w-96 flex flex-col gap-10 items-center justify-center pt-12 pb-12 pr-5 pl-5 z-10 ${isSigningUp ? "-translate-y-full absolute scale-0 rotate-12 -z-50" : forgotPass ? "-translate-y-full absolute scale-0 rotate-12 -z-50" : 'scale-100'} transition-all duration-500 ease-in-out`}>
                 {/* Sign In */}
                 <h1 className="md:text-4xl font-bold">ورود به حساب</h1>
                 {/* icons */}
-                <div className="flex gap-2 justify-between text-darkbg md:text-3xl">
+                {/* <div className="flex gap-2 justify-between text-darkbg md:text-3xl">
                     <div onClick={featureNotSupported} className="border border-darkbg rounded-md p-2 hover:text-lightbg hover:bg-darkbg transition-all cursor-pointer">
                         <GrGooglePlus />
                     </div>
@@ -200,7 +200,7 @@ const Home = () => {
                     <div onClick={featureNotSupported} className="border border-darkbg rounded-md p-2 hover:text-lightbg hover:bg-darkbg transition-all cursor-pointer">
                         <FaGithub />
                     </div>
-                </div>
+                </div> */}
                 {/* inputs */}
                 <div className="flex flex-col gap-5 w-full">
                     <p className="text-right">یا از طریق ایمیل و رمز حسابتان وارد شوید</p>
@@ -232,7 +232,7 @@ const Home = () => {
                     </Button>
                 </div>
             </div>
-            <div className={`w-full max-w-96 flex flex-col gap-10 items-center justify-center pt-12 pb-12 pr-5 pl-5 z-10 ${forgotPass ? "" : 'absolute -translate-x-full'} transition-500 ease-in-out`}>
+            <div className={`w-full max-w-96 flex flex-col gap-10 items-center justify-center pt-12 pb-12 pr-5 pl-5 z-10 ${forgotPass ? "" : 'absolute -translate-x-full scale-0 rotate-[30deg]'} transition-all duration-500 ease-in-out`}>
                 {/* Sign In */}
                 <h1 className="text-4xl font-bold">بازیابی رمز عبور</h1>
                 {/* inputs */}
@@ -255,11 +255,11 @@ const Home = () => {
                 </div>
             </div>
             <div className={`h-full w-full max-w-96 overflow-hidden z-10`}>
-                    <div className={`w-full max-w-96 flex flex-col gap-10 items-center justify-center pt-12 pb-12 pr-5 pl-5 z-10 ${isSigningUp ? "" : 'translate-y-full absolute'} transition-500 ease-in-out`}>
+                    <div className={`w-full max-w-96 flex flex-col gap-10 items-center justify-center pt-12 pb-12 pr-5 pl-5 scale-100 ${isSigningUp ? "translate-y-0" : 'translate-y-full absolute scale-50 rotate-12'} transition-all duration-500 ease-in-out`}>
                     {/* Sign In */}
                     <h1 className="text-4xl font-bold">ثبت نام</h1>
                     {/* icons */}
-                    <div className="flex gap-2 justify-between text-darkbg md:text-3xl">
+                    {/* <div className="flex gap-2 justify-between text-darkbg md:text-3xl">
                         <div onClick={featureNotSupported} className="border border-darkbg rounded-md p-2 hover:text-lightbg hover:bg-darkbg transition-all cursor-pointer">
                             <GrGooglePlus />
                         </div>
@@ -272,7 +272,7 @@ const Home = () => {
                         <div onClick={featureNotSupported} className="border border-darkbg rounded-md p-2 hover:text-lightbg hover:bg-darkbg transition-all cursor-pointer">
                             <FaGithub />
                         </div>
-                    </div>
+                    </div> */}
                     {/* inputs */}
                     <div className="flex flex-col gap-5 w-full text-right">
                         <p>یا از ایمیل برای ثبت نام استفاده کنید</p>
