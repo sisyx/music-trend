@@ -10,11 +10,13 @@
     flex-wrap: wrap;
     cursor: pointer;
     flex: 1;
+
 }
 .btn::before {
     padding: 1rem;
     content: "";
-    background-color: white;
+    /* border: 1px black solid; */
+    background-color: #f7f7f7;
     position: absolute;
     top: 0;
     display: block;
