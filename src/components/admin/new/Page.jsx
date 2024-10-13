@@ -1,31 +1,24 @@
-import { Avatar, Button } from "@mui/material";
 import GlassyButton from "../../GlassyButton";
-import { root } from "../../../constatnts";
-import { customAlert, getCookie } from "../../../functions";
 import { useEffect, useState } from "react";
-import { FaUserGear } from "react-icons/fa6";
-import { FaUserSecret } from "react-icons/fa";
 import { MdCategory } from "react-icons/md";
 import { PiInstagramLogoFill } from "react-icons/pi";
 import styles from "./Page.module.css"
 import AddPriceToPage from "./AddPriceToPage";
+import { customAlert, refreshPubMetadata } from "../../../functions";
+import { IconButton } from "@mui/material";
+import YoutubeSearchedForIcon from '@mui/icons-material/YoutubeSearchedFor';
 
 function Page({page, pageTypes, pageCategories}) {
 
     const [pageid, setPageId] = useState(page.pageId);
     const [xpage, setXpage] = useState({followers: 0, following: 0})
     const [isInDetail, setIsInDetail] = useState(false);
+    const imageUrl = page.imgUrl || "/logo.png";
+    const [isRefreshing, setIsRefreshing] = useState(false);
+
     useEffect(() => {
-        init()
         setPageId(page.pageId)
     }, [page])
-
-    async function init() {
-        setXpage({
-            followers: 12500,
-            following: 532111
-        })
-    }
 
     function handleOpenDetails() {
         setIsInDetail(true);
@@ -36,14 +29,32 @@ function Page({page, pageTypes, pageCategories}) {
         setIsInDetail(false);
     }
 
+    async function refreshPub() {
+        setIsRefreshing(() => true);
+        const refresh = await refreshPubMetadata(pageid);
+        customAlert(refresh?.message || "اپدیت پیج ناموفق بود")
+        setIsRefreshing(() => false);
+    }
+
     return ( 
         <div className={`flex relative flex-col items-center justify-end gap-6 rounded-sm bg-gray-100 hover:bg-gray-200 cursor-pointer`}>
+                {/* refresh button */}
+                <IconButton disabled={isRefreshing} onClick={refreshPub} sx={{position: "absolute", top: "1rem", right: "1rem", zIndex: "50"}}>
+                    <YoutubeSearchedForIcon />
+                </IconButton>
+
+
                 {/* top */}
                 <div className="flex flex-col flex-1 justify-between gap-6 p-3 px-5">
                     <div className="flex flex-col items-center gap-2">
-                        <img src="/logo.png" />
+                        <div className="p-1 border-4 border-primary-start rounded-full aspect-square w-48">
+                            <img src={imageUrl} alt={`${pageid} Profile Image`} className="rounded-full w-full h-full aspect-square flex items-center justify-center text-center" loading="lazy" crossOrigin="anonymous" />
+                        </div>
                         <span className={`text-2xl font-extrabold ${styles.pt_serif_regular}`}>
                             {pageid}
+                        </span>
+                        <span className={`text-2xl font-extrabold`}>
+                            {page.showName}
                         </span>
                     </div>
                 </div>
@@ -66,11 +77,11 @@ function Page({page, pageTypes, pageCategories}) {
                         </div>
                         <div className="flex flex-col items-end">
                             <div className="flex items-center gap-2">
-                                <code>{xpage.followers}</code>
+                                <code>{page?.followesrs || "0"}</code>
                                 <span>فالورها</span>
                             </div>
                             <div className="flex items-center gap-2">
-                                <code>{xpage.following}</code>
+                                <code>{page?.following || "0"}</code>
                                 <span>فالوینگها</span>
                             </div>
                         </div>

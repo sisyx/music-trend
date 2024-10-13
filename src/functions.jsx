@@ -280,6 +280,28 @@ export async function getPublishers(campid) {
     }
 }
 
+export async function refreshPubMetadata(pubid) {
+    if (!pubid) {
+        console.error("pubid is not defined.")
+        return
+    }
+
+    try {
+        const req = await fetch(`${root}/api/InstagramApi/ا?username=${pubid}`, {
+            method: "POST"
+        });
+
+        if (!req.ok) throw new Error("Failed to update Publisher");
+
+        const res = await req.json();
+        return res;
+    } catch (error) {
+        console.error(error);
+        return 0
+    }
+}
+
+
 export async function getFilteredPublishers(ptype = undefined, pcat = undefined, maxp, minp) {
     const typeFiltered = [];
     const catFiltered = [];

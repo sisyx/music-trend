@@ -91,8 +91,9 @@ export default function PagesStatsTable({ data }) {
         if (data.length) {
             for (let i = 0; i < data.length; i++) {
             const currentPage = data[i];
+            console.log(currentPage)
             const newData = {
-                name: currentPage.pageId ? currentPage.pageId : "-",
+                name: currentPage.page.showName ? currentPage.page.showName : "-",
                 calories: currentPage.pageId ? currentPage.pageId : "-",
                 pageId: currentPage.pageId ? currentPage.pageId : "-",
                 // fat: "0",
@@ -100,7 +101,7 @@ export default function PagesStatsTable({ data }) {
                 // carbs: "0",
                 comments: currentPage.page.postComments,
                 // protein: "0",
-                followers: currentPage?.page?.followers ? currentPage.page.followers : "-",
+                followers: currentPage?.page?.followesrs ? currentPage.page.followesrs : "-",
                 link: currentPage.page.postLink,
                 // price: "0",
                 history: [

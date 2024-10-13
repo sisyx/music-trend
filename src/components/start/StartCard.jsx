@@ -20,13 +20,13 @@ function StartCard({ setindetails, influencer, index = 0, selectInf }) {
                     </div>
                     <div className="flex flex-col">
                         <span className="font-bold">فالورها</span>
-                        <span>{toKFormat(influencer.followers)}</span>
+                        <span>{toKFormat(influencer.followesrs)}</span>
                     </div>
                 </div>
                 {/* image */}
                 <div className="flex flex-col  items-center gap-2">
-                    <div className="w-20 rounded-full overflow-hidden border-primary border-2">
-                        <img src={`${imagebase}/influencer1.jpg`} alt="influencer image" />
+                    <div className="w-20 aspect-square rounded-full overflow-hidden border-primary border-2">
+                        <img src={influencer.imgUrl || "/logo.png"} alt="influencer image" className="aspect-square object-cover object-center" />
                     </div>
                         <span>{influencer.pageId}</span>
                 </div>
