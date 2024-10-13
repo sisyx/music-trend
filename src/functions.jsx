@@ -1,5 +1,5 @@
 import { notify } from "./App";
-import { apiroot, root, userLevels } from "./constatnts";
+import { apiroot, filesBase, root, userLevels } from "./constatnts";
 import moment from "moment-jalaali";
 
 
@@ -641,4 +641,113 @@ function convertKeysToCamelCase(obj) {
         }
     }
     return newObj;
+}
+
+
+export async function uploadFile(path, file)  {
+    console.log(file);
+    const token = getCookie("token");
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file);
+    const extension = getFileExtension(file.name)
+    reader.onload = async function() {
+        const filedata = reader.result
+
+        try {
+            const data = {
+                filedata,
+                fileName: `profile.${extension}`,
+                filePath: `${filesBase}/${path}`
+            }
+
+            const req = await fetch(`${root}/Uploads/UploadFile`, {
+                method: "POST",
+                body: JSON.stringify(data),
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            console.log(req);
+
+            if (!req.ok) {
+                throw new Error("failed to send file");
+            }
+
+            const res = await req.json();
+            customAlert(res.message)
+
+        } catch (error) {
+            customAlert("Failed To Upload File")
+            console.log(error.message)
+        }
+    }
+}
+
+
+
+export async function getProfile(campid) {    
+    const token = getCookie("token");
+
+    const data = {
+        fileName: "",
+        filePath: `wwroot/campaign_profiles/campaign_number_${campid}`,
+        filedata: ""
+    }
+    try {
+        const req = await fetch(`${root}/Uploads/getFiles`, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+            }
+        })
+
+        if (!req.ok) {
+            throw new Error("Failed to get files");
+        }
+
+        const res = await req.json();
+
+        let fileurl;
+
+        if (res.objectResult.length) {
+            const array = res.objectResult;
+            const profile = array.find(file => file.fileName.startsWith("profile"));
+            fileurl = profile.filePath;
+        }
+
+        if (!!fileurl) {
+            const req2 = await fetch(`${root}/Uploads/downloadFile?url=${fileurl}`, {
+                method: "POST",
+                headers: {
+                    // "Content-Type": "text/plain",
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            if (!req2.ok) {
+                throw new Error("Failed To Download profile");
+            }
+
+            const res1 = await req2.json();
+
+            const fileData = !!res1.objectResult ? res1.objectResult : "r¶¬\u0085ç_\u008aW";
+            const dataUrl = `data:image/jpeg;base64,${fileData}`;
+
+            return dataUrl;
+        }
+    } catch (error) {
+        console.log(error.message);
+        return "/logo.png";
+    }
+}
+
+export function getFileExtension(filename) {
+    const lastDotIndex = filename.lastIndexOf('.');
+    const fileExtension = filename.slice(lastDotIndex);
+    return fileExtension; 
 }

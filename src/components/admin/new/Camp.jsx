@@ -1,7 +1,7 @@
 import { Tooltip } from "@mui/material";
 import GlassyButton from "../../GlassyButton";
-import { toShamsi } from "../../../functions";
-import { useEffect, useState } from "react";
+import { getProfile, toShamsi } from "../../../functions";
+import { useEffect, useRef, useState } from "react";
 import styles from "./Page.module.css"
 import EditCamp from "./EditCamp";
 import { Link } from "react-router-dom";
@@ -10,6 +10,7 @@ function Camp({ camp }) {
 
     const [campname, setCampname] = useState(camp.name);
     const [isInDetail, setIsInDetail] = useState(false);
+    const imgRef = useRef();
 
     useEffect(() => {
         init()
@@ -17,7 +18,10 @@ function Camp({ camp }) {
     }, [camp])
 
     async function init() {
-        console.log("initialized")
+        if (!camp?.id) return
+        const campImageSrc = await getProfile(camp.id);
+        console.log(campImageSrc);
+        imgRef.current.src = campImageSrc;
     }
 
     function handleOpenDetails() {
@@ -32,9 +36,9 @@ function Camp({ camp }) {
     return ( 
         <div className={`flex relative flex-col items-center justify-end gap-6 rounded-sm bg-gray-100 hover:bg-gray-200 cursor-pointer`}>
                 {/* top */}
-                <div className="flex flex-col flex-1 justify-between gap-6 p-3 px-5">
+                <div className="flex flex-col flex-1 justify-between gap-6 ">
                     <div className="flex flex-col items-center gap-2">
-                        <img src="/logo.png" className="aspect-video object-cover object-center w-24" />
+                        <img ref={imgRef} src="/logo.png" className="camp-profile-img object-cover object-center w-full aspect-video rounded-3xl" />
                         <span className={`text-2xl font-extrabold ${styles.pt_serif_regular}`}>
                             {campname}
                         </span>

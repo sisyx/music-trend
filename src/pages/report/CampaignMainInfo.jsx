@@ -1,22 +1,73 @@
 import CardsSwiper from "../../components/CardsSwiper";
-import { toShamsi } from "../../functions";
+import { getProfile, toShamsi, uploadFile } from "../../functions";
 import SumRect from "./SumRect";
 import PagesStatsTable from "./PagesStatsTable";
 import InstaReportChart from "../../components/reports/InstaReportChart";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaAngleDown } from "react-icons/fa6";
 import SideInfoColapsedItem from "./SideInfoColapsedItem";
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+import Loading from "../../components/loadings/Loading";
+import CircleGradient from "../../components/loadings/CircleGradient";
 
 function CampaignMainInfo({campaign, slides, sums = {}, influs = []}) {
 
     const [detailColapesd, setDetaolColapsed] = useState(true);
+    const [file, setfile] = useState({emptyResult: false, isLoading: true, error: false, result: null});
+    const fileInputRef = useRef();
+
+    useEffect(() => {
+        init();
+    }, [campaign.id])
+
+    async function init() {
+        if (!campaign?.id) return
+        const campImageSrc = await getProfile(campaign.id);
+        console.log(campImageSrc);
+        const filecontent = document.querySelector(".camp-profile-img");
+        filecontent.src = campImageSrc;
+        if (campImageSrc == "/logo.png") {
+            setfile(cur => ({...cur, emptyResult: true, isLoading: false, error: false, result: campImageSrc }))
+        } else {
+            setfile(cur => ({...cur, emptyResult: false, isLoading: false, error: false, result: campImageSrc }))
+        }
+    }
+
+    function changeCampProfile(xfile) {
+        const reader = new FileReader();
+
+        reader.onload = function (event) {
+            const filecontent = document.querySelector(".camp-profile-img");
+            filecontent.src = event.target.result;
+        }
+
+        reader.readAsDataURL(xfile);
+        const newProfilePath = `campaign_profiles/campaign_number_${campaign.id}`
+        uploadFile(newProfilePath, xfile)
+    }
 
     return ( 
         <div className="flex gap-16 md:gap-0 flex-col md:flex-row md:p-5 md:pr-0">
-            <div className={`flex flex-col gap-0 rounded-3xl md:shadow-xl md:shadow-gray-500 bg-white`}>
+            <div className={`flex flex-col gap-0 rounded-3xl md:shadow-xl md:shadow-gray-500 bg-white overflow-hidden`}>
                 {/* Camp Image / Site Logo */}
-                <div className="w-full flex items-center justify-end md:justify-center mb-2">
-                    <img src="/logo.png" className="w-24 md:w-auto md:max-w-[420px] rounded-full md:aspect-video object-contain object-center cursor-pointer" />
+                <div className={`relative group w-full flex items-center justify-end md:justify-center mb-2 ${file.emptyResult ? "cursor-pointer" : ""}`}>
+                    <img src="" className={`camp-profile-img aspect-video md:max-w-[350px] object-contain object-center rounded-3xl`}/>
+                    {
+                        file.isLoading ? 
+                        <div className="aspect-video w-full flex items-center justify-center">
+                          <CircleGradient />
+                        </div>
+                        : file.emptyResult ?
+                        <>
+                            <label onClick={() => fileInputRef.current.click()} htmlFor="profile-input" className="absolute text-2xl opacity-0 group-hover:opacity-100 transition-all duration-150 bg-gray-100 bg-opacity-55 w-full h-full flex items-center justify-center cursor-pointer">
+                                <AddAPhotoIcon />
+                                <input ref={fileInputRef} type="file" className="hidden" accept="image/*" onChange={e => {
+                                    setfile(e.target.files[0])
+                                    changeCampProfile(e.target.files[0])
+                                }} />
+                            </label>
+                        </> : ""
+                    }
                 </div>
                 {/* camp name */}
                 <div className={`relative flex md:flex-row flex-col gap-2 bg-white text-gray-600 p-2 md:py-8`} dir="rtl">
@@ -32,7 +83,7 @@ function CampaignMainInfo({campaign, slides, sums = {}, influs = []}) {
                     </span>
                 </div>
                 <div onClick={() => setDetaolColapsed(cur => !cur)} className="group flex items-center justify-center py-2 transition-all duration-150 cursor-pointer hover:text-xl before:content=[''] before:block before:absolute relative before:top-0 before:left-0 before:right-0 before:bg-gray-100 before:h-0 hover:before:h-full before:transition-all before:duration-300">
-                    <FaAngleDown className={`${detailColapesd ? "rotate-0npm " : "-rotate-180"} transition-all duration-300`} />
+                    <FaAngleDown className={`${detailColapesd ? "rotate-0 " : "-rotate-180"} transition-all duration-300`} />
                 </div>
                 <SideInfoColapsedItem detailColapesd={detailColapesd} value={sums.postLikes} xkey="لایک پست"  />
                 <SideInfoColapsedItem detailColapesd={detailColapesd} value={sums.postViews} xkey="ویو پست"  />

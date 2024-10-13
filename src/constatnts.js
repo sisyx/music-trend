@@ -3,6 +3,7 @@ export const apiroot = "https://mokhatabgostar.ir";
 
 export const englishAlphabetLC = "abcdefghijklmnopqrstuvwxyz"; // english alphabet lower case letters
 
+export const filesBase = "wwroot"
 // cart start ----------------------------
 export const cartCookies = {
   saveLocalDays: 7,
