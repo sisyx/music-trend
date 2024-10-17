@@ -19,6 +19,21 @@ export const routes = {
 }
 // routes end ----------------------------
 
+export const genders = [
+  {
+    text: "مرد",
+    value: "man",
+  },
+  {
+    text: "زن",
+    value: "woman",
+  },
+  {
+    text: "دیگر",
+    value: "else",
+  }
+]
+
 // user levels starts ----------------------------
 export const userLevels = [
   {

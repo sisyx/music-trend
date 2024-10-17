@@ -5,8 +5,11 @@ import { PiInstagramLogoFill } from "react-icons/pi";
 import styles from "./Page.module.css"
 import AddPriceToPage from "./AddPriceToPage";
 import { customAlert, refreshPubMetadata } from "../../../functions";
-import { IconButton } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import YoutubeSearchedForIcon from '@mui/icons-material/YoutubeSearchedFor';
+import { genders } from "../../../constatnts";
+import { AiOutlineMan, AiOutlineWoman } from "react-icons/ai";
+import { VscWorkspaceUnknown } from "react-icons/vsc";
 
 function Page({page, pageTypes, pageCategories}) {
 
@@ -42,7 +45,15 @@ function Page({page, pageTypes, pageCategories}) {
                 <IconButton disabled={isRefreshing} onClick={refreshPub} sx={{position: "absolute", top: "1rem", right: "1rem", zIndex: "50"}}>
                     <YoutubeSearchedForIcon />
                 </IconButton>
-
+                <Tooltip title={genders.find(gender => gender.value === page.sex).text} placement="right">
+                    <span className="absolute top-4 left-4 text-gray-900 text-xl flex items-center justify-center p-2 bg-gray-300 bg-opacity-0 hover:bg-opacity-100 transition-all duration-100 rounded-full">
+                        {
+                            page.sex === genders.at(0).value ? <AiOutlineMan /> :
+                            page.sex === genders.at(1).value ? <AiOutlineWoman /> :
+                            <VscWorkspaceUnknown />
+                        }
+                    </span>
+                </Tooltip>
 
                 {/* top */}
                 <div className="flex flex-col flex-1 justify-between gap-6 p-3 px-5">

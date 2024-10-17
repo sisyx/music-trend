@@ -1,15 +1,22 @@
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
-import { root } from "../../../constatnts";
+import { genders, root } from "../../../constatnts";
 import { customAlert, getCookie } from "../../../functions";
 
-function AddPage({ isVisible, pageCategories, pageTypes, setReload, handleCloseAdinge = () => {return} }) {
+import * as React from 'react';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
+
+function AddPage({ isVisible, pageCategories, pageTypes, setReload, handleCloseAdinge = () => {return} }) {
     const [isAdding, setIsAdding] = useState(false);
     const [pageId, setPageId] = useState("");
     const [selectedPageType, setSelectedPageType] = useState(1);
     const [selectedPageCat, setSelectedPageCat] = useState(1);
     const [pageDesc, setPageDesc] = useState("");
+    const [sex, setSex] = useState(genders.at(0));
  
     async function handleCreatePage() {
         const token = getCookie("token")
@@ -19,10 +26,11 @@ function AddPage({ isVisible, pageCategories, pageTypes, setReload, handleCloseA
         const pageType = selectedPageType;
         const pageTypeCategory = selectedPageCat;
         const pageDescription = pageDesc;
+        const xsex = sex;
         console.log(newPageId)
         console.log(pageType)
         console.log(pageTypeCategory)
-        if (!pageTypeCategory || !pageType || !newPageId ) {
+        if (!pageTypeCategory || !pageType || !newPageId || !xsex ) {
             customAlert("لطفا ابتدا فیلد ها را به درستی پر کنید")
             return
         }
@@ -35,7 +43,8 @@ function AddPage({ isVisible, pageCategories, pageTypes, setReload, handleCloseA
                     pageId: newPageId,
                     pageTypeId: pageType,
                     pageCategoryId: pageTypeCategory,
-                    description: pageDescription
+                    description: pageDescription,
+                    sex: xsex,
                 }),
                 headers: {
                     "Content-Type": "application/json",
@@ -65,29 +74,55 @@ function AddPage({ isVisible, pageCategories, pageTypes, setReload, handleCloseA
                 <div className="text-2xl font-extrabold">ایجاد اینفولینسر</div>
                 <TextField label="page id" sx={{width: "100%"}} value={pageId} onChange={e => setPageId(event.target.value)} />
                 <TextField label="توضیحات پیج" sx={{width: "100%"}} value={pageDesc} onChange={e => setPageDesc(event.target.value)} />
-                <div className="flex items-center gap-2" dir="rtl">
-                        <span>نوع پیج</span>
-                    <select value={selectedPageType} onChange={event => setSelectedPageType(event.target.value)}>
+                <div className="flex items-center justify-between w-full gap-2" dir="rtl">
+                    <span className="flex-1">جنسیت</span>
+                    <Select
+                        sx={{flex: "1"}}
+                        labelId="gender-select-lable-id"
+                        id="gender-select"
+                        value={sex}
+                        defaultValue={genders.at(0)}
+                        label="Age"
+                        onChange={event => setSex(event.target.value)}
+                    >
                         {
-                            pageTypes.map(type => 
-                                <option value={type.id} key={type.id}>
-                                    {type.name}
-                                </option>
+                            genders.map(gender => 
+                                <MenuItem value={gender.value}>{gender.text}</MenuItem>
                             )
                         }
-                    </select>
+                    </Select>
                 </div>
-                <div className="flex items-center gap-2" dir="rtl">
-                        <span>دسته بندی پیج</span>
-                    <select value={selectedPageCat} onChange={event => setSelectedPageCat(event.target.value)}>
+                <div className="flex items-center justify-between w-full gap-2" dir="rtl">
+                    <span className="flex-1">نوع پیج</span>
+                    <Select
+                        sx={{flex: "1"}}
+                        labelId="type-select-label-id"
+                        id="type-select"
+                        value={selectedPageType}
+                        defaultValue={pageTypes.at(0)}
+                        label="نوع پیج"
+                        onChange={event => setSelectedPageType(event.target.value)}
+                    >
                         {
-                            pageCategories.map(type => 
-                                <option value={type.id} key={type.id}>
-                                    {type.categoryName}
-                                </option>
-                            )
+                            pageTypes.map(type => <MenuItem value={type.id} key={`page-type-${type.id}`}>{type.name}</MenuItem>)
                         }
-                    </select>
+                    </Select>
+                </div>
+                <div className="flex justify-between w-full items-center gap-2" dir="rtl">
+                    <span className="flex-1">دسته بندی پیج</span>
+                    <Select
+                        sx={{flex: "1"}}
+                        labelId="category-select-label-id"
+                        id="category-select"
+                        value={selectedPageCat}
+                        defaultValue={pageCategories.at(0)}
+                        onChange={event => setSelectedPageCat(event.target.value)}
+                        label="دسته بندی پیج"
+                    >
+                        {
+                            pageCategories.map(cat => <MenuItem value={cat.id} key={`page-cat-${cat.id}`}>{cat.categoryName}</MenuItem>)
+                        }
+                    </Select>
                 </div>
                 <Button 
                     onClick={handleCreatePage} 
