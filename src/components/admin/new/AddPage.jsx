@@ -81,8 +81,8 @@ function AddPage({ isVisible, pageCategories, pageTypes, setReload, handleCloseA
                         labelId="gender-select-lable-id"
                         id="gender-select"
                         value={sex}
-                        defaultValue={genders.at(0)}
-                        label="Age"
+                        defaultValue={genders[0].value}
+                        label="جنسیت"
                         onChange={event => setSex(event.target.value)}
                     >
                         {

@@ -6,7 +6,7 @@ import { AiFillInstagram, AiFillLike } from "react-icons/ai";
 import styles from './Page.module.css';
 import CircleGradient from "../../loadings/CircleGradient"
 
-function AddPriceToPage({ page, isVisible,  setReload = () => {return}, handleCloseAdinge = () => {return} }) {
+function AddPriceToPage({ page, imgUrl, isVisible,  setReload = () => {return}, handleCloseAdinge = () => {return} }) {
 
     const [isInDetails, setIsInDetail] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
@@ -100,9 +100,9 @@ function AddPriceToPage({ page, isVisible,  setReload = () => {return}, handleCl
     return ( 
         <div className={`fixed top-0 right-0 bottom-0 left-0 z-50 cursor-default transition-all duration-300 ${isVisible ? "scale-y-1" : "scale-y-0"}`} onClick={handleCloseAdinge}>
             {/* page details */}
-            <div className={`p-2 pt-10 flex flex-col items-end gap-5 w-screen max-w-96 shadow-xl shadow-gray-500 border rounded-xl fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white text-black cursor-default transition-all duration-300 ${isInDetails ? "scale-1" : "scale-0"}`} onClick={event => event.stopPropagation()}>
-                    <div>
-                        <img src="/logo.png" />
+            <div className={`p-2 pt-10 flex flex-col items-center gap-5 w-screen max-w-96 shadow-xl shadow-gray-500 border rounded-xl fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white text-black cursor-default transition-all duration-300 ${isInDetails ? "scale-1" : "scale-0"}`} onClick={event => event.stopPropagation()}>
+                    <div className="p-1 border-4 border-primary-start rounded-full aspect-square w-48">
+                        <img src={imgUrl} alt={`${page.pageId} Profile Image`} className="rounded-full w-full h-full aspect-square flex items-center justify-center text-center" loading="lazy" crossOrigin="anonymous" />
                     </div>
                     <div className="flex w-full items-center justify-center">{page.pageId}</div>
                     {/* Page Prices */}

@@ -101,7 +101,7 @@ function Page({page, pageTypes, pageCategories}) {
                 <GlassyButton onClick={handleOpenDetails} className="w-full rounded-none flex items-center justify-center">مشاهده جزییات</GlassyButton>
 
 
-                <AddPriceToPage isVisible={isInDetail} page={page} handleCloseAdinge={handleCloseDetails} />
+                <AddPriceToPage imgUrl={imageUrl} isVisible={isInDetail} page={page} handleCloseAdinge={handleCloseDetails} />
             </div>
      );
 }
