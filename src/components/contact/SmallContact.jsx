@@ -9,7 +9,7 @@ function SmallContact() {
     return ( 
         // outer container
         <div className="flex w-screen justify-center">
-            <div className={`flex justify-between items-center overflow-hidden p-4 md:px-36 flex-col gap-3 sm:flex-row w-full max-w-7xl bg-white rounded-2xl ${styles.container}`} dir="rtl">
+            <div className={`flex justify-between items-center overflow-hidden p-4 md:px-36 flex-col gap-3 sm:flex-row w-full max-w-7xl bg-white shadow-lg shadow-gray-200 rounded-2xl ${styles.container}`} dir="rtl">
                 <div className={styles.bg}>
                     <svg width="404" height="484" viewBox="0 0 404 484" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_1_6)">

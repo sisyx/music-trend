@@ -1,4 +1,4 @@
-import { Avatar, Button } from "@mui/material";
+import { Avatar } from "@mui/material";
 import GlassyButton from "../../GlassyButton";
 import { root, userLevels } from "../../../constatnts";
 import { customAlert, getCookie } from "../../../functions";

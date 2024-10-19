@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { getCookie } from "../../../functions";
-import { Button, TextField, Tooltip } from "@mui/material";
+import { Button, Tooltip } from "@mui/material";
 import CircleGradient from "../../loadings/CircleGradient";
 import { AddSharp, SkipPrevious } from "@mui/icons-material";
-import AddPage from "./AddPage";
 import { englishAlphabetLC, root } from "../../../constatnts";
 import AddType from "./addType";
 

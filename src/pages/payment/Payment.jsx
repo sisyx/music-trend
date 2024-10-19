@@ -17,7 +17,6 @@ function Payment() {
     const role = getRole();
     const priceProperty = userLevels.find(xlevel => xlevel.value === role).priceProperty
 
-    
     useEffect(() => {
         init()
     }, []);
@@ -53,13 +52,6 @@ function Payment() {
             return
         }
 
-        // console.log(campid)
-        // console.log(xpages)
-        // console.log(xprices)
-
-        // return
-
-        // /api/Campaign/AddPricePagesToCampaign
         const xdata = {
             campaignId: Number(campid),
             pricePageIds: xprices,
@@ -80,7 +72,6 @@ function Payment() {
                 }
 
                 const res = await req.text();
-                // customAlert(res);
                 success = true;
             } catch (error) {
                 customAlert(error.message);
@@ -104,7 +95,7 @@ function Payment() {
             <NeonLightBg />
             <div className="w-full h-screen bg-gray-100 flex flex-col gap-5 items-center justify-center">
                 <div className="shadow-xl shadow-gray-500 bg-white overflow-hidden flex flex-col gap-4 pt-4 rounded-xl justify-center items-center">
-                    <span>تعرفه ها</span>
+                    <span>فاکتور خرید شما</span>
                     <div className=" flex flex-col gap-2 w-screen max-w-96 rounded-t-xl p-4">
                             {
                                 influs?.map(  influ =>

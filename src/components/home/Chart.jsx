@@ -1,25 +1,7 @@
 import React from 'react'
-import { Chart as ChartJS } from "chart.js/auto"
 import styles from './Chart.module.css'
-import { Bar, Doughnut, Line, Radar } from "react-chartjs-2"
+import { Radar } from "react-chartjs-2"
 import AnimatedBackground2 from '../AnimatedBackground2'
-
-
-const data = {
-    labels: ["A", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C", "D"],
-    datasets: [{
-        label: '# of Votes',
-        data: [
-            2, 5, 7, 9, 5, 3, 7, 15, 20, 21, 20, 23, 20, 24, 22, 19, 18, 23, 25, 26
-        ],
-        borderWidth: 4,
-        borderCapStyle: "round",
-        borderColor: "#5e298e",
-        backgroundColor: "#5e298e",
-        hoverBackgroundColor: "#e31e78",
-        hoverBorderColor: "#e31e78",
-    }]
-}
 
 const data2 = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],

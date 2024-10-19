@@ -44,7 +44,6 @@ function CampaignSelect({ saveSelections }) {
             setCamps(res);
             console.log(res);
         } catch (error) {
-            customAlert(error.message)
             console.error(error);
         }
         setIsLoading(false);
@@ -116,7 +115,6 @@ function CampaignSelect({ saveSelections }) {
 
     function onChooseCampaign(campId) {
         console.log("campaign id: " + campId)
-        // return
         const prevCart = getCookie(cartCookies.campidName);
         if (prevCart) setShowAddCardDialog(campId);
         else approveDeletePrevCart(campId);
@@ -126,9 +124,6 @@ function CampaignSelect({ saveSelections }) {
         const newCapmName = campId;
 
         await saveSelections(newCapmName);
-        // closeDialog();
-        // resetInflus();
-        // closeCampSelect();
         navigate("/payment");
     }
 
@@ -138,7 +133,6 @@ function CampaignSelect({ saveSelections }) {
     
     return (
         <>
-        {/* // <div onClick={e => e.stopPropagation()} className="relative w-fit h-fit bg-white border rounded-2xl shadow-2xl shadow-gray-500 text-gray-900 px-4 transition-500"> */}
             <div onClick={e => e.stopPropagation()} className={`bg-white border rounded-2xl shadow-2xl shadow-gray-500 text-gray-900 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col gap-3 items-center transition-all px-4 py-20 duration-300 ${!showAddCardDialog ? !isAdding ? "scale-1" : "scale-0" : "scale-0"}`}>
                     <div className="text-xl " dir="rtl">لطفا یک کمپین انتخاب کنید!</div>
                     <hr className="w-full" />
@@ -179,7 +173,6 @@ function CampaignSelect({ saveSelections }) {
                     <Button onClick={closeDialog} >بازگشت</Button>
                 </div>
             </div>
-        {/* // </div> */}
         </>
      );
 }

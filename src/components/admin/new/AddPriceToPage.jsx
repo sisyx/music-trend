@@ -125,7 +125,6 @@ function AddPriceToPage({ page, imgUrl, isVisible,  setReload = () => {return}, 
                                     <div className="relative overflow-hidden group flex items-center gap-4 border rounded-xl w-fit p-2 text-white  bg-gradient-to-r  from-primary-start hover:to-primary-start hover:from-primary-end  to-primary-end transition-all duration-1000 cursor-pointer">
                                         <span className="absolute block top-0 bottom-0 left-full m-auto bg-brightbefore w-full  transition-500 group-hover:w-full group-hover:bg-transparent group-hover:-left-full"></span>
                                         <AiFillLike />
-                                        {/* <span>محصولات زیبایی</span> */}
                                     </div>
                                 </div>
                                 {/* price */}
@@ -149,7 +148,6 @@ function AddPriceToPage({ page, imgUrl, isVisible,  setReload = () => {return}, 
                             <AiFillInstagram fontSize="2rem" />
                             <span className={`text-2xl ${styles.pt_serif_regular}`}>{page.pageId}</span>
                         </div>
-                        {/* <TextField label="page id" sx={{width: "100%"}} value={pageId} onChange={e => setPageId(event.target.value)} /> */}
                         <div className="flex items-center gap-2 w-full" >
                             <Select
                                 defaultValue={taarifs.at(0).value}
@@ -163,7 +161,6 @@ function AddPriceToPage({ page, imgUrl, isVisible,  setReload = () => {return}, 
                                     )
                                 }
                             </Select>
-                                {/* <TextField sx={{width: "100%"}} type="text" label="عنوان تعرفه" value={priceTitle} onChange={evebt => setPriceTitle(evebt.target.value)} /> */}
                         </div>
                         <div className="flex items-center gap-2 w-full" >
                                 <TextField sx={{width: "100%"}} type="number" label="قیمت برای مشتری معمولی" value={selectedNormalPrice} onChange={evebt => setSelectedNormalPrice(evebt.target.value)} />

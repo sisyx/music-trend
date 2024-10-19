@@ -3,17 +3,14 @@ import { tsParticles } from "https://cdn.jsdelivr.net/npm/@tsparticles/engine@3.
 import { loadAll } from "https://cdn.jsdelivr.net/npm/@tsparticles/all@3.1.0/+esm";
 
 export default function TsParticles({ options }) {
-
     useEffect(() => {
         loadParticles(!!options ? options : configs);
     })
 
-  return (
-    <div id='tsparticles'></div>
-  )
+    return (
+      <div id='tsparticles'></div>
+    )
 }
-
-
 
 async function loadParticles(options) {
   await loadAll(tsParticles);

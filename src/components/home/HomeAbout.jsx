@@ -49,7 +49,6 @@ function HomeAbout() {
 
                 {/* RIGHT */}
                 <div className="flex-1">
-                    {/* <img src={`${imagebase}/aboutus1.jpg`} alt="" className="w-full" /> */}
                     <img src="/src/assets/images/homeabout.gif" className="w-full rounded-xl" alt="" />
                 </div>
             </div>
