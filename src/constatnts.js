@@ -19,6 +19,7 @@ export const routes = {
 }
 // routes end ----------------------------
 
+// genders Start ----------------------------
 export const genders = [
   {
     text: "مرد",
@@ -33,6 +34,32 @@ export const genders = [
     value: "else",
   }
 ]
+// genders end ----------------------------
+
+// taarifs list start ----------------------------
+export const taarifs = [
+  {
+    text: "استوری 24 ساعته",
+    value: "استوری 24 ساعته"
+  },
+  {
+    text: "ریلز 24 ساعته",
+    value: "ریلز 24 ساعته"
+  },
+  {
+    text: "پست بلند مدت",
+    value: "پست بلند مدت"
+  },
+  {
+    text: "استوری مخصوص",
+    value: "استوری مخصوص"
+  },
+  {
+    text: "پست مخصوص",
+    value: "پست مخصوص"
+  },
+]
+// taarifs list end ----------------------------
 
 // user levels starts ----------------------------
 export const userLevels = [

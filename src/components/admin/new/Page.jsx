@@ -4,12 +4,13 @@ import { MdCategory } from "react-icons/md";
 import { PiInstagramLogoFill } from "react-icons/pi";
 import styles from "./Page.module.css"
 import AddPriceToPage from "./AddPriceToPage";
-import { customAlert, refreshPubMetadata } from "../../../functions";
+import { customAlert, deletePublisher, refreshPubMetadata } from "../../../functions";
 import { IconButton, Tooltip } from "@mui/material";
 import YoutubeSearchedForIcon from '@mui/icons-material/YoutubeSearchedFor';
 import { genders } from "../../../constatnts";
 import { AiOutlineMan, AiOutlineWoman } from "react-icons/ai";
 import { VscWorkspaceUnknown } from "react-icons/vsc";
+import { RiDeleteBin7Fill } from "react-icons/ri";
 
 function Page({page, pageTypes, pageCategories}) {
 
@@ -42,10 +43,13 @@ function Page({page, pageTypes, pageCategories}) {
     return ( 
         <div className={`flex relative flex-col items-center justify-end gap-6 rounded-sm bg-gray-100 hover:bg-gray-200 cursor-pointer`}>
                 {/* refresh button */}
-                <IconButton disabled={isRefreshing} onClick={refreshPub} sx={{position: "absolute", top: "1rem", right: "1rem", zIndex: "50"}}>
+                <IconButton disabled={isRefreshing} onClick={refreshPub} sx={{position: "absolute", top: "1rem", right: "1rem", zIndex: "10", transition: "all 50ms", ":hover": {translate: "0 -5px", scale: "1.1"}}}>
                     <YoutubeSearchedForIcon />
                 </IconButton>
-                <Tooltip title={genders.find(gender => gender.value === page.sex).text} placement="right">
+                <IconButton disabled={isRefreshing} onClick={() => deletePublisher(page.pageId)} sx={{position: "absolute", top: "3rem", right: "1rem", zIndex: "10", color: "#a00", transition: "all 50ms", ":hover": {translate: "0 -5px", scale: "1.1"}}}>
+                    <RiDeleteBin7Fill />
+                </IconButton>
+                <Tooltip title={genders.find(gender => gender.value === page.sex)?.text} placement="right">
                     <span className="absolute top-4 left-4 text-gray-900 text-xl flex items-center justify-center p-2 bg-gray-300 bg-opacity-0 hover:bg-opacity-100 transition-all duration-100 rounded-full">
                         {
                             page.sex === genders.at(0).value ? <AiOutlineMan /> :

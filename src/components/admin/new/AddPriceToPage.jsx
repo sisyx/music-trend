@@ -1,6 +1,6 @@
-import { Button, TextField } from "@mui/material";
+import { Button, MenuItem, Select, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
-import { root } from "../../../constatnts";
+import { root, taarifs } from "../../../constatnts";
 import { customAlert, getCookie, getPagePrices } from "../../../functions";
 import { AiFillInstagram, AiFillLike } from "react-icons/ai";
 import styles from './Page.module.css';
@@ -10,7 +10,7 @@ function AddPriceToPage({ page, imgUrl, isVisible,  setReload = () => {return}, 
 
     const [isInDetails, setIsInDetail] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
-    const [priceTitle, setPriceTitle] = useState("");
+    const [priceTitle, setPriceTitle] = useState(taarifs.at(0).value);
     const [selectedNormalPrice, setSelectedNormalPrice] = useState("");
     const [selectedSpecialPrice, setSelectedSpecialPrice] = useState("");
     const [selectedCowokerPrice, setSelectedCowokerPrice] = useState("");
@@ -151,7 +151,19 @@ function AddPriceToPage({ page, imgUrl, isVisible,  setReload = () => {return}, 
                         </div>
                         {/* <TextField label="page id" sx={{width: "100%"}} value={pageId} onChange={e => setPageId(event.target.value)} /> */}
                         <div className="flex items-center gap-2 w-full" >
-                                <TextField sx={{width: "100%"}} type="text" label="عنوان تعرفه" value={priceTitle} onChange={evebt => setPriceTitle(evebt.target.value)} />
+                            <Select
+                                defaultValue={taarifs.at(0).value}
+                                value={priceTitle}
+                                onChange={event => setPriceTitle(event.target.value)}
+                                sx={{width: "100%"}}
+                            >
+                                {
+                                    taarifs.map(taarif => 
+                                        <MenuItem value={taarif.value} dir="rtl">{taarif.text}</MenuItem>
+                                    )
+                                }
+                            </Select>
+                                {/* <TextField sx={{width: "100%"}} type="text" label="عنوان تعرفه" value={priceTitle} onChange={evebt => setPriceTitle(evebt.target.value)} /> */}
                         </div>
                         <div className="flex items-center gap-2 w-full" >
                                 <TextField sx={{width: "100%"}} type="number" label="قیمت برای مشتری معمولی" value={selectedNormalPrice} onChange={evebt => setSelectedNormalPrice(evebt.target.value)} />

@@ -375,6 +375,39 @@ export async function getFilteredPublishers(ptype = undefined, pcat = undefined,
     // return filtered;
 }
 
+export async function deletePublisher(pageId) {
+    if (!pageId) {
+        customAlert(`pageId ${pageId} is not valid`);
+        return;
+    }
+
+    const token = getCookie("token");
+
+    if (!token) {
+        customAlert(`token ${token} is not valie`);
+        return;
+    }
+
+    try {
+        const req = await fetch(`${root}/api/Pages/DeletePage?pageId=${pageId}`, {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
+
+        if (!req.ok) {
+            throw new Error(req.statusText);
+        }
+
+        const res = await req.json();
+        return res;
+    } catch (error) {
+        console.error(error);
+        return 0
+    }
+}
+
 export async function updatePublisher(publisherId, newData, type) {
     let url;
     if (type === "instagram") {
