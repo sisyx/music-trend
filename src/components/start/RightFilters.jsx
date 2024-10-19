@@ -1,8 +1,6 @@
 // icons
-import { HiCurrencyDollar, HiMiniLanguage } from "react-icons/hi2";
-import { MdFilterListAlt, MdOutlineLocationCity } from "react-icons/md";
-import { BsGenderTrans } from "react-icons/bs";
-import { MdCategory } from "react-icons/md";
+import { HiCurrencyDollar } from "react-icons/hi2";
+import { MdFilterListAlt } from "react-icons/md";
 import RightFilter from "./RightFilter";
 import { Button, Checkbox, styled } from "@mui/material";
 import { FaFilterCircleXmark } from "react-icons/fa6";
@@ -11,6 +9,8 @@ import { getPageCategories, getPageTypes, toPersianUnits } from "../../functions
 import { useSearchParams } from "react-router-dom";
 import { TbCategoryFilled } from "react-icons/tb";
 import MinMaxSlider from "./MinMaxSlider";
+import { genders } from "../../constatnts";
+import { PiGenderIntersexBold } from "react-icons/pi";
 function RightFilters() {
 
     const [pagetypes, setPagetypes] = useState([]);
@@ -57,6 +57,7 @@ function RightFilters() {
         newParams.delete("ptype");
         newParams.delete("maxp");
         newParams.delete("minp");
+        newParams.delete("pgender")
         setParams(newParams);
     }
 
@@ -130,6 +131,27 @@ function RightFilters() {
                     </div>
                     <MinMaxSlider setMaxPrice={setMaxPrice} setMinPrice={setMinPrice} />
                 </div>
+            </RightFilter>
+            <RightFilter filter="جنسیت" icon={<PiGenderIntersexBold />}>
+                <label dir="rtl" className="text-sm cursor-pointer hover:bg-gray-100">
+                    <Checkbox checked={!params.get("pgender") || params.get("pgender") == 0} onChange={_e => updateParam("pgender", 0)} />
+                    همه
+                </label>
+                {
+                    genders.map((pgender, index) => 
+                        <label dir="rtl" className="text-sm cursor-pointer hover:bg-gray-100">
+                            <Checkbox 
+                                checked={params.get("pgender") == index + 1}
+                                onChange={e => {
+                                    if (e.target.value) {
+                                        updateParam(`pgender`, index + 1)
+                                    }
+                                }} 
+                            />
+                            {pgender.text}
+                        </label>
+                    )
+                }
             </RightFilter>
             {/* <RightFilter filter="جنسیت" icon={<BsGenderTrans />}>
                 <div dir="rtl" className="text-sm">

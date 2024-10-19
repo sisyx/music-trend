@@ -6,8 +6,7 @@ import CircleGradient from "../loadings/CircleGradient";
 import { useSearchParams } from "react-router-dom";
 import InfluencerInfo from "./InfluencerInfo";
 import { FaChevronDown } from "react-icons/fa";
-import { getFilteredPublishers, getPageCategories, getPages, getPageTypes, getPublishers } from "../../functions";
-import { Pages } from "@mui/icons-material";
+import { getFilteredPublishers } from "../../functions";
 
 function StartCards({ influencers, setInfs }) {
     const [selectedInf, seSelectedInf] = useState({});
@@ -22,7 +21,7 @@ function StartCards({ influencers, setInfs }) {
 
     useEffect(()=> {
         applyFilters();
-    }, [params.get("ptype"), params.get("pcat"), params.get("maxp"), params.get("minp")])
+    }, [params.get("ptype"), params.get("pcat"), params.get("maxp"), params.get("minp"), params.get("pgender")])
     
     async function init() {
         setInflusCount(6);
@@ -31,22 +30,19 @@ function StartCards({ influencers, setInfs }) {
 
     async function applyFilters() {
         setIsLoading(() => true);
-        const allpagetypes = await getPageTypes();
-        const allpagecats = await getPageCategories();
         const ptype = params.get("ptype");
         const pcat = params.get("pcat");
         const maxp = params.get("maxp");
         const minp = params.get("minp");
-        const valuePTYPE = !!ptype && ptype != 0 ? allpagetypes[ptype - 1].name : undefined;
-        const valuePCAT = !!pcat && pcat != 0 ? allpagecats[pcat - 1].categoryName : undefined;
+        const sex = params.get("pgender");
+        const valuePTYPE = !!ptype && ptype != 0 ? ptype : undefined;
+        const valuePCAT = !!pcat && pcat != 0 ? pcat : undefined;
         const valueMAXP = !!maxp ? maxp : undefined;
         const valueMINP = !!minp ? minp : undefined;
-        const filteredPages = await getFilteredPublishers(valuePTYPE, valuePCAT, valueMAXP, valueMINP);
+        const valueSEX = !!sex && sex != 0 ? sex : undefined
+        const filteredPages = await getFilteredPublishers(valuePTYPE, valuePCAT, valueMAXP, valueMINP, valueSEX);
         if (filteredPages.length) setInfs(filteredPages);
-        else {
-            const allpages = await getPages()
-            setInfs(allpages)
-        }
+        else setInfs([])
         setIsLoading(() => false);
     }
 

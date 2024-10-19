@@ -1,5 +1,5 @@
 import { notify } from "./App";
-import { apiroot, filesBase, root, userLevels } from "./constatnts";
+import { apiroot, filesBase, genders, root, userLevels } from "./constatnts";
 import moment from "moment-jalaali";
 
 
@@ -302,71 +302,77 @@ export async function refreshPubMetadata(pubid) {
 }
 
 
-export async function getFilteredPublishers(ptype = undefined, pcat = undefined, maxp, minp) {
-    const typeFiltered = [];
-    const catFiltered = [];
-    const priceFiltered = [];
-    if (typeof(ptype) === "string") {
-        try {
-            const req = await fetch(`${root}/api/Pages/GetPagesByFilterType?pageTypeName=${ptype}`)
-            if (!req.ok) {
-                throw new Error(req.statusText);
-            }
-            const res = await req.json();
-            for (let i = 0; i < res.length; i++) {
-                const tmpPage = res[i];
-                typeFiltered.push(tmpPage);
-            }
-        } catch {}
-    }
-
-    if (typeof(pcat) === "string") {
-        try {
-            const req = await fetch(`${root}/api/Pages/GetPageByFilterCategory?pageCategoryName=${pcat}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
-            if (!req.ok) {
-                throw new Error(req.statusText);
-            }
-            const res = await req.json();
-            for (let i = 0; i < res.length; i++) {
-                const tmpPage = res[i];
-                catFiltered.push(tmpPage);
-            }
-        } catch {}
-    }
-
-    if (typeof(maxp) === "string" && typeof(minp) === "string") {
-        const role = getRole();
-        if (!role) {
-            return []
+export async function getFilteredPublishers(ptype = undefined, pcat = undefined, maxp , minp, sex = undefined) {
+    const allPages = [];
+    console.log("filtering...")
+    
+    try {
+        const req = await fetch(`${root}/api/Pages/GetAllPage`)
+        if (!req.ok) {
+            throw new Error(req.statusText);
         }
-        // const uri = ​api​/Pages​/GetPageByFilterAllPricePage;
-        try {
-            const req = await fetch(`${root}​/api/Pages/GetPageByFilterAllPricePage?minPrice=${minp}&maxPrice=${maxp}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
-            if (!req.ok) {
-                throw new Error(req.statusText);
-            }
-            const res = await req.json();
-            for (let i = 0; i < res.length; i++) {
-                const tmpPage = res[i];
-                priceFiltered.push(tmpPage);
-            }
-        } catch {}
-    }
+        const res = await req.json();
+        for (let i = 0; i < res.length; i++) {
+            const tmpPage = res[i];
+            allPages.push(tmpPage);
+        }
+    } catch {}
 
-    const all = [...typeFiltered, ...catFiltered, ...priceFiltered];
-    all.reduce((acc, cur) => !!acc.find(xcur => xcur.id === cur.id) ? acc : [...acc, cur], []);
+    console.log(pcat)
+    const filtered = allPages.filter(page => sex ? page.sex == genders.at(Number(sex) - 1).value : true ) // filter gender
+                             .filter(page => pcat ? page.pageCategoryId == pcat : true) // filter categories
+                             .filter(page => ptype ? page.pageTypeId == ptype : true ) // filter types
+                            //  pageTypeId
+    console.log(allPages[0].pageCategoryId)
+    console.log(filtered);
+    return filtered
+    // if (typeof(pcat) === "string") {
+    //     try {
+    //         const req = await fetch(`${root}/api/Pages/GetPageByFilterCategory?pageCategoryName=${pcat}`, {
+    //             method: "GET",
+    //             headers: {
+    //                 "Content-Type": "application/json"
+    //             }
+    //         })
+    //         if (!req.ok) {
+    //             throw new Error(req.statusText);
+    //         }
+    //         const res = await req.json();
+    //         for (let i = 0; i < res.length; i++) {
+    //             const tmpPage = res[i];
+    //             catFiltered.push(tmpPage);
+    //         }
+    //     } catch {}
+    // }
 
-    return all;
+    // if (typeof(maxp) === "string" && typeof(minp) === "string") {
+    //     const role = getRole();
+    //     if (!role) {
+    //         return []
+    //     }
+    //     // const uri = ​api​/Pages​/GetPageByFilterAllPricePage;
+    //     try {
+    //         const req = await fetch(`${root}​/api/Pages/GetPageByFilterAllPricePage?minPrice=${minp}&maxPrice=${maxp}`, {
+    //             method: "GET",
+    //             headers: {
+    //                 "Content-Type": "application/json"
+    //             }
+    //         })
+    //         if (!req.ok) {
+    //             throw new Error(req.statusText);
+    //         }
+    //         const res = await req.json();
+    //         for (let i = 0; i < res.length; i++) {
+    //             const tmpPage = res[i];
+    //             priceFiltered.push(tmpPage);
+    //         }
+    //     } catch {}
+    // }
+
+    // const all = [...allPages, ...catFiltered, ...priceFiltered];
+    // all.reduce((acc, cur) => !!acc.find(xcur => xcur.id === cur.id) ? acc : [...acc, cur], []);
+
+    // return filtered;
 }
 
 export async function updatePublisher(publisherId, newData, type) {
