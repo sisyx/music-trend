@@ -16,14 +16,10 @@ function InfluencerInfo({ setInfs, setindetails, selectedInf = {}}) {
     const [prices, setPrices] = useState(["loading"]);
     const [role] = useState(getRole());
     const priceProperty = userLevels.find(ulevel => ulevel.value === role).priceProperty;
-
+    const imgUrl = selectedInf?.imgUrl ? selectedInf?.imgUrl : "/logo.png"
     useEffect(() => {
         init()
     }, []);
-
-    // useEffect(() => {
-    //     console.log(prices)
-    // }, [prices])
 
     async function init() {
         try {
@@ -45,7 +41,7 @@ function InfluencerInfo({ setInfs, setindetails, selectedInf = {}}) {
     return (
         <>
         {/* blur bg */}
-        <div className={`relative w-fit h-fit bg-white border rounded-2xl shadow-2xl shadow-gray-500 text-gray-900 p-20 transition-500`} onClick={event => event.stopPropagation()}>
+        <div className={`relative w-fit h-fit bg-white border rounded-2xl shadow-2xl shadow-gray-500 text-gray-900 p-20 transition-200`} onClick={event => event.stopPropagation()}>
                 <div className="text-right font-bold text-2xl">
                     <span>اطلاعات ناشر</span>
                 </div>
@@ -54,27 +50,28 @@ function InfluencerInfo({ setInfs, setindetails, selectedInf = {}}) {
                 <div className="text-black flex justify-end items-end p-4">
                     <div className="flex gap-5">
                         {/* details */}
-                        <div className="flex gap-5 items-end justify-evenly w-full">
-                            <div className="flex flex-col">
+                        <div className="flex gap-5 items-start justify-evenly w-full">
+                            <div className="flex flex-col items-center gap-2">
                                 <span className="font-bold">نرخ مشارکت</span>
                                 {
                                     selectedInf
-                                    ? <span>{toPercentFormat(selectedInf?.participateRate)}</span> 
+                                    ? <span>{toPercentFormat(selectedInf?.engagement)}</span> 
                                     : ""
                                 }
                             </div>
-                            <div className="flex flex-col">
+                            <div className="flex flex-col items-center gap-2">
                                 <span className="font-bold">فالورها</span>
                                 {
                                     selectedInf ? 
-                                    <span>{toKFormat(selectedInf?.followers)}</span>
+                                    <span>{toKFormat(selectedInf?.followesrs)}</span>
                                     : ""
                                 }
                             </div>
                         </div>
                         {/* image */}
-                        <div className="w-36 rounded-full overflow-hidden border-primary border-2">
-                            <img src="/logo.png" alt="influencer image" />
+                        <div className="w-36 flex flex-col  gap-4 justify-center items-center">
+                            <img src={imgUrl} alt="influencer image" className="rounded-full overflow-hidden border-primary border-2 aspect-square flex items-center justify-center text-center" />
+                            <span className="text-2xl pt_serif_regular">{selectedInf.pageId}</span>
                         </div>
                     </div>
                 </div>
@@ -132,7 +129,7 @@ function InfluencerInfo({ setInfs, setindetails, selectedInf = {}}) {
                                         }
                                     </span>
                                 </div>
-                            </div> 
+                            </div>
                         ) : <div className="w-full text-center">تعرفه ای برای این پیج تعریف نشده</div>
                     }
                 </div>

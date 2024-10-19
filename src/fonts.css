@@ -1,3 +1,6 @@
+/* pt_serif_regular */
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 /* Noto Sans Korean */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
@@ -30,3 +33,30 @@
     font-weight: 800;
     font-style: normal;
 }
+
+
+
+.pt_serif_regular {
+    font-family: "PT Serif", serif !important; 
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .pt_serif_bold_{
+    font-family: "PT Serif", serif;
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+  .pt_serif_regular_italic {
+    font-family: "PT Serif", serif;
+    font-weight: 400;
+    font-style: italic;
+  }
+  
+  .pt_serif_bold_italic {
+    font-family: "PT Serif", serif;
+    font-weight: 700;
+    font-style: italic;
+  }
+  

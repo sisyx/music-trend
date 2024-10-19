@@ -80,7 +80,7 @@ function StartCards({ influencers, setInfs }) {
                 </div> 
                 : <span className="text-black w-full py-24 flex items-center justify-center">هیچ انفلوینسری یافت نشد</span>
             }
-                <div className={`fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-transparent z-50 duration-500 transition-all ${indetails ? "scale-y-1" : 'scale-y-0'}`} onClick={e => {
+                <div className={`fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-transparent z-50 duration-100 transition-all ${indetails ? "scale-y-1" : 'scale-y-0'}`} onClick={e => {
                     e.stopPropagation();
                     setindetails(false);
                 }}>
