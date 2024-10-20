@@ -45,8 +45,7 @@ function App() {
             <Route path='/logout' element={<Logout />} />
             <Route path='/aboutus' element={<AboutUsPage />} />
             <Route path='/start' element={<Start />} />
-            <Route path='/reports/instagram' element={<InstagramReport />} />
-            {/* // <Route path='/reports/telegram' element={<TelegramReport />} /> */}
+            <Route path='/report' element={<InstagramReport />} />
             <Route path='/contact' element={<Contact />} />
             <Route path='/payment' element={<Payment />} />
           </Routes>
