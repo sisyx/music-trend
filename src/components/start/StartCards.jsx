@@ -8,10 +8,10 @@ import InfluencerInfo from "./InfluencerInfo";
 import { FaChevronDown } from "react-icons/fa";
 import { getFilteredPublishers } from "../../functions";
 
-function StartCards({ influencers, setInfs }) {
+function StartCards({ influencers, setInfs, costs, setCosts }) {
     const [selectedInf, seSelectedInf] = useState({});
     const [indetails, setindetails] = useState(false);
-    const [params] = useSearchParams();
+    const [params, setParams] = useSearchParams();
     const [influsCount, setInflusCount] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     
@@ -21,9 +21,10 @@ function StartCards({ influencers, setInfs }) {
 
     useEffect(()=> {
         applyFilters();
-    }, [params.get("ptype"), params.get("pcat"), params.get("maxp"), params.get("minp"), params.get("pgender")])
+    }, [params.get("ptype"), params.get("pcat"), params.get("maxp"), params.get("minp"), params.get("pgender"), params.get("ptid")])
     
     async function init() {
+        setParams("ptid=1")
         setInflusCount(6);
         applyFilters();
     }
@@ -35,14 +36,16 @@ function StartCards({ influencers, setInfs }) {
         const maxp = params.get("maxp");
         const minp = params.get("minp");
         const sex = params.get("pgender");
+        const taarifId = params.get("ptid");
         const valuePTYPE = !!ptype && ptype != 0 ? ptype : undefined;
         const valuePCAT = !!pcat && pcat != 0 ? pcat : undefined;
         const valueMAXP = !!maxp ? maxp : undefined;
         const valueMINP = !!minp ? minp : undefined;
         const valueSEX = !!sex && sex != 0 ? sex : undefined
-        const filteredPages = await getFilteredPublishers(valuePTYPE, valuePCAT, valueMAXP, valueMINP, valueSEX);
+        const valuePTID = !!taarifId && taarifId != 0 ? taarifId : undefined;
+        const filteredPages = await getFilteredPublishers(valuePTYPE, valuePCAT, valueMAXP, valueMINP, valueSEX, valuePTID);
         if (filteredPages.length) setInfs(filteredPages);
-        else setInfs([])
+        else setInfs([]);
         setIsLoading(() => false);
     }
 
@@ -55,6 +58,11 @@ function StartCards({ influencers, setInfs }) {
         setInflusCount(cur => cur + 6)
     }
 
+    function addPriceToCosts(price) {
+        // price: {pageId, id, normalPrice, hamkarprice, specialprice}
+        setCosts(cur => [...cur, price])
+    }
+
     return ( 
         <div>
             {
@@ -62,15 +70,14 @@ function StartCards({ influencers, setInfs }) {
                 ? <div className="w-full h-full min-h-96 flex items-center justify-center pt-9">
                     <CircleGradient />
                 </div> 
-                : influencers?.length 
+                : influencers?.length
                 ? <div className={`transition-500`}>
-                    <div className={`grid grid-cols-3 gap-3 p-3 w-full transition-500`}>
-                        { influencers.slice(0, influsCount).map((influencer, index) => <StartCard index={index} selectInf={selectInf} setindetails={setindetails} influencer={influencer} />)}
+                    <div className={`grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-3 p-3 w-full transition-500`}>
+                        { influencers.slice(0, influsCount).map((influencer, index) => <StartCard costs={costs} addPriceToCosts={addPriceToCosts} isSelected={costs.find(cost => cost.pageNId == influencer.id)} index={index} selectInf={selectInf} setindetails={setindetails} influencer={influencer} />)}
                     </div>
                     {
                         (influsCount < influencers.length && !isLoading) &&
                         <div className="flex items-center gap-2 justify-center w-full py-2 cursor-pointer text-black " onClick={handleShotMoreClick}>
-                            {/* <Pagination count={10} color="secondary" /> */}
                             <span>
                                 مشاهده بیشتر
                             </span>

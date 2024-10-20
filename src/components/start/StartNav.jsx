@@ -16,13 +16,13 @@ function StartNav({ search, setSearch }) {
     return ( 
         // outer container
         <div>
-            <nav className="w-full border-b flex items-center justify-between border-b-black p-4">
+            <nav className="w-full border-b flex items-center justify-between gap-2 border-b-black p-4">
                 {/* left */}
-                <div className="flex-1 text-2xl flex items-center gap-2">
-                    <div className="rounded-full bg-gray-200 p-2">
-                        <FaUserAlt  />
+                <div className="md:flex-1 text-2xl flex items-center gap-2">
+                    <div className="rounded-full bg-gray-200 p-2 text-sm md:text-base">
+                        <FaUserAlt />
                     </div>
-                    <span className=" text-base">
+                    <span className="text-base">
                         {username}
                     </span>
                 </div>
@@ -37,10 +37,10 @@ function StartNav({ search, setSearch }) {
                 </div>
                 
                 {/* right */}
-                <div className="flex-1 flex items-center justify-end"> 
+                <div className="md:flex-1 flex items-center justify-end"> 
                     <div className="flex items-center gap-2 text-transparent bg-gradient-to-r from-primary to-telegram bg-clip-text font-bold text-2xl">
-                        <span>مخاطب گستر</span>
-                        <img src="/logo.png" className=" w-16" />
+                        <span className="hidden md:inline">مخاطب گستر</span>
+                        <img src="/logo.png" className="md:w-16 w-10" />
                     </div>
                 </div>
             </nav>

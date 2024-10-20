@@ -1,7 +1,3 @@
-import { HiMiniLanguage } from "react-icons/hi2";
-import { MdOutlineLocationCity } from "react-icons/md";
-import { BsGenderTrans } from "react-icons/bs";
-import { MdCategory } from "react-icons/md";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { toKFormat, toPercentFormat } from "../../funcs";
 import { IoCaretBack } from "react-icons/io5";
@@ -12,7 +8,6 @@ import CircleGradient from "../loadings/CircleGradient";
 
 
 function InfluencerInfo({ setInfs, setindetails, selectedInf = {}}) {
-
     const [prices, setPrices] = useState(["loading"]);
     const [role] = useState(getRole());
     const priceProperty = userLevels.find(ulevel => ulevel.value === role).priceProperty;

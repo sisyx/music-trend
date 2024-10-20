@@ -12,6 +12,7 @@ import NeonLightBg from "../../components/NeonLightBg";
 function Payment() {
     const [prices, setPrices] = useState([]);
     const [influs, setInflus] = useState([]);
+    const [metadata, setMetadata] = useState({pages: [], prices: []});
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate()
     const role = getRole();
@@ -21,33 +22,50 @@ function Payment() {
         init()
     }, []);
 
+    useEffect(() => {
+        console.log(metadata)
+    }, [metadata])
+
     async function init() {
         setLoading(() => true)
         try {
             const allPrices = await getAllPrices();
             const allPages = await getPages();
-            const priceIdsList = getCookie(cartCookies.selectedPrices)
-            .split(",") // make a list of id's
-            .reduce((acc, cur) => acc = [...acc, allPrices.find(x => x.id == cur)] , []); // get real price object
-            
-            const influIdsList = getCookie(cartCookies.selectedInflus)
-            .split(",")
-            .reduce((acc, cur) => [...acc, allPages.find(page => page.id == cur)] , [])
-            setPrices(priceIdsList);
-            setInflus(influIdsList);
+            setMetadata({pages: allPages, prices: allPrices});
+            const priceIdsList = parseCookie(getCookie(cartCookies.selectedPrices));
+            // priceIdsList.forEach(price => {
+            //     price.pageNId = price.pageId;
+            //     price.pageId = allPages.find(page => page.id === price.priceNId)
+            // })
+
+            for (let i = 0; i < priceIdsList.length; i++) {
+                priceIdsList[i].pageNId = priceIdsList[i].xpageId;
+                priceIdsList[i].pageId = allPages.find(page => page.id == priceIdsList[i].xpageId).pageId;
+                priceIdsList[i].priceDetail = allPrices.find(price => price.id == priceIdsList[i].priceId);
+            }
+
+            console.log(priceIdsList)
+            setPrices(priceIdsList)
         } catch(error) {
             console.log(error.message)
         }
         setLoading(() => false)
     }
+
+    function parseCookie(input) {
+        return input.split(',').map(item => {
+            const [xpageId, priceId] = item.split('::');
+            return { xpageId, priceId };
+        });
+    }
+    
     
     async function pay() {
-        const xpages = getCookie(cartCookies.selectedInflus);
         const xprices = getCookie(cartCookies.selectedPrices);
         const campid = getCookie(cartCookies.campidName);
-        const listPages = xpages
+        const xpricesList = parseCookie(xprices).reduce((acc, cur) => !acc.includes(cur.xpageId) ? [...acc, cur.xpageId] : acc, []);
 
-        if (!campid || !xprices || !xpages) {
+        if (!campid || !xprices) {
             customAlert("error loading cookies");
             return
         }
@@ -55,15 +73,14 @@ function Payment() {
         const xdata = {
             campaignId: Number(campid),
             pricePageIds: xprices,
-            pageID: xpages,
         }
 
         let success = false;
 
-        for (let i = 0; i < listPages.length; i++) {
+        for (let i = 0; i < xpricesList.length; i++) {
             try {
-                if (listPages[i] == ",") { continue }
-                const req = await fetch(`${root}/api/Campaign/AddPageToCampaign?campaignId=${xdata.campaignId}&pageId=${listPages[i]}`, {
+                if (xpricesList[i] == ",") { continue }
+                const req = await fetch(`${root}/api/Campaign/AddPageToCampaign?campaignId=${xdata.campaignId}&pageId=${xpricesList[i]}`, {
                     method: "POST",
                 })
 
@@ -86,7 +103,7 @@ function Payment() {
         }
         else customAlert("پرداخت ناموفق بود");
 
-        navigate(`/reports/instagram?id=${xdata.campaignId}`);
+        navigate(`/report/?id=${xdata.campaignId}`);
     }
 
 
@@ -96,18 +113,18 @@ function Payment() {
             <div className="w-full h-screen bg-gray-100 flex flex-col gap-5 items-center justify-center">
                 <div className="shadow-xl shadow-gray-500 bg-white overflow-hidden flex flex-col gap-4 pt-4 rounded-xl justify-center items-center">
                     <span>فاکتور خرید شما</span>
-                    <div className=" flex flex-col gap-2 w-screen max-w-96 rounded-t-xl p-4">
+                    <div className="flex flex-col gap-2 w-screen max-w-96 rounded-t-xl p-4">
                             {
-                                influs?.map(  influ =>
+                                prices?.map(price =>
                                     <div className="flex flex-col gap-2 rounded-xl p-4">
-                                        <div className="">{influ.pageId}</div>
+                                        <div className="">{price.pageId}</div>
                                         {
-                                            prices.filter(price => price.pageId === influ.id).map(price =>
-                                                <div className="flex justify-between bg-gradient-to-r from-primary-start to-telegram text-white rounded-xl p-2 pl-4 hover:bg-gray-400 cursor-pointer" dir={englishAlphabetLC.includes(price?.name[0]) ? "ltr" : "rtl"}>
-                                                <span>{price.name}</span>
+                                            prices.filter(xprice => xprice.pageId === price.pageId).map(xprice =>
+                                                <div className="flex justify-between bg-gradient-to-r from-primary-start to-telegram text-white rounded-xl p-2 pl-4 hover:bg-gray-400 cursor-pointer" dir={englishAlphabetLC.includes(xprice?.priceDetail.name[0]) ? "ltr" : "rtl"}>
+                                                <span>{xprice.priceDetail.name}</span>
                                                 <span className="flex gap-2 items-center vazir">
                                                     <span>
-                                                        {price[priceProperty] ? price[priceProperty] : ""}
+                                                        {xprice.priceDetail[priceProperty] ? xprice.priceDetail[priceProperty] : ""}
                                                     </span>
                                                     <span>
                                                         تومان

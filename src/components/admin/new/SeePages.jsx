@@ -26,6 +26,10 @@ function SeePages({setState}) {
     function handleOpenAding() {
         setIsCreating(true);
     }
+
+    function reloadPages() {
+        setReload(cur => cur+1);
+    }
     
     function handleCloseAdinge(event) {
         event.stopPropagation()
@@ -112,9 +116,9 @@ function SeePages({setState}) {
                     </div>
                 </div>
                 {/* pages list */} 
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 overflow-y-scroll">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 overflow-y-scroll">
                     { pages?.map(page => 
-                            <Page page={page} pageTypes={pageTypes} pageCategories={pageCategories} />
+                            <Page reloadPages={reloadPages} page={page} pageTypes={pageTypes} pageCategories={pageCategories} />
                     )}
                     {
 

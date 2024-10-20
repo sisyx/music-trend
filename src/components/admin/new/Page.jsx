@@ -12,7 +12,7 @@ import { AiOutlineMan, AiOutlineWoman } from "react-icons/ai";
 import { VscWorkspaceUnknown } from "react-icons/vsc";
 import { RiDeleteBin7Fill } from "react-icons/ri";
 
-function Page({page, pageTypes, pageCategories}) {
+function Page({page, pageTypes, pageCategories, reloadPages = () => {return}}) {
 
     const [pageid, setPageId] = useState(page.pageId);
     const [xpage, setXpage] = useState({followers: 0, following: 0})
@@ -37,34 +37,49 @@ function Page({page, pageTypes, pageCategories}) {
         setIsRefreshing(() => true);
         const refresh = await refreshPubMetadata(pageid);
         customAlert(refresh?.message || "اپدیت پیج ناموفق بود")
+        reloadPages();
         setIsRefreshing(() => false);
     }
 
-    return ( 
-        <div className={`flex relative flex-col items-center justify-end gap-6 rounded-sm bg-gray-100 hover:bg-gray-200 cursor-pointer`}>
-                {/* refresh button */}
-                <IconButton disabled={isRefreshing} onClick={refreshPub} sx={{position: "absolute", top: "1rem", right: "1rem", zIndex: "10", transition: "all 50ms", ":hover": {translate: "0 -5px", scale: "1.1"}}}>
-                    <YoutubeSearchedForIcon />
-                </IconButton>
-                <IconButton disabled={isRefreshing} onClick={() => deletePublisher(page.pageId)} sx={{position: "absolute", top: "3rem", right: "1rem", zIndex: "10", color: "#a00", transition: "all 50ms", ":hover": {translate: "0 -5px", scale: "1.1"}}}>
-                    <RiDeleteBin7Fill />
-                </IconButton>
-                <Tooltip title={genders.find(gender => gender.value === page.sex)?.text} placement="right">
-                    <span className="absolute top-4 left-4 text-gray-900 text-xl flex items-center justify-center p-2 bg-gray-300 bg-opacity-0 hover:bg-opacity-100 transition-all duration-100 rounded-full">
-                        {
-                            page.sex === genders.at(0).value ? <AiOutlineMan /> :
-                            page.sex === genders.at(1).value ? <AiOutlineWoman /> :
-                            <VscWorkspaceUnknown />
-                        }
-                    </span>
-                </Tooltip>
+    async function deleteThisPage() {
+        const isDeleted = await deletePublisher(page.pageId);
+        if (isDeleted) {
+            reloadPages();
+        }
+    }
 
+    return ( 
+        <div className={`flex relative flex-col items-center justify-end rounded-sm bg-gray-100 hover:bg-gray-200 cursor-pointer`}>
                 {/* top */}
-                <div className="flex flex-col flex-1 justify-between gap-6 p-3 px-5">
-                    <div className="flex flex-col items-center gap-2">
-                        <div className="p-1 border-4 border-primary-start rounded-full aspect-square w-48">
+                <div className="w-full flex flex-1  justify-between p-3 px-5">
+                    <Tooltip title={genders.find(gender => gender.value === page.sex)?.text} placement="right">
+                        <span className="text-gray-900 h-fit text-xl flex items-center justify-center p-2 bg-gray-300 bg-opacity-0 hover:bg-opacity-100 transition-all duration-100 rounded-full">
+                            {
+                                page.sex === genders.at(0).value ? <AiOutlineMan /> :
+                                page.sex === genders.at(1).value ? <AiOutlineWoman /> :
+                                <VscWorkspaceUnknown />
+                            }
+                        </span>
+                    </Tooltip>
+                    <div className="w-full flex flex-col items-center gap-2">
+                        <div className="p-1 border-4 border-primary-start rounded-full aspect-square w-full">
                             <img src={imageUrl} alt={`${pageid} Profile Image`} className="rounded-full w-full h-full aspect-square flex items-center justify-center text-center" loading="lazy" crossOrigin="anonymous" />
                         </div>
+                    </div>
+                    <div className="flex flex-col gap-2">
+                        {/* refresh button */}
+                        <IconButton disabled={isRefreshing} onClick={refreshPub} sx={{ transition: "all 50ms", ":hover": {translate: "0 -5px", scale: "1.1"}}}>
+                            <YoutubeSearchedForIcon />
+                        </IconButton>
+                        {/* delete button */}
+                        <IconButton disabled={isRefreshing} onClick={deleteThisPage} sx={{ color: "#a00", transition: "all 50ms", ":hover": {translate: "0 -5px", scale: "1.1"}}}>
+                            <RiDeleteBin7Fill />
+                        </IconButton>
+                    </div>
+                </div>
+                {/* bottom */}
+                <div className="flex-1 w-full p-3 px-5">
+                    <div className="flex flex-col gap-2 items-center">
                         <span className={`text-2xl font-extrabold ${styles.pt_serif_regular}`}>
                             {pageid}
                         </span>
@@ -72,9 +87,6 @@ function Page({page, pageTypes, pageCategories}) {
                             {page.showName}
                         </span>
                     </div>
-                </div>
-                {/* bottom */}
-                <div className="flex-1 w-full p-3 px-5">
                     <div className="flex justify-between w-full">
                         <div className="flex flex-col items-start">
                             <div className="flex items-center gap-2">

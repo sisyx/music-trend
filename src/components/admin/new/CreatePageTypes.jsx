@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
-import { getCookie } from "../../../functions";
-import { Button, Tooltip } from "@mui/material";
+import { deletePageType, getCookie } from "../../../functions";
+import { Button, IconButton, TextField, Tooltip } from "@mui/material";
 import CircleGradient from "../../loadings/CircleGradient";
 import { AddSharp, SkipPrevious } from "@mui/icons-material";
 import { englishAlphabetLC, root } from "../../../constatnts";
 import AddType from "./addType";
+import { RiDeleteBinLine } from "react-icons/ri";
+import { CiEdit } from "react-icons/ci";
+import Type from "./Type";
 
 function CreatePageTypes({ setState }) {
     const [isLoading, setIsLoading] = useState(false);
@@ -12,9 +15,10 @@ function CreatePageTypes({ setState }) {
     const [addingWhat, setAddingWhat] = useState("type");
     const [pageTypes, setPageTypes] = useState([]);
     const [pageCategories, setPageCategories] = useState([]);
+
     
     useEffect(() => {
-        init()
+        init();
     }, [])
 
     function handleOpenAding(xaddingWhat) {
@@ -45,6 +49,7 @@ function CreatePageTypes({ setState }) {
             const res = await req.json();
             setPageTypes(res);
         } catch (error) {
+            setPageTypes([])
             console.error(error);
         }
 
@@ -67,6 +72,14 @@ function CreatePageTypes({ setState }) {
 
         setIsLoading(() => false)
     }
+
+    async function deleteThisType(name) {
+        const isDeleted = await deletePageType(name);
+        if (isDeleted) {
+            init();
+        };
+    }
+
     return ( 
         // container
         <div className="w-full px-0 md:px-8 p-8">
@@ -112,7 +125,7 @@ function CreatePageTypes({ setState }) {
                             </div>
                             <div className="flex flex-col gap-2 max-h-96">
                                 {
-                                    pageTypes.map(type => <div className="bg-gray-100 hover:bg-gray-200 cursor-pointer rounded-full p-3" dir={englishAlphabetLC.includes(type.name[0]) ? "ltr" : "rtl" }>{type.name}</div>)
+                                    pageTypes.map(type => <Type reload={init} name={type.name} deleteThisType={deleteThisType} />)
                                 }
                             </div>
                         </div>
@@ -136,7 +149,7 @@ function CreatePageTypes({ setState }) {
             {/* create page form */}
             {
                 isCreating ?
-                <AddType addingWhat={addingWhat} handleCloseAdinge={handleCloseAdinge} pageCategories={pageCategories} pageTypes={pageTypes} /> : ""
+                <AddType reloadAll={init} addingWhat={addingWhat} handleCloseAdinge={handleCloseAdinge} pageCategories={pageCategories} pageTypes={pageTypes} /> : ""
             }
         </div>
      );

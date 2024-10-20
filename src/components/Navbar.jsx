@@ -132,7 +132,7 @@ function Navbar() {
                         </div>
                     }
                     <div className="md:hidden">
-                        <AccountMenu username={username} />
+                        <AccountMenu role={role} username={username} />
                     </div>
                 </div>
             </nav>

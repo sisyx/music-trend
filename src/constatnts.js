@@ -1,5 +1,5 @@
-export const root = "https://mokhatabgostar.ir";
-export const apiroot = "https://mokhatabgostar.ir";
+export const root = "https://webproteam.info";
+export const apiroot = "https://webproteam.info";
 
 export const englishAlphabetLC = "abcdefghijklmnopqrstuvwxyz"; // english alphabet lower case letters
 

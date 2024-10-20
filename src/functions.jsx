@@ -1,5 +1,5 @@
 import { notify } from "./App";
-import { apiroot, filesBase, genders, root, userLevels } from "./constatnts";
+import { apiroot, filesBase, genders, root, taarifs, userLevels } from "./constatnts";
 import moment from "moment-jalaali";
 
 
@@ -83,7 +83,7 @@ export async function getAllPrices () {
 export async function getPages() {
     const token = getCookie("token");
     try {
-        const req = await fetch(`${root}/api/Pages/GetAllPage`, {
+        const req = await fetch(`${root}/api/Pages/GetAllPageAndAllPricePage`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -95,7 +95,7 @@ export async function getPages() {
         }   
         const res = await req.json()
         console.log(res)
-        return res
+        return res.pages
     } catch (error) {
         console.error(error)
         return []
@@ -302,77 +302,30 @@ export async function refreshPubMetadata(pubid) {
 }
 
 
-export async function getFilteredPublishers(ptype = undefined, pcat = undefined, maxp , minp, sex = undefined) {
+export async function getFilteredPublishers(ptype = undefined, pcat = undefined, maxp , minp, sex = undefined, sTaarifId = undefined) {
     const allPages = [];
     console.log("filtering...")
-    
+    const taarif = !!sTaarifId ? taarifs[sTaarifId - 1].text : undefined;
     try {
-        const req = await fetch(`${root}/api/Pages/GetAllPage`)
+        const req = await fetch(`${root}/api/Pages/GetAllPageAndAllPricePage`)
         if (!req.ok) {
             throw new Error(req.statusText);
         }
         const res = await req.json();
-        for (let i = 0; i < res.length; i++) {
-            const tmpPage = res[i];
+        for (let i = 0; i < res.pages.length; i++) {
+            const tmpPage = res.pages[i];
             allPages.push(tmpPage);
         }
     } catch {}
 
-    console.log(pcat)
+    console.log(allPages)
+    console.log(taarif)
+    console.log(sTaarifId)
     const filtered = allPages.filter(page => sex ? page.sex == genders.at(Number(sex) - 1).value : true ) // filter gender
                              .filter(page => pcat ? page.pageCategoryId == pcat : true) // filter categories
                              .filter(page => ptype ? page.pageTypeId == ptype : true ) // filter types
-                            //  pageTypeId
-    console.log(allPages[0].pageCategoryId)
-    console.log(filtered);
+                             .filter(page => !!taarif ? !!page.pricePages.find(pPrice => pPrice.name === taarif) : true) // filter pricePages
     return filtered
-    // if (typeof(pcat) === "string") {
-    //     try {
-    //         const req = await fetch(`${root}/api/Pages/GetPageByFilterCategory?pageCategoryName=${pcat}`, {
-    //             method: "GET",
-    //             headers: {
-    //                 "Content-Type": "application/json"
-    //             }
-    //         })
-    //         if (!req.ok) {
-    //             throw new Error(req.statusText);
-    //         }
-    //         const res = await req.json();
-    //         for (let i = 0; i < res.length; i++) {
-    //             const tmpPage = res[i];
-    //             catFiltered.push(tmpPage);
-    //         }
-    //     } catch {}
-    // }
-
-    // if (typeof(maxp) === "string" && typeof(minp) === "string") {
-    //     const role = getRole();
-    //     if (!role) {
-    //         return []
-    //     }
-    //     // const uri = ​api​/Pages​/GetPageByFilterAllPricePage;
-    //     try {
-    //         const req = await fetch(`${root}​/api/Pages/GetPageByFilterAllPricePage?minPrice=${minp}&maxPrice=${maxp}`, {
-    //             method: "GET",
-    //             headers: {
-    //                 "Content-Type": "application/json"
-    //             }
-    //         })
-    //         if (!req.ok) {
-    //             throw new Error(req.statusText);
-    //         }
-    //         const res = await req.json();
-    //         for (let i = 0; i < res.length; i++) {
-    //             const tmpPage = res[i];
-    //             priceFiltered.push(tmpPage);
-    //         }
-    //     } catch {}
-    // }
-
-    // const all = [...allPages, ...catFiltered, ...priceFiltered];
-    // all.reduce((acc, cur) => !!acc.find(xcur => xcur.id === cur.id) ? acc : [...acc, cur], []);
-
-    // return filtered;
 }
 
 export async function deletePublisher(pageId) {
@@ -390,17 +343,15 @@ export async function deletePublisher(pageId) {
 
     try {
         const req = await fetch(`${root}/api/Pages/DeletePage?pageId=${pageId}`, {
-            method: "DELETE",
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
+            method: "POST"
         });
 
         if (!req.ok) {
             throw new Error(req.statusText);
         }
 
-        const res = await req.json();
+        const res = await req.text();
+        customAlert(res);
         return res;
     } catch (error) {
         console.error(error);
@@ -473,6 +424,37 @@ export async function getPageCategories() {
         console.error(error);
 
         return []
+    }
+}
+
+export async function deletePageType(name) {
+    if (!name) {
+        console.error(`name ${name} is not valid`);
+        return
+    }
+    const token = getCookie("token");
+    if (!token) {
+        console.error(`token ${token} is not valid`)
+        return
+    }
+
+    try {
+        const req = await fetch(`${root}/api/PageType/DeletePageType?name=${name}`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        if (!req.ok) {
+            throw new Error(req.statusText);
+        }
+
+        const res = await req.json();
+        return res
+    } catch(error) {
+        console.error(error);
+        return 0
     }
 }
 

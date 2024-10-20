@@ -3,7 +3,7 @@ import { useState } from "react";
 import { root } from "../../../constatnts";
 import { customAlert, getCookie } from "../../../functions";
 
-function AddType({ addingWhat = "type", handleCloseAdinge = () => {return} }) {
+function AddType({ reloadAll = () => {return}, addingWhat = "type", handleCloseAdinge = () => {return} }) {
 
     const [isAdding, setIsAdding] = useState(false);
     const [pageId, setPageId] = useState("");
@@ -53,6 +53,7 @@ function AddType({ addingWhat = "type", handleCloseAdinge = () => {return} }) {
             console.error(error)
         }
 
+        reloadAll()
         setIsAdding(false)
     }
 

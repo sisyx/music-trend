@@ -67,7 +67,9 @@ function AddPriceToPage({ page, imgUrl, isVisible,  setReload = () => {return}, 
 
             const res = await req.json();
             
-            const req2 = await fetch(`${root}/api/PricePage/CreatePricePage?pageId=${page.id}&pricePageId=${res.price.id}`);
+            const req2 = await fetch(`${root}/api/Pages/AddPriceToPage?pageId=${page.id}&pricePageId=${res.price.id}`, {
+                method: "POST",
+            });
             if (!req2.ok) throw new Error(req2.statusText);
             const res2 = await req2.json();
 

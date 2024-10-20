@@ -91,7 +91,6 @@ function CampaignSelect({ saveSelections }) {
 
             const res = await req.text();
             customAlert(res);
-            console.log(res);
             realoadCamps();
         } catch (error) {
             customAlert(error.message)
@@ -133,14 +132,14 @@ function CampaignSelect({ saveSelections }) {
     
     return (
         <>
-            <div onClick={e => e.stopPropagation()} className={`bg-white border rounded-2xl shadow-2xl shadow-gray-500 text-gray-900 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col gap-3 items-center transition-all px-4 py-20 duration-300 ${!showAddCardDialog ? !isAdding ? "scale-1" : "scale-0" : "scale-0"}`}>
+            <div onClick={e => e.stopPropagation()} className={`bg-white border rounded-2xl shadow-2xl shadow-gray-500 text-gray-900 w-full sm:w-96 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col gap-3 items-center transition-all px-4 py-20 duration-300 ${!showAddCardDialog ? !isAdding ? "scale-1" : "scale-0" : "scale-0"}`}>
                     <div className="text-xl " dir="rtl">لطفا یک کمپین انتخاب کنید!</div>
                     <hr className="w-full" />
                     <span>لیست کمپین ها</span>
                     {
                         camps.length ? 
                         camps.map(camp => 
-                        <div className="bg-gray-100 hover:bg-gray-200 cursor-pointer rounded-xl flex w-full justify-between items-center p-4 md:w-96" key={`camp-as;kdnas-${camp.id}`}>
+                        <div className="bg-gray-100 hover:bg-gray-200 cursor-pointer rounded-xl flex w-full justify-between items-center p-4 sm:w-96" key={`camp-as;kdnas-${camp.id}`}>
                             <Button variant="contained" onClick={() => onChooseCampaign(camp.id)}>انتخاب</Button>
                             <span>
                                 {camp.name}
@@ -150,9 +149,9 @@ function CampaignSelect({ saveSelections }) {
                     {
                         isLoading ? <CircleGradient /> : ""
                     }
-                    <Button className="md:w-96" startIcon={<Add />} onClick={openAdding}>اضافه کردن کمپین جدید</Button>
+                    <Button className="sm:w-96" startIcon={<Add />} onClick={openAdding}>اضافه کردن کمپین جدید</Button>
             </div>
-            <div onClick={e => e.stopPropagation()} className={`bg-white border rounded-2xl shadow-2xl shadow-gray-500 text-gray-900 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col gap-8 w-full md:w-96 pt-20 pb-10 p-4 transition-all duration-200 ${!showAddCardDialog ? isAdding ? "scale-y-1"  : "scale-y-0": "scale-y-0" }`}>
+            <div onClick={e => e.stopPropagation()} className={`bg-white border rounded-2xl shadow-2xl shadow-gray-500 text-gray-900 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col gap-8 w-full sm:w-96 pt-20 pb-10 p-4 transition-all duration-200 ${!showAddCardDialog ? isAdding ? "scale-y-1"  : "scale-y-0": "scale-y-0" }`}>
                 <span className="text-2xl text-black inline-block w-full" dir="rtl">
                     اضافه کردن کمپین جدید
                 </span>
@@ -162,7 +161,7 @@ function CampaignSelect({ saveSelections }) {
                     <Button onClick={closeAdding} >بازگشت</Button>
                 </div>
             </div>
-            <div onClick={e => e.stopPropagation()} className={`bg-white border rounded-2xl shadow-2xl shadow-gray-500 text-gray-900 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col gap-8 w-full md:w-96 pt-20 pb-10 p-4 transition-all duration-200 ${showAddCardDialog ? "scale-1"  : "scale-0"}`}>
+            <div onClick={e => e.stopPropagation()} className={`bg-white border rounded-2xl shadow-2xl shadow-gray-500 text-gray-900 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col gap-8 w-full sm:w-96 pt-20 pb-10 p-4 transition-all duration-200 ${showAddCardDialog ? "scale-1"  : "scale-0"}`}>
                 <span className="text-2xl text-black inline-block w-full" dir="rtl">
                     در صورت ادامه سبد خرید قبلی شما حذف خواهد شد.
                     <br/>

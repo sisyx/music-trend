@@ -1,5 +1,5 @@
 .card {
-    animation: apearstartcard 1s 1 ease-in-out both;
+    animation: apearstartcard 500ms 1 ease-in-out both;
     overflow: hidden;
 }
 @keyframes apearstartcard {

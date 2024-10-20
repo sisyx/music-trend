@@ -12,7 +12,6 @@ import MinMaxSlider from "./MinMaxSlider";
 import { genders } from "../../constatnts";
 import { PiGenderIntersexBold } from "react-icons/pi";
 function RightFilters() {
-
     const [pagetypes, setPagetypes] = useState([]);
     const [pageCats, setPageCats] = useState([]);
     const [params, setParams] = useSearchParams();

@@ -35,7 +35,7 @@ function AddPage({ isVisible, pageCategories, pageTypes, setReload, handleCloseA
         
         setIsAdding(() => true)
         try {
-            const req = await fetch(`${root}/api/Pages/CreatePage`, {
+            const req = await fetch(`${root}/api/Pages/CreatePage2`, {
                 method: "POST",
                 body: JSON.stringify({
                     pageId: newPageId,
@@ -43,6 +43,8 @@ function AddPage({ isVisible, pageCategories, pageTypes, setReload, handleCloseA
                     pageCategoryId: pageTypeCategory,
                     description: pageDescription,
                     sex: xsex,
+                    telegramID: "string",
+                    whatsappNumber: "string",
                 }),
                 headers: {
                     "Content-Type": "application/json",

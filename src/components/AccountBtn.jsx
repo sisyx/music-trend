@@ -15,7 +15,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
 import { TbHomeExclamation } from 'react-icons/tb';
 
-export default function AccountMenu({username}) {
+export default function AccountMenu({ username, role }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -87,11 +87,21 @@ export default function AccountMenu({username}) {
           : ""
         }
         {
-          username 
+          username && role !== "admin"
           ? <MenuItem onClick={handleClose} >
               <Avatar />
               کمپین ها  
             </MenuItem>
+          : ""
+        }
+        {
+          role === "admin" 
+          ? <Link to="/admin">
+            <MenuItem >
+              <Avatar />
+              ادمین
+            </MenuItem> 
+          </Link>
           : ""
         }
         <Divider />
