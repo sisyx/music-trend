@@ -8,13 +8,13 @@ function Left({ setShowCampaignSelect, costs }) {
             <div className="flex justify-between gap-5 w-full">
             <div className="flex-1 text-center text-gray-900 rounded-md border w-fit p-2 cursor-default transition-all duration-500 relative group overflow-hidden">
                     <span className="absolute block h-full top-0 bottom-0 right-0 w-2 bg-telegram duration-300 transition-all group-hover:w-full group-hover:bg-transparent"></span>
-                    <span>
+                    <span className="text-sm md:text-base">
                         2542
                     </span>
                 </div>
                 <div className="flex-1 text-center text-gray-900 rounded-md border w-fit p-2 cursor-default transition-all duration-500 relative group overflow-hidden">
                     <span className="absolute block h-full top-0 bottom-0 right-0 w-2 bg-telegram duration-300 transition-all group-hover:w-full group-hover:bg-transparent"></span>
-                    <span>
+                    <span className="text-sm md:text-base">
                         تعداد ناشران
                     </span>
                 </div>

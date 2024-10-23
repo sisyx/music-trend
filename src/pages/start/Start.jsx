@@ -96,7 +96,7 @@ function Start() {
                     </div>
                 </div>
                 {/* main */}
-                <div className="w-screen flex flex-col items-center justify-center mt-12">
+                <div className="w-screen flex flex-col items-center justify-center mt-4 md:mt-12">
                 <Timeline className="flex flex-nowrap md:hidden items-center w-screen px-4" itemWidth={40} data={timelinedata} />
                     {/* inner */}
                     <div className="flex flex-col md:flex-row w-screen justify-center min-h-80">
@@ -108,7 +108,7 @@ function Start() {
                                 <span className="text-black text-nowrap">تعرفه ها</span>
                                 {
                                     taarifs.map((taarif, index) =>
-                                        <div onClick={() => setParams(`ptid=${index + 1}`)} className={`flex text-nowrap gap-0 items-center p-2 text-gray-900 rounded-xl border border-transparent hover:border-gray-900 hover:gap-2 ${params.get("ptid") == index + 1 ? "gap-2 border-gray-900" : ""} cursor-pointer transition-all duration-200`}>
+                                        <div onClick={() => setParams(`ptid=${index + 1}`)} className={`flex text-nowrap gap-0 text-sm md:text-base items-center p-2 text-gray-900 md:rounded-xl border-b-4 hover:border-telegram hover:md:gap-2 ${params.get("ptid") == index + 1 ? "border-b-4 border-b-gray-900 md:border-telegram text-telegram gap-2" : "border-transparent"} cursor-pointer transition-all duration-200`}>
                                             {/* <Checkbox checked={params.get("ptid") == index + 1} /> */}
                                             <span>
                                                 #

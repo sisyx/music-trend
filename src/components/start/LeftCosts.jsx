@@ -65,7 +65,7 @@ function LeftCosts({costs}) {
                     </div>
 
                 </>
-            : <span className="text-gray-500">
+            : <span className="text-gray-500 text-sm md:text-base">
                 سبد خرید شما خالی است
             </span>
         }
