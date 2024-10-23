@@ -57,7 +57,7 @@ function HomeDifferentBolgs() {
             <div className="w-full max-w-7xl md:p-5 p-1">
                 {/* top */}
                 <div className="w-full flex justify-between">
-                    <div>
+                    <div data-aos="zoom-out-right" data-aos-duration="1000">
                         <GlassyButton to="/start" className="hidden md:block">
                                 مشاهده همه
                         </GlassyButton>
@@ -65,8 +65,8 @@ function HomeDifferentBolgs() {
                         مشاهده همه</Link>
                     </div>
                     <div className="flex flex-col" dir="rtl">
-                        <span className="text-telegram md:text-2xl font-extrabold">{diffrenttype1Title}</span>
-                        <span className="text-gray-500 md:text-2xl font-extrabold">{diffrenttype2Title}</span>
+                        <span data-aos="zoom-out-left" data-aos-duration="1000" className="text-telegram md:text-2xl font-extrabold">{diffrenttype1Title}</span>
+                        <span data-aos="zoom-in-left" data-aos-duration="1000" className="text-gray-500 md:text-2xl font-extrabold">{diffrenttype2Title}</span>
                     </div>
                 </div>
                 {/* cards */}

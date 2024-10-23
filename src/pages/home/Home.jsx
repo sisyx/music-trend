@@ -21,7 +21,7 @@ function Home() {
 
     return ( 
         <div className="relative">
-        <AnimatedBackground2 bg="#fff" fixed={true} />
+        {/* <AnimatedBackground2 bg="#fff" fixed={true} /> */}
         <Navbar />
         <SideNav />
         <HomeLand />

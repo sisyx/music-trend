@@ -10,11 +10,11 @@ function HomeAbout() {
             <NeonLightBg />
             <div className="flex md:flex-row flex-wrap flex-col-reverse gap-x-10 items-center justify-evenly  w-full max-w-7xl py-32">
                     {/* buttons */}
-                    <div className="w-full flex justify-center">
+                    <div data-aos="fade-up" data-aos-duration="3000" className="w-full flex justify-center">
                         <div className="flex md:gap-8 flex-wrap p-2 gap-2 mb-4 overflow-hidden">
                             {
-                                threefeatures.map(feature =>
-                                    <X3DButton>
+                                threefeatures.map((feature, index) =>
+                                    <X3DButton index={index}>
                                         <div className="flex flex-col items-center" dir="ltr">
                                             <span className="text-3xl text-telegram font-extrabold">{feature.value}</span>
                                             <span className=" text-xs text-gray-600">{feature.text}</span>
@@ -27,7 +27,7 @@ function HomeAbout() {
                 {/* LEFT */}
                 <div className="flex-1" dir="rtl">
                     {/* text and detail */}
-                    <div className=" leading-8 p-2 md:p-0 text-justify text-sm font-extralight flex flex-col gap-4">
+                    <div data-aos="fade-right" data-aos-duration="1000" className="leading-8 p-2 md:p-0 text-justify text-sm font-extralight flex flex-col gap-4">
                         <div>
                             <div className="text-telegram">
                                 درباره ما
@@ -48,7 +48,7 @@ function HomeAbout() {
                 </div>
 
                 {/* RIGHT */}
-                <div className="flex-1">
+                <div className="flex-1" data-aos="fade-left" data-aos-duration="1000">
                     <img src="/src/assets/images/homeabout.gif" className="w-full rounded-xl" alt="" />
                 </div>
             </div>

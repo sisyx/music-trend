@@ -31,7 +31,7 @@ function Navbar() {
 
     return ( 
         // border outer
-        <div className="w-screen md:p-5 md:fixed md:top-0 flex justify-center max-z transition-all duration-300">
+        <div data-aos="zoom-out-down" data-aos-duration="1500" className="w-screen md:p-5 md:fixed md:top-0 flex justify-center max-z transition-all duration-300">
             <nav className="max-w-7xl w-screen shadow-xl p-2 md:px-5  md:rounded-2xl bg-white bg-opacity-80 flex items-center justify-between backdrop-blur-3xl">
                 {/* left */}
                 <div className="flex items-center gap-4">

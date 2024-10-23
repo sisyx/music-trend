@@ -667,7 +667,6 @@ function convertKeysToCamelCase(obj) {
 
 export async function uploadFile(path, file)  {
     console.log(file);
-    const token = getCookie("token");
     const reader = new FileReader();
 
     reader.readAsDataURL(file);
@@ -699,7 +698,6 @@ export async function uploadFile(path, file)  {
 
             const res = await req.json();
             customAlert(res.message)
-
         } catch (error) {
             customAlert("Failed To Upload File")
             console.log(error.message)

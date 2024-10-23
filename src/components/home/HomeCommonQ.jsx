@@ -2,7 +2,7 @@ import { FaAngleDown } from "react-icons/fa6";
 
 function HomeCommonQ({que, index, handleExpand}) {
     return ( 
-        <div>
+        <div data-aos="fade-up" data-aos-duration={index * 500 + 500}>
             {/* question */}
             <div className="flex items-center gap-4 cursor-pointer group/title" onClick={() => handleExpand(index)}>
                 <div className="p-3 rounded-full bg-telegram-transparent80 text-white duration-100 transition-all group-hover/title:bg-white group-hover/title:text-telegram">

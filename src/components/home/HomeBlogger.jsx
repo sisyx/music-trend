@@ -5,29 +5,31 @@ import { GiPartyPopper } from "react-icons/gi";
 function HomeBlogger({ card = {}, setCards, index }) {
 
     function handleHover() {
-        setCards(cur => {
-            return cur.map((xcard, xindex) => {
-                if (xindex === index) {
-                    xcard.isblur = false
-                } else {
-                    xcard.isblur = true
-                }
-                return xcard
-            })
-        })
+        // setCards(cur => {
+        //     return cur.map((xcard, xindex) => {
+        //         if (xindex === index) {
+        //             xcard.isblur = false
+        //         } else {
+        //             xcard.isblur = true
+        //         }
+        //         return xcard
+        //     })
+        // })
+        return
     }
 
     function handleBlur() {
-        setCards(cur => {
-            return cur.map((xcard, xindex) => {
-                xcard.isblur = false
-                return xcard
-            })
-        })
+        // setCards(cur => {
+        //     return cur.map((xcard, xindex) => {
+        //         xcard.isblur = false
+        //         return xcard
+        //     })
+        // })
+        return
     }
 
     return ( 
-        <div onMouseEnter={handleHover} onMouseLeave={handleBlur} className={`flex flex-col gap-2 bg-gray-200 md:p-5 p-2 rounded-2xl transition-all duration-200 cursor-pointer ${card.isblur ? " blur-sm" : " blur-0"}`}>
+        <div data-aos="fade-up" data-aos-duration={`${index * 500 + 1000}`} onMouseEnter={handleHover} onMouseLeave={handleBlur} className={`flex flex-col gap-2 bg-gray-200 md:p-5 p-2 rounded-2xl transition-all duration-200 cursor-pointer ${card.isblur ? " blur-sm" : " blur-0"}`}>
             {/* img */}
             <div>
                 <img src={card.imageUrl} alt="" className="rounded-2xl aspect-square w-full" />

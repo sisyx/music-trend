@@ -1,6 +1,7 @@
 import './fonts.css';
 import './App.css';
 import './general.css';
+import 'aos/dist/aos.css';
 
 import React, { Suspense, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
@@ -19,6 +20,7 @@ const Payment = React.lazy(() => import('./pages/payment/Payment'));
 
 import { Slide, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Aos from 'aos';
 
 export const notify = (text) => toast(text, {
   position: "bottom-right",
@@ -36,6 +38,11 @@ export const notify = (text) => toast(text, {
 
 
 function App() {
+
+  useEffect(() => {
+    Aos.init();
+  })
+
   return (
         <Suspense fallback={<Loading />}>
           <Routes>

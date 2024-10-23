@@ -20,6 +20,7 @@
 .title {
     font-size: 1.2rem;
     font-weight: bold;
+    text-wrap: nowrap;
 }
 
 .left::before {
@@ -33,7 +34,21 @@
     top: 0;
     right: 0;
     z-index: 1;
-    border: 20px #46b3e6 solid ;
+    border: 20px #46b3e6 solid;
+    transition: transform 300ms;
+}
+@media (max-width: 768px) {
+    .left_content {
+        gap: 2rem;
+        flex-direction: column;
+        align-items: center;
+        padding: 30px;
+        padding-top: 150px;
+    }
+    .left::before {
+        transform: rotate(-8deg);
+        border-radius: 2rem 2rem 0 0;
+    }
 }
 .logo {
     width: 500px;

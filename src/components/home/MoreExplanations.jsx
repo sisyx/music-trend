@@ -13,10 +13,10 @@ function MoreExplanations() {
                 {/* title */}
                 <div className="flex items-center gap-4 w-full" dir="rtl">
                     <div className="flex flex-col gap-0">
-                        <span className="text-2xl font-extrabold text-telegram">
+                        <span data-aos="zoom-out-up" data-aos-duration="1000" className="text-2xl font-extrabold text-telegram">
                             {moreExpTitle1}
                         </span>
-                        <span>
+                        <span data-aos="zoom-out-up" data-aos-duration="1000">
                             {moreExpTitle2}
                         </span>
                     </div>
@@ -27,7 +27,7 @@ function MoreExplanations() {
                 <div className={`flex flex-col gap-20 pt-12 overflow-hidden transition-all duration-700 ${isExpanded ? "" : "h-48"}`}>
                     {
                         moreExpTexts.map(item => 
-                            <div dir="rtl" className="flex flex-col gap-3">
+                            <div dir="rtl" className="flex flex-col gap-3"data-aos="zoom-out-down" data-aos-duration="1000">
                                 {
                                     item.title ? 
                                     <div className=" md:text-2xl text-base font-extrabold">
@@ -49,7 +49,10 @@ function MoreExplanations() {
                         padding: "0",
                         background: "#2da5dc",
                         height: "fot-content"
-                    }}>
+                    }}
+                        data-aos="zoom-out-down"
+                        data-aos-duration="1000"
+                    >
                         <GlassyButton onClick={() => setIsExpanded(cur => !cur)}>
                             {
                                 isExpanded 

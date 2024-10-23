@@ -15,6 +15,8 @@ function AddPage({ isVisible, pageCategories, pageTypes, setReload, handleCloseA
     const [selectedPageCat, setSelectedPageCat] = useState(1);
     const [pageDesc, setPageDesc] = useState("");
     const [sex, setSex] = useState(genders.at(0));
+    const [telegramID, setTelegramID] = useState("");
+    const [whatsappNumber, setWhatsappNumber] = useState("");
  
     async function handleCreatePage() {
         const token = getCookie("token")
@@ -25,11 +27,24 @@ function AddPage({ isVisible, pageCategories, pageTypes, setReload, handleCloseA
         const pageTypeCategory = selectedPageCat;
         const pageDescription = pageDesc;
         const xsex = sex;
+        const xtel = telegramID;
+        const xwat = whatsappNumber;
         console.log(newPageId)
         console.log(pageType)
         console.log(pageTypeCategory)
-        if (!pageTypeCategory || !pageType || !newPageId || !xsex ) {
+        if (!pageTypeCategory || !pageType || !newPageId || !xsex || !xtel || xwat ) {
             customAlert("لطفا ابتدا فیلد ها را به درستی پر کنید")
+            return
+        }
+
+        console.log(xtel.length < 5)
+        if (xtel.length < 5 || !xtel.startsWith("@")) {
+            customAlert("لطفا آیدی تلگرام را به درستی وارد.");
+            return
+        }
+
+        if (xwat.length !== 11 || !xwat.startsWith("09")) {
+            customAlert("لطفا شماره واتساپ معتبری وارد کنید");
             return
         }
         
@@ -43,8 +58,8 @@ function AddPage({ isVisible, pageCategories, pageTypes, setReload, handleCloseA
                     pageCategoryId: pageTypeCategory,
                     description: pageDescription,
                     sex: xsex,
-                    telegramID: "string",
-                    whatsappNumber: "string",
+                    telegramID: xtel,
+                    whatsappNumber: xwat,
                 }),
                 headers: {
                     "Content-Type": "application/json",
@@ -68,12 +83,16 @@ function AddPage({ isVisible, pageCategories, pageTypes, setReload, handleCloseA
     }
 
 
-    return ( 
+    return (
         <div className={`fixed top-0 right-0 bottom-0 left-0 transition-all duration-300 ${isVisible ? "scale-y-1" : "scale-y-0"}`} onClick={handleCloseAdinge}>
             <div className="p-2 py-10 flex flex-col items-end gap-5 w-screen max-w-96 shadow-xl shadow-gray-500 rounded-xl fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white text-black" onClick={event => event.stopPropagation()}>
                 <div className="text-2xl font-extrabold">ایجاد اینفولینسر</div>
                 <TextField label="page id" sx={{width: "100%"}} value={pageId} onChange={e => setPageId(event.target.value)} />
                 <TextField label="توضیحات پیج" sx={{width: "100%"}} value={pageDesc} onChange={e => setPageDesc(event.target.value)} />
+                <div className="w-full flex gap-4">
+                    <TextField label="آیدی تلگرام" placeholder="ex: @username" sx={{flex: "1"}} value={telegramID} onChange={e => setTelegramID(event.target.value)} />
+                    <TextField label="شماره واتساپ" placeholder="ex: 09876543210" sx={{flex: "1"}} value={whatsappNumber} onChange={e => setWhatsappNumber(event.target.value)} />
+                </div>
                 <div className="flex items-center justify-between w-full gap-2" dir="rtl">
                     <span className="flex-1">جنسیت</span>
                     <Select

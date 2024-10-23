@@ -7,12 +7,12 @@ function HomeTags() {
             <div className="flex items-center gap-6 text-sm justify-end p-5 bg w-full max-w-7xl overflow-x-scroll">
                 <div className="flex gap-2">
                     {
-                        hometagslist.map(tag => 
-                            <div dir="rtl" className="md:py-2 md:px-6 md:border md:border-black rounded-full cursor-pointer hover:border-telegram hover:text-telegram duration-100 transition-all">
+                        hometagslist.map((tag, index) => 
+                            <div data-aos="fade-up" data-aos-duration={`${index * 500 + 500}`} dir="rtl" className="md:py-2 md:px-6 md:border md:border-black rounded-full cursor-pointer hover:border-telegram hover:text-telegram duration-100 transition-all">
                                 <span>
                                     #
                                 </span>
-                                <span>
+                                <span className="text-nowrap">
                                     {tag}
                                 </span>
                             </div>

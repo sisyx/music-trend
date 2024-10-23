@@ -11,9 +11,9 @@ function Footer() {
                 {/* left */}
                 <div className={styles.left} dir="rtl">
                     <div className={styles.left_content}>
-                        <div className="">
-                            <div className="flex flex-col gap-12">
-                                <div className="flex flex-col gap-7">
+                        <div className="w-full flex flex-col items-center">
+                            <div className="flex flex-col sm:flex-row md:flex-col gap-12">
+                                <div className="flex flex-col gap-4 md:gap-7">
                                     <span className={`${styles.title}`}>
                                         راههای ارتباطی
                                     </span>
@@ -21,7 +21,7 @@ function Footer() {
                                         <div className="flex gap-3">
                                             <a href="" className="flex items-center gap-3">
                                                 <IoIosCall />
-                                                <span>
+                                                <span className=" text-nowrap">
                                                     تلفن تماس:
                                                 </span>
                                             </a>
@@ -32,7 +32,7 @@ function Footer() {
                                         <div className="flex gap-3">
                                             <a href="" className="flex items-center gap-3">
                                                 <IoIosCall />
-                                                <span>
+                                                <span className=" text-nowrap">
                                                     تلفن تماس:
                                                 </span>
                                             </a>
@@ -43,7 +43,7 @@ function Footer() {
                                         <div className="flex gap-3">
                                             <a href="" className="flex items-center gap-3">
                                                 <IoIosCall />
-                                                <span>
+                                                <span className=" text-nowrap">
                                                     تلفن تماس:
                                                 </span>
                                             </a>
@@ -53,11 +53,11 @@ function Footer() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="flex flex-col gap-7">
+                                <div className="w-full flex flex-col gap-4 md:gap-7">
                                     <span className={`${styles.title}`}>
                                         دسترسی سریع
                                     </span>
-                                    <div className="h-48 flex flex-col gap-7 ">
+                                    <div className="grid grid-cols-2 gap-2 md:flex flex-col md:gap-7 ">
                                         <a href="">ایجاد کمپین</a>
                                         <a href="">تماس با ما</a>
                                         <a href="">درباره ما</a>
@@ -67,23 +67,19 @@ function Footer() {
                                 </div>
                             </div>
                         </div>
-                        <div>
-                        <div className="flex flex-col gap-7">
-                                    <span className={`${styles.title}`}>
-                                        حدمات ما
-                                    </span>
-                                    <div className="h-48 flex flex-col gap-7 ">
-                                        <a href="">خدمات 1</a>
-                                        <a href="">خدمات 2</a>
-                                        <a href="">خدمات 3</a>
-                                        <a href="">خدمات 3</a>
-                                        <a href="">خدمات 4</a>
-                                        <a href="">خدمات 4</a>
-                                        <a href="">خدمات 4</a>
-                                        <a href="">خدمات 4</a>
-                                        <a href="">خدمات 4</a>
-                                    </div>
+                        <div className="hidden md:block">
+                            <div className="flex flex-col gap-7">
+                                <span className={`${styles.title}`}>
+                                    حدمات ما
+                                </span>
+                                <div className="h-48 flex flex-col gap-7 ">
+                                    <a href="">خدمات 1</a>
+                                    <a href="">خدمات 2</a>
+                                    <a href="">خدمات 3</a>
+                                    <a href="">خدمات 3</a>
+                                    <a href="">خدمات 4</a>
                                 </div>
+                            </div>
                         </div>
                     </div>
                 </div>
