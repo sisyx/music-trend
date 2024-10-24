@@ -114,7 +114,7 @@ function RightFilters() {
                     )
                 }
             </RightFilter>
-            <RightFilter filter="قیمت" icon={<HiCurrencyDollar />}>
+            {/* <RightFilter filter="قیمت" icon={<HiCurrencyDollar />}>
                 <div className="flex flex-col px-4 pt-4 w-full overflow-x-hidden">
                     <div dir="rtl" className="flex flex-col text-sm max-w-64">
                         <div className="flex flex-wrap gap-2 justify-start">
@@ -130,7 +130,7 @@ function RightFilters() {
                     </div>
                     <MinMaxSlider setMaxPrice={setMaxPrice} setMinPrice={setMinPrice} />
                 </div>
-            </RightFilter>
+            </RightFilter> */}
             <RightFilter filter="جنسیت" icon={<PiGenderIntersexBold />}>
                 <label dir="rtl" className="text-sm cursor-pointer hover:bg-gray-100">
                     <Checkbox checked={!params.get("pgender") || params.get("pgender") == 0} onChange={_e => updateParam("pgender", 0)} />
