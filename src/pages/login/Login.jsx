@@ -33,7 +33,7 @@ const Home = () => {
 
         if (!xpassword || !xusername) {
             setIsLoading(() => false);
-            customAlert("لطفا اطلاعات را کامل وارد کنید")
+            customAlert("لطفا اطلاعات را کامل وارد کنید", "warn")
             return
         }
 
@@ -66,10 +66,10 @@ const Home = () => {
                 document.cookie = "id=" + res.objectResult.userId + "; expires=" + date;
                 
                 document.cookie = "token=" + res.objectResult.token + "; expires=" + date
-                customAlert("با موفقیت وارد شدید");
+                customAlert("با موفقیت وارد شدید", "success");
                 navigate("/");
             } else {
-                customAlert(res.message)
+                customAlert(res.message, "error")
             }
         } catch (error) {
             console.error(error)
@@ -82,7 +82,7 @@ const Home = () => {
     setIsLoading(() => true);
     const xphone = newPhone;
     if (!validateIranPhoneNumber(xphone)) {
-        customAlert("لطفا یک شماره تلفن معتبر وارد کنید")
+        customAlert("لطفا یک شماره تلفن معتبر وارد کنید", "warn")
         setIsLoading(() => false);
         return
     }
@@ -96,10 +96,10 @@ const Home = () => {
         if (res.data.messageId) {
             setIsSigningUp(() => false);
             setForgotPass(() => false)
-            customAlert(`پیامکی حاوی رمز عبور جدید شما به شماره تلفن ${xphone} ارسال شده.`)
+            customAlert(`پیامکی حاوی رمز عبور جدید شما به شماره تلفن ${xphone} ارسال شده.`, "info")
         }
     } catch (error) {
-        customAlert(error.message)
+        customAlert(error.message, "error")
     }
     setIsLoading(() => false);
   }
@@ -112,14 +112,14 @@ const Home = () => {
 
     if (!xusername.length || !xpassword.length || !xphone.length) {
         if (!xusername && !xpassword.length && !xphone.length) {
-            customAlert("لطفا نام کاربری و پسورد و شماره تلفن را وارد کنید")
+            customAlert("لطفا نام کاربری و پسورد و شماره تلفن را وارد کنید", "warn")
         } else {
             if (!xusername) {
-                customAlert("لطفا نام کاربری خودتان را وارد کنید")
+                customAlert("لطفا نام کاربری خودتان را وارد کنید", "warn")
             } else if (!xphone) {
-                customAlert("لطفا یک شماره تلفن وارد کنید")
+                customAlert("لطفا یک شماره تلفن وارد کنید", "warn")
             } else if (!xpassword) {
-                customAlert("لطفا رمز عبور را وارد کنید")
+                customAlert("لطفا رمز عبور را وارد کنید", "warn")
             } 
         }
         setIsLoading(() => false);
@@ -127,7 +127,7 @@ const Home = () => {
     }
 
     if (!validateIranPhoneNumber(xphone)) {
-        customAlert("لطفا یک شماره تلفن معتبر وارد کنید")
+        customAlert("لطفا یک شماره تلفن معتبر وارد کنید", "warn")
         setIsLoading(() => false);
         return
     }

@@ -22,7 +22,7 @@ import { Slide, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Aos from 'aos';
 
-export const notify = (text) => toast(text, {
+export const notify = (text, xtype) => toast[xtype](text, {
   position: "bottom-right",
   autoClose: 3000,
   hideProgressBar: false,
@@ -31,7 +31,6 @@ export const notify = (text) => toast(text, {
   draggable: true,
   progress: undefined,
   theme: "dark",
-  progressClassName: "bg-none bg-telegram",
   className: "bg-black",
   transition: Slide,
 })
@@ -57,7 +56,7 @@ function App() {
             <Route path='/payment' element={<Payment />} />
           </Routes>
           <ToastContainer
-            position="vorrom-right"
+            position="borrom-right"
             autoClose={5000}
             hideProgressBar={false}
             newestOnTop={true}

@@ -458,6 +458,37 @@ export async function deletePageType(name) {
     }
 }
 
+export async function deletePageCat(name) {
+    if (!name) {
+        console.error(`name ${name} is not valid`);
+        return
+    }
+    const token = getCookie("token");
+    if (!token) {
+        console.error(`token ${token} is not valid`)
+        return
+    }
+
+    try {
+        const req = await fetch(`${root}/api/PageTypeCategory/UpdatePageTypeCategories?name=${name}`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        if (!req.ok) {
+            throw new Error(req.statusText);
+        }
+
+        const res = await req.json();
+        return res
+    } catch(error) {
+        console.error(error);
+        return 0
+    }
+}
+
 
 // instagram and telegram apis
 
@@ -497,8 +528,8 @@ export async function getTelegramChannel(channelId) {
 
 
 // ui scripts
-export async function customAlert(text) {
-    notify(text);
+export async function customAlert(text, xtype = "info") {
+    notify(text, xtype);
 }
 
 
