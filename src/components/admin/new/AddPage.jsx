@@ -29,10 +29,8 @@ function AddPage({ isVisible, pageCategories, pageTypes, setReload, handleCloseA
         const xsex = sex;
         const xtel = telegramID;
         const xwat = whatsappNumber;
-        console.log(newPageId)
-        console.log(pageType)
-        console.log(pageTypeCategory)
-        if (!pageTypeCategory || !pageType || !newPageId || !xsex || !xtel || xwat ) {
+
+        if (!pageTypeCategory || !pageType || !newPageId || !xsex || !xtel || !xwat ) {
             customAlert("لطفا ابتدا فیلد ها را به درستی پر کنید")
             return
         }
