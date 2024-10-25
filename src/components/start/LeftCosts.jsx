@@ -6,7 +6,7 @@ import { Delete } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import { IoCloseSharp } from "react-icons/io5";
 
-function LeftCosts({costs}) {
+function LeftCosts({costs, deleteCost}) {
     const role = getCookie("role");
     const priceProperty = userLevels.find(ulevel => ulevel.value === role)?.priceProperty || "normalprice";
 
@@ -17,12 +17,12 @@ function LeftCosts({costs}) {
             costs.length ?
             <>
                 {costs.map(cost => 
-                    <div className={`relative flex flex-col items-center rounded-xl w-full bg-gray-200 hover:bg-gray-300 cursor-pointer md:gap-3 ${styles.cart_influ}`}>
-                        <IconButton sx={{position: "absolute", top: "0rem", left: "0rem"}}>
+                    <div className={`relative flex flex-col items-center rounded-md w-full bg-gray-200 hover:bg-gray-300 cursor-pointer md:gap-3 ${styles.cart_influ}`}>
+                        <IconButton onClick={() => deleteCost(cost.id)} sx={{position: "absolute", top: "0rem", left: "0rem"}}>
                             {/* <Delete sx={{color: "#a00"}} /> */}
                             <IoCloseSharp />
                         </IconButton>
-                        <div className="flex items-start justify-end w-full border gap-2 p-2">
+                        <div className="flex items-start justify-end w-full gap-2 p-2">
                             <div className="flex flex-col items-end justify-end md:gap-0">
                                 <span className="text-base font-bold pt_serif_regular">
                                     {cost.pageId}

@@ -101,9 +101,9 @@ function Start() {
                     {/* inner */}
                     <div className="flex flex-col md:flex-row md:gap-4 w-screen justify-center min-h-80">
                         {/* main left */}
-                        <Left costs={costs} selectedInfs={selectedInfs} setShowCampaignSelect={setShowCampaignSelect} />
+                        <Left setCosts={setCosts} costs={costs} selectedInfs={selectedInfs} setShowCampaignSelect={setShowCampaignSelect} />
                         {/* main center */}
-                        <div className="flex flex-col text-white w-full max-w-6xl flex-1 shadow-md">
+                        <div className="flex flex-col text-white w-full max-w-4xl flex-1 shadow-md">
                             <div className="flex flex-nowrap items-center text-sm sm:text-base gap-3 p-2 w-full bg-gray-100 overflow-x-scroll rounded-t-lg" dir="rtl">
                                 <span className="text-black text-nowrap">تعرفه ها</span>
                                 {

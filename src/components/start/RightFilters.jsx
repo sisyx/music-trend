@@ -8,28 +8,18 @@ import { useEffect, useState } from "react";
 import { getPageCategories, getPageTypes, toPersianUnits } from "../../functions";
 import { useSearchParams } from "react-router-dom";
 import { TbCategoryFilled } from "react-icons/tb";
-import MinMaxSlider from "./MinMaxSlider";
 import { genders } from "../../constatnts";
 import { PiGenderIntersexBold } from "react-icons/pi";
 function RightFilters() {
     const [pagetypes, setPagetypes] = useState([]);
     const [pageCats, setPageCats] = useState([]);
     const [params, setParams] = useSearchParams();
-    const [maxPrice, setMaxPrice] = useState(100)
-    const [minPrice, setMinPrice] = useState(100)
+    // const [maxPrice, setMaxPrice] = useState(100)
+    // const [minPrice, setMinPrice] = useState(100)
 
     useEffect(() => {
         init();
     }, [])
-
-    useEffect(() => {
-        updateParam("maxp", maxPrice)
-    }, [maxPrice])
-
-
-    useEffect(() => {
-        updateParam("minp", minPrice)
-    }, [minPrice])
 
     async function init() {
         const xtypes = await getPageTypes();

@@ -1,7 +1,11 @@
 import { Button } from "@mui/material";
 import LeftCosts from "./LeftCosts";
 
-function Left({ setShowCampaignSelect, costs }) {
+function Left({ setShowCampaignSelect, costs, setCosts = () => {return} }) {
+
+    function deleteCost(costId) {
+        setCosts(cur => cur.filter(cost => cost.id !== costId));
+    }
 
     return ( 
         <div className="md:w-72 w-full shadow-md p-2">
@@ -21,7 +25,7 @@ function Left({ setShowCampaignSelect, costs }) {
             </div>
             <hr className="my-4" />
             <div className="h-full flex flex-col gap-2 items-center">
-                <LeftCosts costs={costs} />
+                <LeftCosts deleteCost={deleteCost} costs={costs} />
                 {
                     costs.length ? 
                     <Button onClick={() => setShowCampaignSelect(true)} sx={{width: "100%"}} variant="contained">خرید و تایید نهایی محصولات</Button> : ""
