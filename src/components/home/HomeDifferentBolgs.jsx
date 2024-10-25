@@ -8,42 +8,42 @@ const xcards = [
     {
         isblur: false,
         imageUrl: "/src/assets/images/card-photos/5.jpg",
-        pageid: "sakad.dnx"
+        pageid: "sadaf_beauty"
     },
     {
         isblur: false,
         imageUrl: "/src/assets/images/card-photos/2.jpg",
-        pageid: "metallica"
-    },
-    {
-        isblur: false,
-        imageUrl: "/src/assets/images/card-photos/3.jpg",
-        pageid: "hanyeh"
+        pageid: "shellbeauty1"
     },
     {
         isblur: false,
         imageUrl: "/src/assets/images/card-photos/4.jpg",
-        pageid: "girlatworld"
+        pageid: "emelijad"
     },
     {
         isblur: false,
-        imageUrl: "/src/assets/images/card-photos/2.jpg",
-        pageid: "metallica"
+        imageUrl: "/src/assets/images/card-photos/nika.jpg",
+        pageid: "nika.falahi"
     },
     {
         isblur: false,
-        imageUrl: "/src/assets/images/card-photos/5.jpg",
-        pageid: "sakad.dnx"
+        imageUrl: "/src/assets/images/card-photos/varzesh3.jpg",
+        pageid: "varzesh3"
     },
     {
         isblur: false,
-        imageUrl: "/src/assets/images/card-photos/4.jpg",
-        pageid: "girlatworld"
+        imageUrl: "/src/assets/images/card-photos/text-club.jpg",
+        pageid: "textclub"
     },
     {
         isblur: false,
-        imageUrl: "/src/assets/images/card-photos/3.jpg",
-        pageid: "hanyeh"
+        imageUrl: "/src/assets/images/card-photos/zhelophine.jpg",
+        pageid: "zheluofen"
+    },
+    {
+        isblur: false,
+        imageUrl: "/src/assets/images/card-photos/tehran__lands.jpg",
+        pageid: "tehran__lands"
     },
 ]
 

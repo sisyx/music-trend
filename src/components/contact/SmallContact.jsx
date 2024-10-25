@@ -46,7 +46,7 @@ function SmallContact() {
                             </span>
                         </Button>
                     </Link>
-                    <GlassyButton to="tg://user?id=lyxo6xoxo6">
+                    <GlassyButton to="tg://resolve?domain=mokhatabgostar">
                         <div className="text-sm flex items-center gap-1">
                             پشتیبانی تلگرام
                             <PiTelegramLogoFill />

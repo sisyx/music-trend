@@ -73,7 +73,7 @@ function AddPage({ isVisible, pageCategories, pageTypes, setReload, handleCloseA
             console.log(res);
             setReload(cur => cur + 1)
         } catch (error) {
-            customAlert("ایجاد پیج جدید ناموفق بود. لطفا دوباره تلاش کنید")
+            customAlert("ایجاد پیج جدید ناموفق بود. لطفا دوباره تلاش کنید", "error")
             console.error(error)
         }
 

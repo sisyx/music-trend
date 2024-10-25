@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import styles from './Footer.module.css';
 import { IoIosCall } from "react-icons/io";
 import { imagebase } from "../constatnts";
+import { AiFillInstagram } from "react-icons/ai";
 
 function Footer() {
     return ( 
@@ -25,30 +26,30 @@ function Footer() {
                                                     تلفن تماس:
                                                 </span>
                                             </a>
-                                            <a href="tel:09125861254" className="text-sm">
-                                                09125861254
+                                            <a href="tel:+982122981547" className="text-sm">
+                                                +9821 22981547
+                                            </a>
+                                        </div>
+                                        <div className="flex gap-3">
+                                            <a href="" className="flex items-center gap-3">
+                                                <AiFillInstagram />
+                                                <span className=" text-nowrap">
+                                                    صفحه اینستاگرام:
+                                                </span>
+                                            </a>
+                                            <a href="https://instagram.com/mokhatabgostar.ir" target="_blank" className="text-sm">
+                                                mokhatabgostar.ir
                                             </a>
                                         </div>
                                         <div className="flex gap-3">
                                             <a href="" className="flex items-center gap-3">
                                                 <IoIosCall />
                                                 <span className=" text-nowrap">
-                                                    تلفن تماس:
+                                                    تلگرام:
                                                 </span>
                                             </a>
-                                            <a href="tel:09125861254" className="text-sm">
-                                                09125861254
-                                            </a>
-                                        </div>
-                                        <div className="flex gap-3">
-                                            <a href="" className="flex items-center gap-3">
-                                                <IoIosCall />
-                                                <span className=" text-nowrap">
-                                                    تلفن تماس:
-                                                </span>
-                                            </a>
-                                            <a href="tel:09125861254" className="text-sm">
-                                                09125861254
+                                            <a href="tg://resolve?domain=mokhatabgostar" className="text-sm">
+                                                @mokhatabgostar
                                             </a>
                                         </div>
                                     </div>

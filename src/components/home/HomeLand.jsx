@@ -5,8 +5,8 @@ import NeonLightBg from "../NeonLightBg";
 
 function HomeLand() {
 
-    const videosUrl = ["advertise1.mp4", "advertise2.mp4", "advertise3.mp4", "advertise4.mp4"]
-    const random = Math.floor(Math.random() * 4);
+    const videosUrl = ["advertise1.mp4", "advertise2.mp4", "advertise4.mp4"]
+    const random = Math.floor(Math.random() * 3);
     return ( 
         <div className="pt-24 md:pt-48 pb-24 flex justify-center vazirmatn">
             <NeonLightBg />

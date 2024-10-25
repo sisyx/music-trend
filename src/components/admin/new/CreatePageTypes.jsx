@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { deletePageType, getCookie } from "../../../functions";
+import { customAlert, deletePageCat, deletePageType, getCookie } from "../../../functions";
 import { Button, IconButton, TextField, Tooltip } from "@mui/material";
 import CircleGradient from "../../loadings/CircleGradient";
 import { AddSharp, SkipPrevious } from "@mui/icons-material";
@@ -8,6 +8,7 @@ import AddType from "./addType";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { CiEdit } from "react-icons/ci";
 import Type from "./Type";
+import Category from "./Category";
 
 function CreatePageTypes({ setState }) {
     const [isLoading, setIsLoading] = useState(false);
@@ -80,6 +81,15 @@ function CreatePageTypes({ setState }) {
         };
     }
 
+    async function deleteThisCat(name) {
+        const isDeleted = await deletePageCat(name);
+        if (isDeleted) {
+            init();
+        } else {
+            customAlert("حذف دسته بندی ناموق بود. لطفا مجددا تلاش کنید", "error")
+        }
+    }
+
     return ( 
         // container
         <div className="w-full px-0 md:px-8 p-8">
@@ -138,7 +148,8 @@ function CreatePageTypes({ setState }) {
                             </div>
                             <div className="flex flex-col gap-2 h-96">
                                 {
-                                    pageCategories.map(type => <div className="bg-gray-100 hover:bg-gray-200 cursor-pointer rounded-full p-3" dir={englishAlphabetLC.includes(type.categoryName[0]) ? "ltr" : "rtl" }>{type.categoryName}</div>)
+                                    // pageCategories.map(cat => <div className="bg-gray-100 hover:bg-gray-200 cursor-pointer rounded-full p-3" dir={englishAlphabetLC.includes(cat.categoryName[0]) ? "ltr" : "rtl" }>{cat.categoryName}</div>)
+                                    pageCategories.map(cat => <Category name={cat.categoryName} reload={init} deleteThisCat={deleteThisCat} />)
                                 }
                             </div>
                         </div>

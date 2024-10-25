@@ -49,7 +49,7 @@ function HomeAbout() {
 
                 {/* RIGHT */}
                 <div className="flex-1" data-aos="fade-left" data-aos-duration="1000">
-                    <img src="/src/assets/images/homeabout.gif" className="w-full rounded-xl" alt="" />
+                    <video autoPlay muted loop src="/src/assets/videos/about.mp4" className="w-full rounded-xl" alt="" />
                 </div>
             </div>
         </div>

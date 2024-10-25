@@ -25,7 +25,7 @@ export default function Category({name, reload = () => {return}, deleteThisCat =
             return;
         }
         try {
-            const req = await fetch(`${root}/api/PageType/UpdatePageType?oldName=${name}&newName=${editName.new}`, {
+            const req = await fetch(`${root}/api/PageTypeCategory/UpdatePageTypeCategories?oldCategoryName=${name}&newCategoryName=${editName.new}`, {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${token}`

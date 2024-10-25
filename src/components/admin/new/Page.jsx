@@ -1,13 +1,13 @@
 import GlassyButton from "../../GlassyButton";
-import { useEffect, useState } from "react";
-import { MdCategory } from "react-icons/md";
+import { useEffect, useRef, useState } from "react";
+import { MdCategory, MdOutlineEdit } from "react-icons/md";
 import { PiInstagramLogoFill } from "react-icons/pi";
 import styles from "./Page.module.css"
 import AddPriceToPage from "./AddPriceToPage";
 import { customAlert, deletePublisher, refreshPubMetadata } from "../../../functions";
 import { IconButton, Tooltip } from "@mui/material";
 import YoutubeSearchedForIcon from '@mui/icons-material/YoutubeSearchedFor';
-import { genders } from "../../../constatnts";
+import { genders, root } from "../../../constatnts";
 import { AiOutlineMan, AiOutlineWoman } from "react-icons/ai";
 import { VscWorkspaceUnknown } from "react-icons/vsc";
 import { RiDeleteBin7Fill } from "react-icons/ri";
@@ -15,14 +15,20 @@ import { RiDeleteBin7Fill } from "react-icons/ri";
 function Page({page, pageTypes, pageCategories, reloadPages = () => {return}}) {
 
     const [pageid, setPageId] = useState(page.pageId);
-    const [xpage, setXpage] = useState({followers: 0, following: 0})
     const [isInDetail, setIsInDetail] = useState(false);
     const imageUrl = page.imgUrl || "/logo.png";
     const [isRefreshing, setIsRefreshing] = useState(false);
-
+    const [showName, setShowName] = useState({old: page.showNamem, new: page.showName, isEdditing: false});
+    const showNameRef = useRef()
+    
     useEffect(() => {
         setPageId(page.pageId)
     }, [page])
+
+    useEffect(() => {
+        console.log(showName.new)
+    }, [showName.new])
+
 
     function handleOpenDetails() {
         setIsInDetail(true);
@@ -36,7 +42,7 @@ function Page({page, pageTypes, pageCategories, reloadPages = () => {return}}) {
     async function refreshPub() {
         setIsRefreshing(() => true);
         const refresh = await refreshPubMetadata(pageid);
-        customAlert(refresh?.message || "اپدیت پیج ناموفق بود")
+        customAlert(refresh?.message || "اپدیت پیج ناموفق بود", refresh?.message ? "success" : "error")
         reloadPages();
         setIsRefreshing(() => false);
     }
@@ -45,6 +51,42 @@ function Page({page, pageTypes, pageCategories, reloadPages = () => {return}}) {
         const isDeleted = await deletePublisher(page.pageId);
         if (isDeleted) {
             reloadPages();
+        }
+    }
+
+    function handleStartEditing() {
+        setShowName(cur => ({...cur, isEdditing: true}));
+        showNameRef.current?.click();
+    }
+
+    function handleEndEditing() {
+        setShowName(cur => ({...cur, isEdditing: false}));
+        changeShowName();
+    }
+
+    function handleEdit(event) {
+        setShowName(cur => ({...cur, new: event.target.value}));
+    }
+
+    async function changeShowName() {
+        const newName = showName.new;
+        const pageId = page.id;
+        try {
+            const req = await fetch(`${root}/api/Pages/EditShowName?pageID=${pageId}&showName=${newName}`, {
+                method: "POST",
+                // headers: {
+                //     "Content-Type": "application/json",
+                // }
+            })
+
+            if (!req.ok) throw new Error(req.statusText);
+            
+            await req.text();
+            customAlert("نام پیج با موفقیت تغییر یافت", "success");
+        } catch (error) {
+            console.error(error);
+            customAlert("تغییر نام پیج ناموفق بود", "error");
+            setShowName(cur => ({...cur, new: cur.old}))
         }
     }
 
@@ -83,9 +125,19 @@ function Page({page, pageTypes, pageCategories, reloadPages = () => {return}}) {
                         <span className={`text-2xl font-extrabold ${styles.pt_serif_regular}`}>
                             {pageid}
                         </span>
-                        <span className={`text-2xl font-extrabold`}>
-                            {page.showName}
-                        </span>
+                        <div className={`relative flex items-center ${showName.isEdditing ? "gap-1" : "gap-2"} transition-all duration-100 text-2xl font-extrabold`}>
+                            {
+                                showName.isEdditing
+                                ? <div className="w-full items-center">
+                                    <input ref={showNameRef} value={showName.new} placeholder="نام جدید پیج" onChange={handleEdit} onBlur={handleEndEditing} className="outline-none bg-transparent py-0 text-base text-center min-w-[0px] w-full" />
+                                </div>
+                                : <span onBlur={handleEndEditing} onChange={handleEdit}>{showName.new || "اسم پیج"}</span>
+                            }
+                            {
+                                showName.isEdditing ? ""
+                                : <MdOutlineEdit onClick={handleStartEditing} className="text-xl absolute top-1/2 -right-2 -translate-y-1/2 translate-x-full" />
+                            }
+                        </div>
                     </div>
                     <div className="flex justify-between w-full">
                         <div className="flex flex-col items-start">

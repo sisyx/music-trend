@@ -39,7 +39,7 @@ function StartCard({ influencer, index = 0, addPriceToCosts = () => {return}, co
                 </div>
                 {/* details */}
                 <div className="flex flex-col items-start w-full">
-                    <span className="pt_serif_regular mb-2 text-base md:text-xl">{influencer.pageId}</span>
+                    <span className="vazir mb-2 text-base md:text-xl">{influencer.showName}</span>
                     <div className="flex gap-2 text-sm md:text-base">
                         <RiUserFollowFill />
                         <span>{toKFormat(influencer.followesrs)}</span>

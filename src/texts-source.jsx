@@ -17,12 +17,12 @@ export const diffrenttblogadmire2 = "محبوب"
 
 export const threefeatures = [
     {
-        text: "محصول متنوع",
+        text: "تعداد پابلیک پیج ها",
         value: "+325"
     },
     {
-        text: "رضایت مشتری",
-        value: "%98"
+        text: "تعداد بلاگر و واینر",
+        value: "+134"
     },
     {
         text: "نفر پشتیبان",
