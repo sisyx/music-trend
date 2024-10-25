@@ -565,7 +565,7 @@ function removeRepeats(lst) {
     return resultList
 }
 
-function convertDate(dateString) {
+export function convertDate(dateString) {
     // Create a Date object from the input string
     const date = new Date(dateString);
     

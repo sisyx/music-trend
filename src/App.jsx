@@ -13,9 +13,10 @@ const Login = React.lazy(() => import("./pages/login/Login"));
 const Logout = React.lazy(() => import('./components/login/Logout'));
 const AboutUsPage = React.lazy(() => import('./pages/other/AboutUsPage'));
 const Start = React.lazy(() => import("./pages/start/Start"));
-const InstagramReport = React.lazy(() => import('./pages/report/InstagramReport'));
+// const InstagramReport = React.lazy(() => import('./pages/report/InstagramReport'));
 const Contact = React.lazy(() => import('./pages/contact/Contact'));
 const Payment = React.lazy(() => import('./pages/payment/Payment'));
+const Report = React.lazy(() => import('./pages/report/Report'));
 
 
 import { Slide, ToastContainer, toast } from 'react-toastify';
@@ -51,7 +52,7 @@ function App() {
             <Route path='/logout' element={<Logout />} />
             <Route path='/aboutus' element={<AboutUsPage />} />
             <Route path='/start' element={<Start />} />
-            <Route path='/report' element={<InstagramReport />} />
+            <Route path='/report' element={<Report />} />
             <Route path='/contact' element={<Contact />} />
             <Route path='/payment' element={<Payment />} />
           </Routes>
