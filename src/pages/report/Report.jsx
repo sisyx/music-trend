@@ -8,7 +8,7 @@ import { root } from "../../constatnts";
 
 function Report() {
     const username = getCookie("username");
-    const [params, _setParams] = useSearchParams();
+    const [params, setParams] = useSearchParams();
     const navigate = useNavigate();
     const [campDetail, setCampDetail] = useState({error: false, loading: true, data: {}});
     useEffect(() => {
@@ -16,23 +16,29 @@ function Report() {
     }, []);
 
     useEffect(() => {
-        // console.log(campDetail);
+        console.log(campDetail);
         // campDetail.data?.report?.map(page => console.log(page.PageId))
     }, [campDetail])
 
     async function init() {
         const campname = params.get("campname");
+        const campid = params.get("id");
         // console.log(campname);
-        if (!campname) {
+        if (!campname && !campid) {
             navigate(-1);
             return
         }
         try {
-            const req = await fetch(`${root}/api/Campaign/GetCampByName?CampName=${campname}`);
+            let req;
+            var res;
+            const url = campname ? `${root}/api/Campaign/GetCampByName?CampName=${campname}` : campid ?  `${root}/api/Campaign/GetCampaignByCampID?campaignID=${campid}` : undefined;
+            req = await fetch(url);
             if (!req.ok) throw new Error(req.statusText);
-            const res = await req.json();
+            res = await req.json();
+            res = campname ? res : res[0]
             setCampDetail(_ => ({loading: true, error: false, data: res}));
 
+            
             if (res.id) {
                 const req2 = await fetch(`${root}/api/Pages/GetEditedPageAndOriginalBuCampID?campaignId=${res.id}`);
                 if (!req2.ok) throw new Error(req2.statusText);

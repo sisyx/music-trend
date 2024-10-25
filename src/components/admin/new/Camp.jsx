@@ -61,7 +61,7 @@ function Camp({ camp }) {
                 </div>
                 <div className="w-full flex gap-2 p-2">
                     <Tooltip title="این قابلیت به شما اجازه میدهد کمپین را همانگونه که مخاطب میبیند ببینید">
-                        <Link target="_blank" to={`/report?id=${camp.id}`} className="flex-1 border-2 border-telegram text-telegram bg-white hover:text-white hover:border-telegram hover:bg-telegram rounded-lg flex items-center justify-center transition-all duration-100">
+                        <Link target="_blank" to={`/report?campname=${campname}`} className="flex-1 border-2 border-telegram text-telegram bg-white hover:text-white hover:border-telegram hover:bg-telegram rounded-lg flex items-center justify-center transition-all duration-100">
                         مشاهده کمپین
                         </Link>
                     </Tooltip>
