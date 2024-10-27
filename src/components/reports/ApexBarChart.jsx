@@ -55,7 +55,7 @@ const ApexBarChart = ({data, title}) => {
   });
 
   return (
-    <div className="mt-8 w-full border-t border-gray-300 pt-8 md:!mt-0 md:!w-1/2 md:!pt-0">
+    <div className="mt-8 w-full pt-8 md:!mt-0 md:!w-1/2 md:!pt-0">
       <div className="bar-chart">
         <Chart
           options={chartData.options}

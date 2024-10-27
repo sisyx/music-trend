@@ -1,9 +1,20 @@
 import { Avatar } from "@mui/material";
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 function ReportHeader({username}) {
+    const headerRef = useRef();
+
+    useEffect(() => {
+        const headerHeight = headerRef.current?.clientHeight;
+        console.log(headerHeight)
+        document.body.style.paddingTop = `${headerHeight}px`;
+
+        return () => document.body.style.paddingTop = "0px"
+    }, []);
+
     return ( 
-        <div className="flex justify-center items-center w-full min-h-14 overflow-hidden text-bold text-center bg-white relative after:absolute after:z-50 after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:translate-y-3/4 after:block after:bg-gray-100 after:w-4 after:h-4  after:content-[''] after:rotate-45">
+        <div ref={headerRef} className="absolute top-0 flex justify-center items-center w-full min-h-14 overflow-hidden text-bold text-center bg-gray-100 after:absolute after:z-50 after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:translate-y-3/4 after:block after:bg-white after:w-4 after:h-4  after:content-[''] after:rotate-45">
             {/* left */}
             <Link to='/' className='flex-1 flex items-center gap-4'>
                 <img src='/logo.png' alt='logo' className='w-12 aspect-square' />

@@ -4,12 +4,15 @@ import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { toKFormat } from "../../funcs";
 import { BsLightningCharge } from "react-icons/bs";
-import { FaChartBar, FaRegComment, FaRegHeart } from "react-icons/fa6";
+import { FaChartBar, FaRegComment, FaRegHeart, FaUsers } from "react-icons/fa6";
 import ApexBarChart from "./ApexBarChart";
 import ApexLineChart from "./ApexLineChart";
 import { LuLink2 } from "react-icons/lu";
 import { TiEye } from "react-icons/ti";
 import { Tooltip } from "@mui/material";
+import { FaUserFriends } from "react-icons/fa";
+import { PiGridFourFill } from "react-icons/pi";
+import { FcLike } from "react-icons/fc";
 
 function ReportPage({pageId, yourPostLink, postDetails}) {
 
@@ -110,7 +113,6 @@ function ReportPage({pageId, yourPostLink, postDetails}) {
             totals.likes += thisPost.likes;
             totals.comments += thisPost.comments;
             totals.posts += 1;
-
         }
 
         avgs.like = totals.likes/mediaCount;
@@ -162,64 +164,67 @@ function ReportPage({pageId, yourPostLink, postDetails}) {
                         </div>
                     </div>
                     <div className="w-full flex items-center justify-between border-y border-gray-300">
-                        <div className="flex-1 py-6 flex flex-col items-center justify-center">
+                        <div className="group flex-1 py-6 flex flex-col items-center justify-center cursor-pointer transition-all duration-200">
+                            <FaUsers className="group-hover:scale-0 transition-all duration-200" />
                             {
                                 pageDetail.loading 
                                 ? <Skeleton width={45} />
-                                : <span className="text-xl pt_serif_regular font-bold">{toKFormat(pageDetail.data?.followers || 617321456)}</span>
+                                : <span className="text-xl group-hover:scale-125 group-hover:text-red-500 transition-all duration-300 pt_serif_regular font-bold">{toKFormat(pageDetail.data?.followers || 617321456)}</span>
                             }
-                            <span className="text-gray-500">فالور</span>
+                            <span className="text-gray-500 group-hover:scale-0 transition-all duration-200">فالور</span>
                         </div>
-                        <div className="flex-1 py-6 flex flex-col items-center justify-center">
+                        <div className="group flex-1 py-6 flex flex-col items-center justify-center cursor-pointer transition-all duration-200">
+                            <FaUserFriends className="group-hover:scale-0 transition-all duration-200" />
                             {
                                 pageDetail.loading 
                                 ? <Skeleton width={45} />
-                                : <span className="text-xl pt_serif_regular font-bold">{toKFormat(pageDetail.data?.followings || 0)}</span>
+                                : <span className="text-xl group-hover:scale-125 group-hover:text-telegram transition-all duration-300 pt_serif_regular font-bold">{toKFormat(pageDetail.data?.followings || 0)}</span>
                             }
-                            <span className="text-gray-500">فالوینگ</span>
+                            <span className="text-gray-500 group-hover:scale-0 transition-all duration-200">فالوینگ</span>
                         </div>
-                        <div className="flex-1 py-6 flex flex-col items-center justify-center">
+                        <div className="group flex-1 py-6 flex flex-col items-center justify-center cursor-pointer transition-all duration-200">
+                            <PiGridFourFill className="group-hover:scale-0 transition-all duration-200" />
                             {
                                 pageDetail.loading 
                                 ? <Skeleton width={45} />
-                                : <span className="text-xl pt_serif_regular font-bold">{pageDetail.data?.media_count || 0}</span>
+                                : <span className="text-xl group-hover:scale-125 group-hover:text-yellow-500 transition-all duration-300 pt_serif_regular font-bold">{pageDetail.data?.media_count || 0}</span>
                             }
-                            <span className="text-gray-500">پست ها</span>
+                            <span className="text-gray-500 group-hover:scale-0 transition-all duration-200">پست ها</span>
                         </div>
                     </div>
                 </div>
                 <div className="flex-1 md:max-w-3xl">
                     {/* boxes */}
-                    <div className="flex flex-wrap w-full gap-4 p-4 md:p-0">
+                    <div className="flex flex-wrap w-full gap-4 p-4 md:p-0 mb-8">
                         {/* box */}
-                        <div className="flex-1 p-4 flex flex-col items-center justify-center gap-2 border border-gray-400 shadow-lg">
-                            <BsLightningCharge className="text-2xl" />
+                        <div className="flex-1 p-4 flex flex-col items-center justify-center gap-2 border shadow-lg">
+                            <BsLightningCharge className="text-2xl text-yellow-500" />
                             {
                                 pageDetail.loading
                                 ? <Skeleton width={45} height={20} />
                                 : <span className="text-xl font-bold pt_serif_regular">{(pageDetail.data?.avgs ? pageDetail.data?.avgs.engagement : 0)}</span>
                             }
-                            <span className="text-gray-500 text-sm">درصد همکاری</span>
+                            <span className="text-gray-500 text-sm text-center">درصد همکاری</span>
                         </div>
                         {/* box */}
-                        <div className="flex-1 p-4 flex flex-col items-center justify-center gap-2 border border-gray-400 shadow-lg">
+                        <div className="flex-1 p-4 flex flex-col items-center justify-center gap-2 border border-[gray-400] shadow-lg">
                             <FaRegHeart className="text-[#f00] text-2xl"/>
                             {
                                 pageDetail.loading
                                 ? <Skeleton width={45} height={20} />
                                 : <span className="text-xl font-bold pt_serif_regular">{pageDetail.data?.avgs ? toKFormat(pageDetail.data?.avgs.like) : 0}</span>
                             }
-                            <span className="text-gray-500 text-sm">متوسط لایک</span>
+                            <span className="text-gray-500 text-sm text-center">متوسط لایک</span>
                         </div>
                         {/* box */}
-                        <div className="flex-1 p-4 flex flex-col items-center justify-center gap-2 border border-gray-400 shadow-lg">
+                        <div className="flex-1 p-4 flex flex-col items-center justify-center gap-2 border shadow-lg">
                             <FaRegComment className="text-telegram text-2xl"  />
                             {
                                 pageDetail.loading
                                 ? <Skeleton width={45} height={20} />
                                 : <span className="text-xl font-bold pt_serif_regular">{Math.ceil(pageDetail.data?.avgs ? pageDetail.data?.avgs.comment : 0)}</span>
                             }
-                            <span className="text-gray-500 text-sm">متوسط کامنت</span>
+                            <span className="text-gray-500 text-sm text-center">متوسط کامنت</span>
                         </div>
                     </div>
                     {/* Charts */}
@@ -236,26 +241,26 @@ function ReportPage({pageId, yourPostLink, postDetails}) {
                         }
                     </div>
                     {/* Your Post */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-8 md:p-0 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-8 md:p-0 gap-4 font-bold">
                         {
                             (!pageDetail.loading && !pageDetail.error)
                             ? pageDetail.data?.posts && pageDetail.data?.posts.slice(pageDetail.data?.yourpostInedx, pageDetail.data?.yourpostInedx + 3)
                             .map((post, index) => 
-                                <div className={`relative flex flex-col flex-1 p-2 rounded-md ${ index === 0 ? "bg-telegram text-white" : "bg-gray-100"} pb-4`}>
-                                    <div className="relative group rounded-xl overflow-hidden">
+                                <div className={`relative group flex flex-col flex-1 p-2 rounded-md overflow-hidden ${ index === 0 ? "bg-black text-white" : "bg-gray-100"} pb-4`}>
+                                    <div className="relative rounded-xl overflow-hidden">
                                         <img src={post?.thumbnail_url || post?.media_url} className="w-full aspect-square object-cover object-center" alt="" />
                                         {
                                             index === 0 &&
-                                            <div className="absolute left-0 right-0 -bottom-20  group-hover:bottom-0 scale-55 backdrop-blur-0 hover:backdrop-blur-sm group-hover:scale-100 h-full flex items-center justify-center bg-gray-200 bg-opacity-0 opacity-0 group-hover:opacity-100 group-hover:bg-opacity-35 transition-all duration-200">
+                                            <div className="absolute left-0 right-0 -bottom-4  group-hover:bottom-0 backdrop-blur-0 group-hover:backdrop-blur-sm group-hover:scale-100 h-full flex items-center justify-center bg-gray-200 bg-opacity-0 opacity-0 group-hover:opacity-100 group-hover:bg-opacity-35 transition-all duration-200">
                                                 <div className="flex text-black">
                                                     <div className="flex flex-col items-start gap-3">
-                                                        <Tooltip placement="bottom" title="بازدید پست">
+                                                        <Tooltip placement="right" title="بازدید پست">
                                                             <span className="flex items-center gap-1 text-xl">
                                                                 <TiEye />
                                                                 {postDetails?.PostViews}
                                                             </span>
                                                         </Tooltip>
-                                                        <Tooltip placement="bottom" title="ایمپرشن پست">
+                                                        <Tooltip placement="right" title="ایمپرشن پست">
                                                             <span className="flex items-center gap-1 text-xl">
                                                                 <FaChartBar />
                                                                 {postDetails?.PostImpertion}
@@ -267,18 +272,18 @@ function ReportPage({pageId, yourPostLink, postDetails}) {
                                         }
                                     </div>
                                     {/* stats */}
-                                    <div className="flex items-center justify-evenly">
-                                        <div className="flex flex-col text-[#ff2222] items-center gap-1">
-                                            {post?.likes_count}
-                                            <FaRegHeart />
+                                    <div className="flex items-center justify-evenly absolute bottom-0 left-0 w-full bg-black text-white">
+                                        <div className="flex flex-col flex-1 text-[#ff2222] items-center leading-3 py-2">
+                                            {toKFormat(post?.likes_count)}
+                                            <FcLike />
                                         </div>
-                                        <div className="flex flex-col items-center gap-1">
+                                        <div className="flex flex-col flex-1 items-center leading-3 py-2">
                                             <span className={`${index===0 ? "text-white" : "text-telegram"}`}>
-                                                {post?.comments_count}
+                                                {toKFormat(post?.comments_count)}
                                             </span>
-                                            <FaRegComment />
+                                            <FaRegComment className={`${index===0 ? "text-white" : "text-telegram"}`} />
                                         </div>
-                                        <a target="_blank" href={post?.permalink} className="flex flex-col items-center gap-1">
+                                        <a target="_blank" href={post?.permalink} className="flex flex-col flex-1 items-center leading-3 py-2">
                                             see post
                                             <LuLink2 />
                                         </a>

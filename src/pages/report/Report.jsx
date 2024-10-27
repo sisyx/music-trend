@@ -63,9 +63,9 @@ function Report() {
     return ( 
         <>
         <ReportHeader username={username} />
-        <div className="flex">
+        <div className="flex h-screen">
             <ReportLeftHeader />
-            <div className="pt-4 w-full flex flex-col gap-24">
+            <div className="pt-4 w-full flex flex-col gap-24 pb-96 h-full overflow-scroll">
                 {
                     !campDetail.loading && !campDetail.error ? campDetail.data?.report?.map(page => <ReportPage postDetails={page.Page} pageId={page.PageId} yourPostLink={page.Page.PostLink} />) : ""
                 }
