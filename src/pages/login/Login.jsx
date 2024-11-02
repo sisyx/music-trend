@@ -2,7 +2,7 @@ import { Button, styled, TextField } from "@mui/material";
 // import { useTheme } from "../../contexts/themeContext";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { root } from "../../constatnts";
+import { root, userLevels } from "../../constatnts";
 import { customAlert, setTitle } from "../../functions";
 
 const Home = () => {
@@ -109,6 +109,7 @@ const Home = () => {
     const xusername = username;
     const xpassword = password;
     const xphone = newPhone;
+    const xrole = userLevels[0].value
 
     if (!xusername.length || !xpassword.length || !xphone.length) {
         if (!xusername && !xpassword.length && !xphone.length) {
@@ -142,7 +143,7 @@ const Home = () => {
                 "username": xusername,
                 "password": xpassword,
                 "password2": xpassword,
-                "roles": "user",
+                "roles": xrole,
                 "pic": "none",
                 "displayName": xusername,
                 "campaignId": 0,

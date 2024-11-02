@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import { customAlert, deletePageCat, deletePageType, getCookie } from "../../../functions";
-import { Button, IconButton, TextField, Tooltip } from "@mui/material";
+import { Button, Tooltip } from "@mui/material";
 import CircleGradient from "../../loadings/CircleGradient";
 import { AddSharp, SkipPrevious } from "@mui/icons-material";
-import { englishAlphabetLC, root } from "../../../constatnts";
+import { root } from "../../../constatnts";
 import AddType from "./addType";
-import { RiDeleteBinLine } from "react-icons/ri";
-import { CiEdit } from "react-icons/ci";
 import Type from "./Type";
 import Category from "./Category";
 
@@ -68,6 +66,7 @@ function CreatePageTypes({ setState }) {
             const res = await req.json();
             setPageCategories(res);
         } catch (error) {
+            setPageCategories([]);
             console.error(error);
         }
 
@@ -84,6 +83,7 @@ function CreatePageTypes({ setState }) {
     async function deleteThisCat(name) {
         const isDeleted = await deletePageCat(name);
         if (isDeleted) {
+            customAlert("دسته بندی با موفقیت حذف شد.", "success");
             init();
         } else {
             customAlert("حذف دسته بندی ناموق بود. لطفا مجددا تلاش کنید", "error")

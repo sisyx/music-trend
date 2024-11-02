@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
-import { cartCookies, taarifs } from "../../constatnts";
+import { cartCookies, taarifs, userLevels } from "../../constatnts";
 import Timeline from "../../components/start/Timeline";
 import { Button, Checkbox } from "@mui/material";
 import RightFilters from "../../components/start/RightFilters";
 import StartCards from "../../components/start/StartCards";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import StartNav from "../../components/start/StartNav";
-import { customAlert, saveCookie, setTitle } from "../../functions";
+import { customAlert, getRole, saveCookie, setTitle } from "../../functions";
 import CampaignSelect from "../../components/start/CampaignSelect";
 import Left from "../../components/start/Left";
+import CheckPageAccess from "../../lib/CheckPageAccess";
 
 const timelinedata = [
     {
@@ -35,7 +36,7 @@ function Start() {
     const [costs, setCosts] = useState([]); // [{id: xxx, pageImg: xxx, pageid: xxx, normalprice: xxx, specialprice: xxx. hamkarprice: xxx, }]
 
     useEffect(() => {
-        setTitle("ایجاد کمپین")
+        setTitle("ایجاد کمپین");
     }, []);
 
     useEffect(() => {
@@ -66,6 +67,7 @@ function Start() {
 
     return ( 
         <div>
+            <CheckPageAccess />
             <StartNav search={search} setSearch={setSearch} />
             <div className="mt-5 overflow-hidden">
                 {/* top */}

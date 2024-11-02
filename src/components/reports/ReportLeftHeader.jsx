@@ -18,10 +18,10 @@ function ReportLeftHeader() {
                 </Link>
             </Tooltip>
             <Tooltip title="لیست کمپین ها" placement="right">
-                <div className='p-2 flex flex-row items-center justify-center bg-white text-black rounded-xl cursor-pointer hover:bg-primary-start hover:text-white transition-all duration-300'>
+                <Link to="/uPanel/camps" className='p-2 flex flex-row items-center justify-center bg-white text-black rounded-xl cursor-pointer hover:bg-primary-start hover:text-white transition-all duration-300'>
                     <Shop />
                     {/* <span className='text-[0px] group-hover:text-sm transition-all duration-150'>لیست کمپین ها</span> */}
-                </div>
+                </Link>
             </Tooltip>
             <Tooltip title="ریفرش صفحه" placement="right">
                 <div onClick={() => location.reload()} className='p-2 flex flex-row items-center justify-center bg-white text-black rounded-xl cursor-pointer hover:bg-primary-start hover:text-white transition-all duration-300'>

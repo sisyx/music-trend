@@ -47,7 +47,7 @@ function AddType({ reloadAll = () => {return}, addingWhat = "type", handleCloseA
             const res = await req.json();
             customAlert(`
                 ${addingWhat === "type" ? "نوع پیج" : "دسته بندی"} با موفقیت اضافه شد
-                `)
+                `, "success")
             console.log(res);
         } catch (error) {
             console.error(error)

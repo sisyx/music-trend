@@ -43,7 +43,9 @@ function Page({page, pageTypes, pageCategories, reloadPages = () => {return}}) {
         setIsRefreshing(() => true);
         const refresh = await refreshPubMetadata(pageid);
         customAlert(refresh?.message || "اپدیت پیج ناموفق بود", refresh?.message ? "success" : "error")
-        reloadPages();
+        if (!!refresh?.message) {
+            reloadPages();
+        }
         setIsRefreshing(() => false);
     }
 

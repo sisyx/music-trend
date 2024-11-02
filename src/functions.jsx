@@ -1,5 +1,5 @@
 import { notify } from "./App";
-import { apiroot, filesBase, genders, root, taarifs, userLevels } from "./constatnts";
+import { apiroot, filesBase, genders, root, taarifs } from "./constatnts";
 import moment from "moment-jalaali";
 
 
@@ -470,7 +470,7 @@ export async function deletePageCat(name) {
     }
 
     try {
-        const req = await fetch(`${root}/api/PageTypeCategory/UpdatePageTypeCategories?name=${name}`, {
+        const req = await fetch(`${root}/api/PageTypeCategory/DeletePageTypeCategories?categoryName=${name}`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${token}`
@@ -481,7 +481,7 @@ export async function deletePageCat(name) {
             throw new Error(req.statusText);
         }
 
-        const res = await req.json();
+        const res = await req.text();
         return res
     } catch(error) {
         console.error(error);

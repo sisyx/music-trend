@@ -1,4 +1,4 @@
-import { Avatar } from "@mui/material";
+import { Avatar, Checkbox, Tooltip } from "@mui/material";
 import GlassyButton from "../../GlassyButton";
 import { root, userLevels } from "../../../constatnts";
 import { customAlert, getCookie } from "../../../functions";
@@ -11,13 +11,16 @@ function User({user, setUsers}) {
     const [role, setRole] = useState(user.roles);
     const [isInSettings, setIsInSettings] = useState(false);
     const nextUserLevel = userLevels.find(xrole => xrole.prev === role);
-
+    const prevUserLevel = userLevels.find(xrole => xrole.next === role);
+    const [isAccepted, setIsAccepted] = useState(role !== userLevels.at(0).value);
+    const savedUsername = getCookie("username");
+    
     useEffect(() => {
-        setRole(user.roles)
-    }, [user])
+        setRole(user.roles);
+        setIsAccepted(user.roles !== userLevels.at(0).value);
+    }, [user]);
 
     async function updateUser() {
-        console.log(nextUserLevel);
         const newUserData = {
             ...user,
             roles: nextUserLevel.value
@@ -40,7 +43,6 @@ function User({user, setUsers}) {
             }
 
             const res = await req.json();
-            console.log(res)
             customAlert(
             `کاربر
                 ${user.username}
@@ -51,9 +53,45 @@ function User({user, setUsers}) {
             setRole(() =>
                 nextUserLevel.value
             );
+            setIsAccepted(true);
             return res
         } catch (error) {
             customAlert("ارتقاع ناموفق بود!")
+            console.error(error)
+        }
+    }
+
+    async function downgrageUser() {
+        const newUserData = {
+            ...user,
+            roles: prevUserLevel.value
+        }
+
+        const token = getCookie("token");
+
+        try {
+            const req = await fetch(`${root}/user/update`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify(newUserData),
+            })
+
+            if (!req.ok) {
+                throw new Error("failed to update user")
+            }
+
+            const res = await req.json();
+            setUsers(cur => cur.map(xuser => xuser.id === user.id ? {...user, roles: prevUserLevel.value } : xuser));
+            setRole(() =>
+                prevUserLevel.value
+            );
+            setIsAccepted(false);
+            return res
+        } catch (error) {
+            customAlert("عملیات نام ناموفق بود!")
             console.error(error)
         }
     }
@@ -96,6 +134,12 @@ function User({user, setUsers}) {
                                 : <Avatar />
                             }
                         </div>
+                        {
+                            user.username !== savedUsername ?
+                            <Tooltip title={isAccepted ? "اتمام عضویت کاربر" : "پذیرش درخواست عضویت"}>
+                                <Checkbox onClick={() => isAccepted ? downgrageUser() : updateUser()} checked={isAccepted} />
+                            </Tooltip> : ""
+                        }
                     </div>
                 </div>
                 {

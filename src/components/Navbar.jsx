@@ -67,6 +67,9 @@ function Navbar() {
                                     min-w-48 rounded-xl bg-white overflow-hidden shadow-xl
                                 ">
 
+                                <NavLink to="/" className="w-full flex justify-end p-4">
+                                    <span>رقتن به صفحه اصلی</span>
+                                </NavLink>
                                 <NavLink to={isLoggedin() ? "/logout" : "/login"} className="w-full flex justify-end p-4">
                                     {
                                         isLoggedin() ?
@@ -77,9 +80,6 @@ function Navbar() {
                                             ورود به حساب کاربری
                                         </span>
                                     }
-                                </NavLink>
-                                <NavLink to="/" className="w-full flex justify-end p-4">
-                                    <span>رقتن به صفحه اصلی</span>
                                 </NavLink>
                             </div>
                         </div>

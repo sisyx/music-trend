@@ -64,13 +64,24 @@ export const taarifs = [
 // user levels starts ----------------------------
 export const userLevels = [
   {
-    value: "user",
+    value: "notValid",
     prev: undefined,
+    persianName: "کاربر تایید نشده",
+    englishName: "Not Verified User",
+    priceProperty: undefined,
+    next: "user",
+    url: "/api/Pages/GetPageByFilteSpecialPrice",
+    hasAccess: false,
+  },
+  {
+    value: "user",
+    prev: "notValid",
     persianName: "کاربر معمولی",
     englishName: "Normal User",
     priceProperty: "normalprice",
     next: "professional",
-    url: "/api/Pages/GetPageByFilteNormalPrice"
+    url: "/api/Pages/GetPageByFilteNormalPrice",
+    hasAccess: true,
   },
   {
     value: "professional",
@@ -79,7 +90,8 @@ export const userLevels = [
     englishName: "Professional User",
     priceProperty: "specialPrice",
     next: "coworker",
-    url: "/api/Pages/GetPageByFilteSpecialPrice"
+    url: "/api/Pages/GetPageByFilteSpecialPrice",
+    hasAccess: true,
   },
   {
     value: "coworker",
@@ -88,7 +100,8 @@ export const userLevels = [
     englishName: "coworker user",
     priceProperty: "hamkarPrice",
     next: "admin",
-    url: "/api/Pages/GetPageByFilterHamkarPrice"
+    url: "/api/Pages/GetPageByFilterHamkarPrice",
+    hasAccess: true,
   },
   {
     value: "admin",
@@ -97,7 +110,8 @@ export const userLevels = [
     englishName: "Admin",
     priceProperty: "normalprice",
     next: undefined,
-    url: "/api/Pages/GetPageByFilteNormalPrice"
+    url: "/api/Pages/GetPageByFilteNormalPrice",
+    hasAccess: true,
   }
 ]
 // user levels end ----------------------------

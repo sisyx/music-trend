@@ -24,6 +24,9 @@ import Report from'./pages/report/Report';
 import { Slide, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Aos from 'aos';
+import UserPaenel from './pages/userPanel/UserPaenel';
+import ProfilePage from './pages/userPanel/ProfilePage';
+import Campaigns from './pages/userPanel/Campaigns';
 
 export const notify = (text, xtype) => toast[xtype](text, {
   position: "bottom-right",
@@ -57,6 +60,9 @@ function App() {
             <Route path='/report' element={<Report />} />
             <Route path='/contact' element={<Contact />} />
             <Route path='/payment' element={<Payment />} />
+            <Route path='/uPanel' element={<UserPaenel />} />
+            <Route path='/uPanel/profile' element={<ProfilePage />} />
+            <Route path='/uPanel/camps' element={<Campaigns />} />
           </Routes>
           <ToastContainer
             position="borrom-right"

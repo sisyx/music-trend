@@ -31,10 +31,10 @@ export default function SideNav() {
             <TbSquareRoundedLetterMFilled />
           </IconButton>
         </Link>
-        <Link to='/campaigns' className={styles.link_btn}>
+        <Link to='/uPanel/profile' className={styles.link_btn}>
           <Button variant="contained" className={styles.button}  endIcon={<AutoStoriesIcon className={styles.end_icon} />} dir="rtl">
               <span className={styles.btn_label}>
-            کمپین ها
+            پنل کابری
               </span>
           </Button>
           <IconButton className={styles.icon_btn}>
