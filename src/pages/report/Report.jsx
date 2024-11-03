@@ -2,9 +2,47 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import ReportHeader from "../../components/reports/ReportHeader";
 import ReportLeftHeader from "../../components/reports/ReportLeftHeader";
 import ReportPage from "../../components/reports/ReportPage";
-import { getCookie } from "../../functions";
+import { getCookie, toShamsi } from "../../functions";
 import { useEffect, useState } from "react";
 import { root } from "../../constatnts";
+import { IoCalendarNumber } from "react-icons/io5";
+import { TbBrandCampaignmonitor } from "react-icons/tb";
+import Skeleton from "react-loading-skeleton";
+import ReportHead from "../../components/reports/new/ReportHead";
+import SumRect from "./SumRect";
+import { toKFormat } from "../../funcs";
+import ReportTable from "../../components/reports/new/ReportTable";
+
+const sums = [
+    {
+        name: "لایک پست",
+        value: toKFormat(23302)
+    },
+    {
+        name: "ویو پست",
+        value: toKFormat(233020)
+    },
+    {
+        name: "کامنت پست",
+        value: toKFormat(2330)
+    },
+    {
+        name: "ایمپرشن پست",
+        value: toKFormat(31532)
+    },
+    {
+        name: "ویو استوری",
+        value: toKFormat(2332)
+    },
+    {
+        name: "ایمپرشن استوری",
+        value: toKFormat(3005)
+    },
+    {
+        name: "تعداد ناشران",
+        value: toKFormat(2)
+    },
+]
 
 function Report() {
     const username = getCookie("username");
@@ -63,12 +101,23 @@ function Report() {
     return ( 
         <>
         <ReportHeader username={username} />
-        <div className="flex h-screen">
+        <div className="flex">
             <ReportLeftHeader />
-            <div className="pt-4 w-full flex flex-col gap-24 pb-96 h-full overflow-scroll">
-                {
+            <div className="pt-4 w-full flex flex-col items-center gap-24 pb-96 overflow-scroll">
+                {/* campaign main details */}
+                <ReportHead startDate={campDetail.data?.startDate || ""} name={campDetail.data?.name || ""} isLoading={campDetail.loading} />
+                <div className="md:w-3/4 w-11/12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-8 gap-4">
+                    {
+                        campDetail.loading ? sums.map(_ => <Skeleton className="w-full aspect-video" />)
+                        : sums.map(item => <SumRect xkey={item.name} value={item.value} />)
+                    }
+                </div>
+                {/* {
                     !campDetail.loading && !campDetail.error ? campDetail.data?.report?.map(page => <ReportPage postDetails={page.Page} pageId={page.PageId} yourPostLink={page.Page.PostLink} />) : ""
-                }
+                } */}
+                <div className="md:w-3/4 w-11/12">
+                    <ReportTable rowsCount={2} />
+                </div>
             </div>
         </div>
         </>
