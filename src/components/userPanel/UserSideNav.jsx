@@ -2,9 +2,8 @@ import { TbBrandCampaignmonitor } from "react-icons/tb";
 import UserSideNavBtn from "./UserSideNavBtn";
 import { RxAvatar } from "react-icons/rx";
 import { RiHome2Line } from "react-icons/ri";
-import { MdLogout } from "react-icons/md";
+import { MdLogout, MdOutlineAddBox } from "react-icons/md";
 import { useState } from "react";
-import { FaHamburger } from "react-icons/fa";
 import { IconButton } from "@mui/material";
 import { GiHamburgerMenu } from "react-icons/gi";
 
@@ -20,9 +19,9 @@ const buttons = [
         icon: <TbBrandCampaignmonitor />,
     },
     {
-        state: "/uPanel/yyy",
-        text: "پروفایل",
-        icon: <RxAvatar />,
+        state: "/start",
+        text: "ایجاد کمپین",
+        icon: <MdOutlineAddBox />,
     },
     {
         state: "/",

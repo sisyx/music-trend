@@ -25,6 +25,7 @@ function Campaigns() {
             console.log(res);
             setCamps({error: false, loading: false, data: res});
         } catch(error) {
+            setCamps({error: true, loading: false, data: {}});
             console.error(error);
         }
     }
@@ -42,7 +43,7 @@ function Campaigns() {
                     <div className="md:text-3xl">
                         کمپین های شما
                     </div>
-                    <div className="w-full py-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className={`w-full py-8 grid ${camps.error ? "grid-cols-1" : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"} gap-4`}>
                         {
                             camps.loading 
                             ? <>

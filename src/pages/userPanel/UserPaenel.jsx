@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getRole } from "../../utils/auth";
 import { USER_LEVELS } from "../../constatnts";
 import { useNavigate } from "react-router-dom";
@@ -7,9 +7,12 @@ import UserSideNav from "../../components/userPanel/UserSideNav";
 import UserNav from "../../components/userPanel/UserNav";
 
 function UserPaenel() {
-    const [isLoaded, setIsLoaded] = useState(false);
+    const [_isLoaded, setIsLoaded] = useState(false);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        init();
+    }, []);
 
     function init() {
         const role = getRole();

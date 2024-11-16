@@ -56,7 +56,7 @@ function ProfilePage() {
                     <div className="py-8 border-b border-gray-300 w-[80%] flex justify-center">
                         <img src={`${imagebase}/userProfile.jpg`} alt="Your Profile" className="w-32 rounded-full" />
                     </div>
-                    <div className="grid md:grid-cols-2 gap-y-8 w-[80%] py-8">
+                    <div className="grid md:grid-cols-2 gap-y-8 gap-4 w-[80%] py-8">
                         <div className="text-right flex flex-col gap-4" dir="rtl">
                             {
                                 userDetail.loading ? <Skeleton count={1} className="w-32" height="1.25rem" />
@@ -64,7 +64,7 @@ function ProfilePage() {
                             }
                             {
                                 userDetail.loading ? <Skeleton count={1} className="w-24" height="1.25rem" />
-                                : <span className="text-gray-500" dir="ltr">@{userDetail.data?.username}</span>
+                                : <span className="text-gray-500 bg-gray-100 border p-3 border-gray-300 rounded-lg cursor-text hover:border-telegram" dir="ltr">@{userDetail.data?.username}</span>
                             }
                         </div>
                         <div className="text-right flex flex-col gap-4" dir="rtl">
@@ -74,7 +74,7 @@ function ProfilePage() {
                             }
                             {
                                 userDetail.loading ? <Skeleton count={1} className="w-24" height="1.25rem" />
-                                : <span className="text-gray-500">{userDetail.data?.showName || '"بدون نام"'}</span>
+                                : <span className="text-gray-500 bg-gray-100 border p-3 border-gray-300 rounded-lg cursor-text hover:border-telegram">{userDetail.data?.showName || '"بدون نام"'}</span>
                             }
                         </div>
                         <div className="text-right flex flex-col gap-4" dir="rtl">
@@ -87,7 +87,7 @@ function ProfilePage() {
                             }
                             {
                                 userDetail.loading ? <Skeleton count={1} className="w-24" height="1.25rem" />
-                                : <span className="text-gray-500">{userDetail.data?.email || '"بدون ایمیل"'}</span>
+                                : <span className="text-gray-500 bg-gray-100 border p-3 border-gray-300 rounded-lg cursor-text hover:border-telegram">{userDetail.data?.email || '"بدون ایمیل"'}</span>
                             }
                         </div>
                         <div className="text-right flex flex-col gap-4" dir="rtl">
@@ -100,7 +100,7 @@ function ProfilePage() {
                             }
                             {
                                 userDetail.loading ? <Skeleton count={1} className="w-24" height="1.25rem" />
-                                : <span className="text-gray-500">{userDetail.data?.phoneNumber || '"بدون شماره همراه"'}</span>
+                                : <span className="text-gray-500 bg-gray-100 border p-3 border-gray-300 rounded-lg cursor-text hover:border-telegramtext-gray-500">{userDetail.data?.phoneNumber || '"بدون شماره همراه"'}</span>
                             }
                         </div>
                         <div className="text-right flex flex-col gap-4" dir="rtl">
@@ -113,7 +113,7 @@ function ProfilePage() {
                             }
                             {
                                 userDetail.loading ? <Skeleton count={1} className="w-24" height="1.25rem" />
-                                : <span className="text-gray-500">{userDetail.data?.level}</span>
+                                : <span className="text-gray-500 bg-gray-100 border p-3 border-telegram rounded-lg cursor-text hover:border-telegram">{userDetail.data?.level}</span>
                             }
                         </div>
                     </div>
