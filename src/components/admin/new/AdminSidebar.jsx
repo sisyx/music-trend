@@ -4,6 +4,7 @@ import { FaAngleLeft } from "react-icons/fa";
 import { RiUserSettingsFill } from "react-icons/ri";
 import { PiInstagramLogoFill } from "react-icons/pi";
 import { TbCategoryFilled } from "react-icons/tb";
+import { CiBadgeDollar } from "react-icons/ci";
 
 function AdminSidebar({ state, setState }) {
     return ( 
@@ -55,11 +56,11 @@ function AdminSidebar({ state, setState }) {
                         </div>
                         <FaAngleLeft />
                     </div>
-                    <div className="flex items-center justify-between p-3 cursor-pointer hover:bg-white hover:text-black" onClick={() => setState("see price titles")}>
+                    <div className={`flex items-center justify-between p-3 cursor-pointer hover:bg-white hover:text-black ${state === "see price titles" ? "bg-white text-black" : ""}`} onClick={() => setState("see price titles")}>
                         <div className="flex items-center gap-2 text-2xl" dir="rtl">
-                            <FiHome />
+                            <CiBadgeDollar />
                             <span className="text-base">
-                                داشبورد
+                                تعرفه ها
                             </span>
                         </div>
                         <FaAngleLeft />

@@ -10,6 +10,7 @@ import CreatePageTypes from "../../components/admin/new/CreatePageTypes";
 import SeeCamps from "../../components/admin/new/SeeCamps";
 import "./Admin.module.css";
 import { setTitle } from "../../lib/dom";
+import AddPriceTitle from "../../components/admin/new/AddPriceTitle";
 
 function Admin() {
     const [_isLoaded, setIsLoaded] = useState(false);
@@ -38,7 +39,7 @@ function Admin() {
                         ? <SeeUsers setState={setState} state={state} />
                         : state === "see pages" ? <SeePages setState={setState} /> 
                         : state === "see categories" ? <CreatePageTypes setState={setState} /> 
-                        : <SeeCamps setState={setState} />
+                        : state === "see price titles" ? <AddPriceTitle /> : <SeeCamps setState={setState} />
                     }
                 </div>
                 <AdminSidebar state={state} setState={setState} />
