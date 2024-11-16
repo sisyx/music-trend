@@ -55,7 +55,7 @@ function AdminSidebar({ state, setState }) {
                         </div>
                         <FaAngleLeft />
                     </div>
-                    <div className="flex items-center justify-between p-3 cursor-pointer hover:bg-white hover:text-black">
+                    <div className="flex items-center justify-between p-3 cursor-pointer hover:bg-white hover:text-black" onClick={() => setState("see price titles")}>
                         <div className="flex items-center gap-2 text-2xl" dir="rtl">
                             <FiHome />
                             <span className="text-base">

@@ -24,7 +24,7 @@ export default function SeeCamps({setState}) {
 
 
     return ( 
-        <div className="w-full px-0 md:px-8 p-8">
+        <div data-aos="fade-left" className="w-full px-0 md:px-8 p-8">
             {/* title bar and etc */}
             <div className="flex justify-end items-center w-full bg-transparent ">
                 <div className="flex flex-col items-end text-black">
