@@ -1,14 +1,15 @@
 import styles from "./Left.module.css";
-import { userLevels } from "../../constatnts";
-import { getCookie, toPersianUnits } from '../../functions';
+import { USER_LEVELS } from "../../constatnts";
+import { getCookie } from "../../lib/cacheAndStorage";
 import GlassyButton from "../GlassyButton";
 import { Delete } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import { IoCloseSharp } from "react-icons/io5";
+import { toPersianUnits } from "../../utils/numbers";
 
 function LeftCosts({costs, deleteCost}) {
     const role = getCookie("role");
-    const priceProperty = userLevels.find(ulevel => ulevel.value === role)?.priceProperty || "normalprice";
+    const priceProperty = USER_LEVELS.find(ulevel => ulevel.value === role)?.priceProperty || "normalprice";
 
 
     return ( 

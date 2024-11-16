@@ -1,6 +1,8 @@
 import { useEffect } from "react";
-import { cartCookies, englishAlphabetLC, root, userLevels } from "../../constatnts";
-import { customAlert, getAllPrices, getCookie, getPages, getRole } from "../../functions";
+import { CART_COOKIES, englishAlphabetLC, USER_LEVELS } from "../../constatnts";
+import { customAlert, getAllPrices, getPages } from "../../functions";
+import { getCookie } from "../../lib/cacheAndStorage";
+import { getRole } from "../../utils/auth";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
@@ -8,6 +10,7 @@ import GlassyButton from "../../components/GlassyButton";
 import CircleGradient from "../../components/loadings/CircleGradient";
 import { IoBagCheck } from "react-icons/io5";
 import NeonLightBg from "../../components/NeonLightBg";
+import { BASE_URL } from "../../config/config";
 
 function Payment() {
     const [prices, setPrices] = useState([]);
@@ -16,7 +19,7 @@ function Payment() {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate()
     const role = getRole();
-    const priceProperty = userLevels.find(xlevel => xlevel.value === role).priceProperty
+    const priceProperty = USER_LEVELS.find(xlevel => xlevel.value === role).priceProperty
 
     useEffect(() => {
         init()
@@ -32,7 +35,7 @@ function Payment() {
             const allPrices = await getAllPrices();
             const allPages = await getPages();
             setMetadata({pages: allPages, prices: allPrices});
-            const priceIdsList = parseCookie(getCookie(cartCookies.selectedPrices));
+            const priceIdsList = parseCookie(getCookie(CART_COOKIES.selectedPrices));
             // priceIdsList.forEach(price => {
             //     price.pageNId = price.pageId;
             //     price.pageId = allPages.find(page => page.id === price.priceNId)
@@ -61,8 +64,8 @@ function Payment() {
     
     
     async function pay() {
-        const xprices = getCookie(cartCookies.selectedPrices);
-        const campid = getCookie(cartCookies.campidName);
+        const xprices = getCookie(CART_COOKIES.selectedPrices);
+        const campid = getCookie(CART_COOKIES.campidName);
         const xpricesList = parseCookie(xprices).reduce((acc, cur) => !acc.includes(cur.xpageId) ? [...acc, cur.xpageId] : acc, []);
 
         if (!campid || !xprices) {
@@ -80,7 +83,7 @@ function Payment() {
         for (let i = 0; i < xpricesList.length; i++) {
             try {
                 if (xpricesList[i] == ",") { continue }
-                const req = await fetch(`${root}/api/Campaign/AddPageToCampaign?campaignId=${xdata.campaignId}&pageId=${xpricesList[i]}`, {
+                const req = await fetch(`${BASE_URL}/api/Campaign/AddPageToCampaign?campaignId=${xdata.campaignId}&pageId=${xpricesList[i]}`, {
                     method: "POST",
                 })
 
@@ -98,7 +101,7 @@ function Payment() {
         }
 
         if (success) {
-            document.cookie = `${cartCookies.campidName}=;expires=Thu, 01 Jan 1970 00:00:00 GMT`
+            document.cookie = `${CART_COOKIES.campidName}=;expires=Thu, 01 Jan 1970 00:00:00 GMT`
             customAlert("پرداخت با موفقیت انجا شد");
         }
         else customAlert("پرداخت ناموفق بود");

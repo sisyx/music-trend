@@ -1,11 +1,12 @@
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
-import { genders, root } from "../../../constatnts";
-import { customAlert, getCookie } from "../../../functions";
-
+import { GENDERS } from "../../../constatnts";
+import { customAlert } from "../../../functions";
+import { getCookie } from "../../../lib/cacheAndStorage";
 import * as React from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import { BASE_URL } from "../../../config/config";
 
 
 function AddPage({ isVisible, pageCategories, pageTypes, setReload, handleCloseAdinge = () => {return} }) {
@@ -14,7 +15,7 @@ function AddPage({ isVisible, pageCategories, pageTypes, setReload, handleCloseA
     const [selectedPageType, setSelectedPageType] = useState(1);
     const [selectedPageCat, setSelectedPageCat] = useState(1);
     const [pageDesc, setPageDesc] = useState("");
-    const [sex, setSex] = useState(genders.at(0));
+    const [sex, setSex] = useState(GENDERS.at(0));
     const [telegramID, setTelegramID] = useState("");
     const [whatsappNumber, setWhatsappNumber] = useState("");
  
@@ -48,7 +49,7 @@ function AddPage({ isVisible, pageCategories, pageTypes, setReload, handleCloseA
         
         setIsAdding(() => true)
         try {
-            const req = await fetch(`${root}/api/Pages/CreatePage2`, {
+            const req = await fetch(`${BASE_URL}/api/Pages/CreatePage2`, {
                 method: "POST",
                 body: JSON.stringify({
                     pageId: newPageId,
@@ -98,12 +99,12 @@ function AddPage({ isVisible, pageCategories, pageTypes, setReload, handleCloseA
                         labelId="gender-select-lable-id"
                         id="gender-select"
                         value={sex}
-                        defaultValue={genders[0].value}
+                        defaultValue={GENDERS[0].value}
                         label="جنسیت"
                         onChange={event => setSex(event.target.value)}
                     >
                         {
-                            genders.map(gender => 
+                            GENDERS.map(gender => 
                                 <MenuItem value={gender.value}>{gender.text}</MenuItem>
                             )
                         }

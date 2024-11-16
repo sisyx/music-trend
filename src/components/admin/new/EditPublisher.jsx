@@ -1,7 +1,8 @@
 import { Button, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
-import { root } from "../../../constatnts";
-import { customAlert, getCookie } from "../../../functions";
+import { customAlert } from "../../../functions";
+import { getCookie } from "../../../lib/cacheAndStorage";
+import { BASE_URL } from "../../../config/config";
 
 function EditPublisher({ campid, page = undefined, isEdtingPub = false, handleClosePubEdit = () => {return} }) {
     const [pl, spl] = useState(page?.postLikes) // post likes
@@ -33,7 +34,7 @@ function EditPublisher({ campid, page = undefined, isEdtingPub = false, handleCl
         // return
         setIsSending(() => true)
         try {
-            const req = await fetch(`${root}/api/Pages/UpdatePageContent?campaignId=${campid}&pageId=${page.page.id}`, {
+            const req = await fetch(`${BASE_URL}/api/Pages/UpdatePageContent?campaignId=${campid}&pageId=${page.page.id}`, {
                 method: "POST",
                 body: JSON.stringify(newData),
                 headers: {

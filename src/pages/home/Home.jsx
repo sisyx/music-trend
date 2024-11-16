@@ -11,7 +11,7 @@ import SmallContact from "../../components/contact/SmallContact";
 import SideNav from "../../components/home/SideNav";
 import AnimatedBackground2 from "../../components/AnimatedBackground2";
 import { useEffect } from "react";
-import { setTitle } from "../../functions";
+import { setTitle } from "../../lib/dom";
 
 function Home() {
 

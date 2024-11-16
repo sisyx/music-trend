@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import { cartCookies, root } from "../../constatnts";
-import { customAlert, getCookie } from "../../functions";
+import { CART_COOKIES } from "../../constatnts";
+import { customAlert } from "../../functions";
+import { getCookie } from "../../lib/cacheAndStorage";
 import { Button, TextField } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import CircleGradient from "../loadings/CircleGradient";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../config/config";
 
 function CampaignSelect({ saveSelections }) {
     const [camps, setCamps] = useState([]);
@@ -29,7 +31,7 @@ function CampaignSelect({ saveSelections }) {
         }
 
         try {
-            const req = await fetch(`${root}/api/Campaign/GetCampaignByUserId?userId=${id}`);
+            const req = await fetch(`${BASE_URL}/api/Campaign/GetCampaignByUserId?userId=${id}`);
 
             if (!req.ok) {
                 console.log(req )
@@ -70,7 +72,7 @@ function CampaignSelect({ saveSelections }) {
         try {
             const date = new Date();
             const startDate = date.toISOString();
-            const req = await fetch(`${root}/api/Campaign/CreateCampaign`, {
+            const req = await fetch(`${BASE_URL}/api/Campaign/CreateCampaign`, {
                 method: "POST",
                 body: JSON.stringify(
                     {
@@ -114,7 +116,7 @@ function CampaignSelect({ saveSelections }) {
 
     function onChooseCampaign(campId) {
         console.log("campaign id: " + campId)
-        const prevCart = getCookie(cartCookies.campidName);
+        const prevCart = getCookie(CART_COOKIES.campidName);
         if (prevCart) setShowAddCardDialog(campId);
         else approveDeletePrevCart(campId);
     }

@@ -1,36 +1,36 @@
 import { useEffect, useState } from "react";
-import { getUsers } from "../../../functions";
+import { getUser } from "../../../utils/auth";
 import { Button, Tooltip } from "@mui/material";
 import User from "./User";
 import CircleGradient from "../../loadings/CircleGradient";
-import { userLevels } from "../../../constatnts";
+import { USER_LEVELS } from "../../../constatnts";
 import AccountMenu from "../../MenuComponent";
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 
 const filters = [
     {
         text: "ادمین ها",
-        value: [userLevels[4].value]
+        value: [USER_LEVELS[4].value]
     },
     {
         text: "کاربران حرفه ای",
-        value: [userLevels[2].value]
+        value: [USER_LEVELS[2].value]
     },
     {
         text: "همکار ها",
-        value: [userLevels[3].value]
+        value: [USER_LEVELS[3].value]
     },
     {
         text: "کاربران معمولی",
-        value: [userLevels[1].value]
+        value: [USER_LEVELS[1].value]
     },
     {
         text: "در انتظار تایید",
-        value: [userLevels[0].value]
+        value: [USER_LEVELS[0].value]
     },
     {
         text: "همه",
-        value: userLevels.reduce((acc, cur) => [...acc, cur.value], [])
+        value: USER_LEVELS.reduce((acc, cur) => [...acc, cur.value], [])
     },
 ]
 

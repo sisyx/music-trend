@@ -1,7 +1,8 @@
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
-import { root } from "../../../constatnts";
-import { customAlert, getCookie } from "../../../functions";
+import { customAlert } from "../../../functions";
+import { getCookie } from "../../../lib/cacheAndStorage";
+import { BASE_URL } from "../../../config/config";
 
 function AddType({ reloadAll = () => {return}, addingWhat = "type", handleCloseAdinge = () => {return} }) {
 
@@ -31,7 +32,7 @@ function AddType({ reloadAll = () => {return}, addingWhat = "type", handleCloseA
         
         setIsAdding(() => true)
         try {
-            const req = await fetch(`${root}/api/${addingWhat === "type" ? "PageType/CreatePageType" : "PageTypeCategory/CreatePageTypeCategory"}`, {
+            const req = await fetch(`${BASE_URL}/api/${addingWhat === "type" ? "PageType/CreatePageType" : "PageTypeCategory/CreatePageTypeCategory"}`, {
                 method: "POST",
                 body: JSON.stringify(reqBody),
                 headers: {

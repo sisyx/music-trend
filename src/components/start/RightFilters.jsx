@@ -5,11 +5,13 @@ import RightFilter from "./RightFilter";
 import { Button, Checkbox, styled } from "@mui/material";
 import { FaFilterCircleXmark } from "react-icons/fa6";
 import { useEffect, useState } from "react";
-import { getPageCategories, getPageTypes, toPersianUnits } from "../../functions";
+import { getPageCategories, getPageTypes } from "../../functions";
 import { useSearchParams } from "react-router-dom";
 import { TbCategoryFilled } from "react-icons/tb";
-import { genders } from "../../constatnts";
+import { GENDERS } from "../../constatnts";
 import { PiGenderIntersexBold } from "react-icons/pi";
+import { toPersianUnits } from "../../utils/numbers";
+
 function RightFilters() {
     const [pagetypes, setPagetypes] = useState([]);
     const [pageCats, setPageCats] = useState([]);
@@ -127,7 +129,7 @@ function RightFilters() {
                     همه
                 </label>
                 {
-                    genders.map((pgender, index) => 
+                    GENDERS.map((pgender, index) => 
                         <label dir="rtl" className="text-sm cursor-pointer hover:bg-gray-100">
                             <Checkbox 
                                 checked={params.get("pgender") == index + 1}

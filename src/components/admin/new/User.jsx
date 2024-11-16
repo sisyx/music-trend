@@ -1,23 +1,25 @@
 import { Avatar, Checkbox, Tooltip } from "@mui/material";
 import GlassyButton from "../../GlassyButton";
-import { root, userLevels } from "../../../constatnts";
-import { customAlert, getCookie } from "../../../functions";
+import { USER_LEVELS } from "../../../constatnts";
+import { customAlert } from "../../../functions";
+import { getCookie } from "../../../lib/cacheAndStorage";
 import { useEffect, useState } from "react";
 import { FaUserSecret } from "react-icons/fa";
 import UserSettings from "./UserSettings";
+import { BASE_URL } from "../../../config/config";
 
 function User({user, setUsers}) {
 
     const [role, setRole] = useState(user.roles);
     const [isInSettings, setIsInSettings] = useState(false);
-    const nextUserLevel = userLevels.find(xrole => xrole.prev === role);
-    const prevUserLevel = userLevels.find(xrole => xrole.next === role);
-    const [isAccepted, setIsAccepted] = useState(role !== userLevels.at(0).value);
+    const nextUserLevel = USER_LEVELS.find(xrole => xrole.prev === role);
+    const prevUserLevel = USER_LEVELS.find(xrole => xrole.next === role);
+    const [isAccepted, setIsAccepted] = useState(role !== USER_LEVELS.at(0).value);
     const savedUsername = getCookie("username");
     
     useEffect(() => {
         setRole(user.roles);
-        setIsAccepted(user.roles !== userLevels.at(0).value);
+        setIsAccepted(user.roles !== USER_LEVELS.at(0).value);
     }, [user]);
 
     async function updateUser() {
@@ -29,7 +31,7 @@ function User({user, setUsers}) {
         const token = getCookie("token");
 
         try {
-            const req = await fetch(`${root}/user/update`, {
+            const req = await fetch(`${BASE_URL}/user/update`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -70,7 +72,7 @@ function User({user, setUsers}) {
         const token = getCookie("token");
 
         try {
-            const req = await fetch(`${root}/user/update`, {
+            const req = await fetch(`${BASE_URL}/user/update`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -97,7 +99,7 @@ function User({user, setUsers}) {
     }
 
     return ( 
-        <div className={`flex items-center justify-end gap-6 p-3 px-5 rounded-full ${role === userLevels[3].value ? "hover:bg-black text-white bg-gray-700" : role === userLevels[2].value ? "bg-gray-100 hover:bg-gray-200 border-black border" : " bg-gray-100 hover:bg-gray-200" } cursor-pointer`}>
+        <div className={`flex items-center justify-end gap-6 p-3 px-5 rounded-full ${role === USER_LEVELS[3].value ? "hover:bg-black text-white bg-gray-700" : role === USER_LEVELS[2].value ? "bg-gray-100 hover:bg-gray-200 border-black border" : " bg-gray-100 hover:bg-gray-200" } cursor-pointer`}>
                 {/* left */}
                 <div className="md:flex-1 flex gap-2">
                     {/* <GlassyButton onClick={() => setIsInSettings(true)}>مشاهده کاربر</GlassyButton> */}
@@ -119,7 +121,7 @@ function User({user, setUsers}) {
                 <div className="flex flex-1 justify-between gap-6">
                     <div className="flex items-center gap-2">
                         <span>
-                            {userLevels.find(xrole => xrole.value === role).persianName}
+                            {USER_LEVELS.find(xrole => xrole.value === role).persianName}
                         </span>
                         {/* <Avatar /> */}
                     </div>
@@ -129,7 +131,7 @@ function User({user, setUsers}) {
                         </span>
                         <div className="hidden md:block">
                             {
-                                role === userLevels[3].value
+                                role === USER_LEVELS[3].value
                                 ? <FaUserSecret fontSize="2rem" />
                                 : <Avatar />
                             }

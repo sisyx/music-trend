@@ -6,23 +6,32 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { toKFormat } from '../../../utils/numbers';
 
-function createData(pageId, name, plikes, pimp, sview, simp) {
-  return { pageId, name, plikes, pimp, sview, simp };
+function createData( img, pageId, name, plikes, pimp, sview, simp, plink) {
+  return { img, pageId, name, plikes, pimp, sview, simp, plink };
 }
 
-const rows = [
-  createData('cristiano' ,'Cristiano Ronaldo', 15010, 20532, 1128, 1632),
-  createData("leomessi", 'Leo Messi', 7312, 11000, 1265, 1396),
-];
+export default function DenseTable({ report, setSums}) {
+  const rowsCount = report.length;
+  const [rows, setRows] = React.useState([]);
 
-export default function DenseTable({ rowsCount }) {
+  React.useEffect(() => {
+    console.log(report);
+    console.log(rows)
+    const newRows = report.map(page => createData( page.Page.ImgUrl, page.PageId || "none", page.Page.ShowName || "None" , page.Page.PostLikes || "-", page.Page.PostImpertion || "-", page.Page.StoryViews || "-", page.Page.StoryImpertion || "-", page.Page.PostLink || "https://instagram.com/" ));
+    setRows(newRows);
+    
+    // set sums
+    setSums(cur => cur.map(x => x.key !== "totalPubs" ? ({...x, value: toKFormat(sumOfItems(report, x.dataBaseKey))}) : ({...x, value: report.length}) ));
+  }, []);
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
-            <TableCell align="right">لینک تبلیغ</TableCell>
+            <TableCell align="right"></TableCell>
             <TableCell align="right">ایمپرشن استوری</TableCell>
             <TableCell align="right">بازدید استوری</TableCell>
             <TableCell align="right">ایمپرشن پست</TableCell>
@@ -39,7 +48,7 @@ export default function DenseTable({ rowsCount }) {
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell align="right">
-                <a href='https://instagram.com/cristiano'>LINK</a>
+                <a href={row.plink}>مشاهده تبلیغ</a>
               </TableCell>
               <TableCell align="right">{row.simp}</TableCell>
               <TableCell align="right">{row.sview}</TableCell>
@@ -52,7 +61,7 @@ export default function DenseTable({ rowsCount }) {
                 @{row.pageId}
               </TableCell>
               <TableCell component="th" scope="row" sx={{width: "60px"}} >
-                <img src='/logo.png' className='w-12 rounded-full aspect-square object-cover object-center' />
+                <img src={row.img || '/logo.png'} className='w-12 rounded-full aspect-square object-cover object-center' />
               </TableCell>
             </TableRow>
           ))}
@@ -60,4 +69,9 @@ export default function DenseTable({ rowsCount }) {
       </Table>
     </TableContainer>
   );
+}
+
+
+function sumOfItems(array, itemname) {
+  return array.reduce((acc, arrItem) => acc += arrItem.Page[itemname], 0)
 }

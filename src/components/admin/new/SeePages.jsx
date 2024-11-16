@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { getCookie, getPages } from "../../../functions";
+import { getPages } from "../../../functions";
+import { getCookie } from "../../../lib/cacheAndStorage";
 import { Button, Tooltip } from "@mui/material";
 import CircleGradient from "../../loadings/CircleGradient";
 import Page from "./Page";
 import { AddSharp } from "@mui/icons-material";
 import AddPage from "./AddPage";
-import { root } from "../../../constatnts";
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
+import { BASE_URL } from "../../../config/config";
 
 
 function SeePages({setState}) {
@@ -43,7 +44,7 @@ function SeePages({setState}) {
         setPages(xpages)
 
         try {
-            const req = await fetch(`${root}/api/PageType/GetAll`, {
+            const req = await fetch(`${BASE_URL}/api/PageType/GetAll`, {
                 headers: {
                     "Autherization": `Bearer ${token}`
                 }
@@ -60,7 +61,7 @@ function SeePages({setState}) {
         }
 
         try {
-            const req = await fetch(`${root}/api/PageTypeCategory/GetAll`, {
+            const req = await fetch(`${BASE_URL}/api/PageTypeCategory/GetAll`, {
                 headers: {
                     "Autherization": `Bearer ${token}`
                 }

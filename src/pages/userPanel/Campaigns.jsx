@@ -1,11 +1,12 @@
 import Skeleton from "react-loading-skeleton";
 import UPnaelLayout from "../../layouts/UPnaelLayout";
 import { useEffect, useState } from "react";
-import { getCookie, toShamsi } from "../../functions";
-import { root } from "../../constatnts";
+import { getCookie } from "../../lib/cacheAndStorage";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { LuCalendarCheck } from "react-icons/lu";
+import { toShamsi } from "../../lib/timeAndDates";
+import { BASE_URL } from "../../config/config";
 
 function Campaigns() {
     const [camps, setCamps] = useState({error: false, loading: true, data: {}});
@@ -18,7 +19,7 @@ function Campaigns() {
         const userId = getCookie("id");
         
         try {
-            const req = await fetch(`${root}/api/Campaign/GetCampaignByUserId?userId=${userId}`);
+            const req = await fetch(`${BASE_URL}/api/Campaign/GetCampaignByUserId?userId=${userId}`);
             if (!req.ok) throw new Error(req.statusText);
             const res = await req.json();
             console.log(res);

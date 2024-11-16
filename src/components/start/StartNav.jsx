@@ -1,7 +1,7 @@
 // import { RiProfileFill } from "react-icons/ri";
 import { FaUserAlt } from "react-icons/fa";
 import { IoSearchSharp } from "react-icons/io5";
-import { getCookie } from "../../functions";
+import { getCookie } from "../../lib/cacheAndStorage";
 import { useEffect } from "react";
 
 function StartNav({ search, setSearch }) {

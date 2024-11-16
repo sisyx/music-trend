@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { logout } from "../../functions";
+import { logout } from '../../utils/auth'
 
 function Logout() {
 

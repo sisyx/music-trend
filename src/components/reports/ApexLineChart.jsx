@@ -59,7 +59,6 @@ const ApexLineChart = ({data, title}) => {
           const month = date.getMonth();
           const year = date.getFullYear();
           return `${day} ${monthNames[month - 1]}`
-          // convertDate(item.y);
         }),
       },
     },

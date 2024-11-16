@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { root } from '../../constatnts'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import { toKFormat } from "../../funcs";
+import { toKFormat } from "../../utils/numbers";
 import { BsLightningCharge } from "react-icons/bs";
 import { FaChartBar, FaRegComment, FaRegHeart, FaUsers } from "react-icons/fa6";
 import ApexBarChart from "./ApexBarChart";
@@ -13,6 +12,7 @@ import { Tooltip } from "@mui/material";
 import { FaUserFriends } from "react-icons/fa";
 import { PiGridFourFill } from "react-icons/pi";
 import { FcLike } from "react-icons/fc";
+import { BASE_URL } from "../../config/config";
 
 function ReportPage({pageId, yourPostLink, postDetails}) {
 
@@ -34,7 +34,7 @@ function ReportPage({pageId, yourPostLink, postDetails}) {
             return {}
         }
         try {
-            const req = await fetch(`${root}/api/InstagramApi/getInstaUser?username=${pageId}`);
+            const req = await fetch(`${BASE_URL}/api/InstagramApi/getInstaUser?username=${pageId}`);
             if (!req.ok) throw new Error(req.statusText);
             const res = await req.json();
             // await delay();

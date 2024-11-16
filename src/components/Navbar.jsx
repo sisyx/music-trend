@@ -5,9 +5,11 @@ import { FaBagShopping, FaChevronLeft } from "react-icons/fa6";
 import styles from "./Navbar.module.css";
 import GlassyButton from "./GlassyButton";
 import AccountMenu from "./AccountBtn";
-import { getCookie, getRole, getUser, isLoggedin, toPersianNumbers } from "../functions";
+import { getCookie } from "../lib/cacheAndStorage";
+import { toPersianNumbers } from "../utils/numbers";
 import { useEffect, useState } from "react";
-import { cartCookies } from "../constatnts";
+import { CART_COOKIES } from "../constatnts";
+import { isLoggedin, getRole, getUser } from "../utils/auth";
 
 function Navbar() {
     const [isSearching, setIsSearching] = useState(false);
@@ -16,7 +18,7 @@ function Navbar() {
     const [cart, setCart] = useState(0);
     const role = getRole();
     useEffect(() => {
-        const campsInCookie = getCookie(cartCookies.campidName);
+        const campsInCookie = getCookie(CART_COOKIES.campidName);
         setCart(campsInCookie)
         setUsername(getUser());
     }, [])

@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
-import { cartCookies, taarifs, userLevels } from "../../constatnts";
+import { CART_COOKIES, TAARIFS, USER_LEVELS } from "../../constatnts";
 import Timeline from "../../components/start/Timeline";
 import { Button, Checkbox } from "@mui/material";
 import RightFilters from "../../components/start/RightFilters";
 import StartCards from "../../components/start/StartCards";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import StartNav from "../../components/start/StartNav";
-import { customAlert, getRole, saveCookie, setTitle } from "../../functions";
+import { customAlert } from "../../functions";
+import { saveCookie } from "../../lib/cacheAndStorage";
+import { getRole } from "../../utils/auth";
 import CampaignSelect from "../../components/start/CampaignSelect";
 import Left from "../../components/start/Left";
 import CheckPageAccess from "../../lib/CheckPageAccess";
+import { setTitle } from "../../lib/dom";
 
 const timelinedata = [
     {
@@ -47,7 +50,7 @@ function Start() {
     const selectedInfs = infs.filter(influ => influ.selcted);
 
     function saveSelections(campId) {
-        const isCampSaved = saveCookie(cartCookies.campidName, campId, cartCookies.saveLocalDays);
+        const isCampSaved = saveCookie(CART_COOKIES.campidName, campId, CART_COOKIES.saveLocalDays);
         const selecteds = [];
         costs.forEach(cost => {
             selecteds.push(`${cost.pageNId}::${cost.id}`);
@@ -55,8 +58,8 @@ function Start() {
 
         const priceIdsString = selecteds.reduce((acc, cur, index) => acc += `${cur}${index >= selecteds.length - 1 ? "" : ","}` , "");
         // const influIdsString = influIdsList.reduce((acc, cur, index) => acc += `${cur}${index >= influIdsList.length - 1 ? "" : ","}` , "");
-        const isPricesSaved = saveCookie(cartCookies.selectedPrices, priceIdsString, cartCookies.saveLocalDays);
-        // const isPagesSaved = saveCookie(cartCookies.selectedInflus, influIdsString, cartCookies.saveLocalDays);
+        const isPricesSaved = saveCookie(CART_COOKIES.selectedPrices, priceIdsString, CART_COOKIES.saveLocalDays);
+        // const isPagesSaved = saveCookie(CART_COOKIES.selectedInflus, influIdsString, CART_COOKIES.saveLocalDays);
 
         if (isCampSaved  && isPricesSaved ) {
             customAlert("سبد خرید شما با موفقیت ذخیره شد\n شما میتوانید با مراجعه به ادمین سایت خرید خود را تکمیل کنید")
@@ -109,7 +112,7 @@ function Start() {
                             <div className="flex flex-nowrap items-center text-sm sm:text-base gap-3 p-2 w-full bg-gray-100 overflow-x-scroll rounded-t-lg" dir="rtl">
                                 <span className="text-black text-nowrap">تعرفه ها</span>
                                 {
-                                    taarifs.map((taarif, index) =>
+                                    TAARIFS.map((taarif, index) =>
                                         <div onClick={() => setParams(`ptid=${index + 1}`)} className={`flex text-nowrap gap-0 text-sm md:text-base items-center p-2 text-gray-900 md:rounded-xl border-b-4 hover:border-telegram hover:md:gap-2 ${params.get("ptid") == index + 1 ? "border-b-4 border-b-telegram md:border-telegram text-telegram gap-2" : "border-transparent"} cursor-pointer transition-all duration-200`}>
                                             {/* <Checkbox checked={params.get("ptid") == index + 1} /> */}
                                             <span>

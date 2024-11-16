@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { customAlert, deletePageCat, deletePageType, getCookie } from "../../../functions";
+import { customAlert, deletePageCat, deletePageType } from "../../../functions";
+import { getCookie } from "../../../lib/cacheAndStorage";
 import { Button, Tooltip } from "@mui/material";
 import CircleGradient from "../../loadings/CircleGradient";
 import { AddSharp, SkipPrevious } from "@mui/icons-material";
-import { root } from "../../../constatnts";
 import AddType from "./addType";
 import Type from "./Type";
 import Category from "./Category";
+import { BASE_URL } from "../../../config/config";
 
 function CreatePageTypes({ setState }) {
     const [isLoading, setIsLoading] = useState(false);
@@ -35,7 +36,7 @@ function CreatePageTypes({ setState }) {
         setIsLoading(() => true)
 
         try {
-            const req = await fetch(`${root}/api/PageType/GetAll`, {
+            const req = await fetch(`${BASE_URL}/api/PageType/GetAll`, {
                 headers: {
                     "Autherization": `Bearer ${token}`
                 }
@@ -53,7 +54,7 @@ function CreatePageTypes({ setState }) {
         }
 
         try {
-            const req = await fetch(`${root}/api/PageTypeCategory/GetAll`, {
+            const req = await fetch(`${BASE_URL}/api/PageTypeCategory/GetAll`, {
                 headers: {
                     "Autherization": `Bearer ${token}`
                 }

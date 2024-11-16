@@ -2,8 +2,10 @@ import { Button, styled, TextField } from "@mui/material";
 // import { useTheme } from "../../contexts/themeContext";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { root, userLevels } from "../../constatnts";
-import { customAlert, setTitle } from "../../functions";
+import { USER_LEVELS } from "../../constatnts";
+import { customAlert } from "../../functions";
+import { setTitle } from "../../lib/dom";
+import { BASE_URL } from "../../config/config";
 
 const Home = () => {
     const [params] = useSearchParams();
@@ -38,7 +40,7 @@ const Home = () => {
         }
 
         try {
-            const req = await fetch(`${root}/Security/Login`, {
+            const req = await fetch(`${BASE_URL}/Security/Login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -88,7 +90,7 @@ const Home = () => {
     }
 
     try {
-        const req = await fetch(`${root}​/api/MessageOTP/SendPhone?phone=${xphone}`, {
+        const req = await fetch(`${BASE_URL}​/api/MessageOTP/SendPhone?phone=${xphone}`, {
             method: "POST"
         });
         if (!req.ok) throw new Error("خطایی در ارسال کد رخ داده.");
@@ -109,7 +111,7 @@ const Home = () => {
     const xusername = username;
     const xpassword = password;
     const xphone = newPhone;
-    const xrole = userLevels[0].value
+    const xrole = USER_LEVELS[0].value
 
     if (!xusername.length || !xpassword.length || !xphone.length) {
         if (!xusername && !xpassword.length && !xphone.length) {
@@ -134,7 +136,7 @@ const Home = () => {
     }
 
     try {
-        const req = await fetch(`${root}/user/insert`, {
+        const req = await fetch(`${BASE_URL}/user/insert`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

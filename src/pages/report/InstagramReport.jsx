@@ -1,11 +1,13 @@
 import InstagramTableRow from '../../components/reports/InstagramTableRow';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { getCampWithId, getPublishers, getCookie, toShamsi } from '../../functions';
+import { getCampWithId, getPublishers } from '../../functions';
+import { getCookie } from '../../lib/cacheAndStorage';
 import { ContactlessOutlined, Instagram } from '@mui/icons-material';
 import ReportHeader from '../../components/reports/ReportHeader';
 import CampaignMainInfo from './CampaignMainInfo';
 import ReportLeftHeader from '../../components/reports/ReportLeftHeader';
+import { toShamsi } from '../../lib/timeAndDates';
 
 function InstagramReport() {
     const [params] = useSearchParams();

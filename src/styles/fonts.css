@@ -15,9 +15,9 @@
 /* Vazir matn */
 @font-face {
     font-family: "Vazir";
-    src: url('/src/fonts/Vazirmatn-Regular.ttf'), 
-    url('/src/fonts/Vazirmatn-Bold.ttf'),
-    url('/src/fonts/Vazirmatn-Black.ttf');
+    src: url('/src/assets/fonts/Vazirmatn-Regular.ttf'), 
+    url('/src/assets/fonts/Vazirmatn-Bold.ttf'),
+    url('/src/assets/fonts/Vazirmatn-Black.ttf');
 }
 
 .vazirmatn {

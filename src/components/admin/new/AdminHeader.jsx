@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getUser } from "../../../functions";
+import { getUser } from "../../../utils/auth";
 import { Avatar } from "@mui/material";
 import { NavLink } from "../../Navbar";
 import { Link } from "react-router-dom";

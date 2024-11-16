@@ -2,52 +2,68 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import ReportHeader from "../../components/reports/ReportHeader";
 import ReportLeftHeader from "../../components/reports/ReportLeftHeader";
 import ReportPage from "../../components/reports/ReportPage";
-import { getCookie, toShamsi } from "../../functions";
+import { getCookie } from "../../lib/cacheAndStorage";
 import { useEffect, useState } from "react";
-import { root } from "../../constatnts";
 import { IoCalendarNumber } from "react-icons/io5";
 import { TbBrandCampaignmonitor } from "react-icons/tb";
 import Skeleton from "react-loading-skeleton";
 import ReportHead from "../../components/reports/new/ReportHead";
 import SumRect from "./SumRect";
-import { toKFormat } from "../../funcs";
+import { toKFormat } from "../../utils/numbers";
 import ReportTable from "../../components/reports/new/ReportTable";
+import { toShamsi } from "../../lib/timeAndDates";
+import { BASE_URL } from "../../config/config";
 
-const sums = [
+const tmpSums = [
     {
+        key: "plike",
+        dataBaseKey: "PostLikes",
         name: "لایک پست",
-        value: toKFormat(23302)
+        value: toKFormat(0)
     },
     {
+        key: "pview",
+        dataBaseKey: "PostViews",
         name: "ویو پست",
-        value: toKFormat(233020)
+        value: toKFormat(0)
     },
     {
+        key: "pcomment",
+        dataBaseKey: "PostLikes",
         name: "کامنت پست",
-        value: toKFormat(2330)
+        value: toKFormat(0)
     },
     {
+        key: "pimp",
+        dataBaseKey: "PostImpertion",
         name: "ایمپرشن پست",
-        value: toKFormat(31532)
+        value: toKFormat(0)
     },
     {
+        key: "sview",
+        dataBaseKey: "StoryViews",
         name: "ویو استوری",
-        value: toKFormat(2332)
+        value: toKFormat(0)
     },
     {
+        key: "simp",
+        dataBaseKey: "StoryImpertion",
         name: "ایمپرشن استوری",
-        value: toKFormat(3005)
+        value: toKFormat(0)
     },
     {
+        key: "totalPubs",
+        dataBaseKey: "x",
         name: "تعداد ناشران",
-        value: toKFormat(2)
+        value: toKFormat(0)
     },
 ]
 
 function Report() {
     const username = getCookie("username");
-    const [params, setParams] = useSearchParams();
+    const [params, _setParams] = useSearchParams();
     const navigate = useNavigate();
+    const [sums, setSums] = useState(tmpSums)
     const [campDetail, setCampDetail] = useState({error: false, loading: true, data: {}});
     useEffect(() => {
         init()
@@ -56,7 +72,12 @@ function Report() {
     useEffect(() => {
         console.log(campDetail);
         // campDetail.data?.report?.map(page => console.log(page.PageId))
+        console.log(campDetail.data)
     }, [campDetail])
+
+    // useEffect(() => {
+    //     console.log(sums);
+    // }, [sums])
 
     async function init() {
         const campname = params.get("campname");
@@ -69,7 +90,7 @@ function Report() {
         try {
             let req;
             var res;
-            const url = campname ? `${root}/api/Campaign/GetCampByName?CampName=${campname}` : campid ?  `${root}/api/Campaign/GetCampaignByCampID?campaignID=${campid}` : undefined;
+            const url = campname ? `${BASE_URL}/api/Campaign/GetCampByName?CampName=${campname}` : campid ?  `${BASE_URL}/api/Campaign/GetCampaignByCampID?campaignID=${campid}` : undefined;
             req = await fetch(url);
             if (!req.ok) throw new Error(req.statusText);
             res = await req.json();
@@ -78,7 +99,7 @@ function Report() {
 
             
             if (res.id) {
-                const req2 = await fetch(`${root}/api/Pages/GetEditedPageAndOriginalBuCampID?campaignId=${res.id}`);
+                const req2 = await fetch(`${BASE_URL}/api/Pages/GetEditedPageAndOriginalBuCampID?campaignId=${res.id}`);
                 if (!req2.ok) throw new Error(req2.statusText);
                 const res2 = await req2.json();
 
@@ -116,7 +137,11 @@ function Report() {
                     !campDetail.loading && !campDetail.error ? campDetail.data?.report?.map(page => <ReportPage postDetails={page.Page} pageId={page.PageId} yourPostLink={page.Page.PostLink} />) : ""
                 } */}
                 <div className="md:w-3/4 w-11/12">
-                    <ReportTable rowsCount={2} />
+                {
+                    (!campDetail.loading && !campDetail.error)
+                    ? <ReportTable setSums={setSums} report={campDetail.data.report || [] } />
+                    : ""
+                }
                 </div>
             </div>
         </div>

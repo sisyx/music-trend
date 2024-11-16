@@ -1,15 +1,17 @@
-import { toKFormat, toPercentFormat } from "../../funcs";
+import { toKFormat, toPercentFormat } from "../../utils/numbers";
 import styles from './StartCard.module.css';
 import { useSearchParams } from "react-router-dom";
-import { taarifs, userLevels } from "../../constatnts";
-import { getCookie, toPersianUnits } from "../../functions";
+import { TAARIFS, USER_LEVELS } from "../../constatnts";
+import { getCookie } from "../../lib/cacheAndStorage";
 import { TfiStatsUp } from "react-icons/tfi";
 import { RiUserFollowFill } from "react-icons/ri";
 import { Button } from "@mui/material";
+import { toPersianUnits } from "../../utils/numbers";
+
 function StartCard({ influencer, index = 0, addPriceToCosts = () => {return}, costs = [] }) {
 
     const [params, _setParams] = useSearchParams();
-    const thisTaarif = influencer.pricePages.find(taarif => taarif.name === taarifs[params.get("ptid") - 1]?.text);
+    const thisTaarif = influencer.pricePages.find(taarif => taarif.name === TAARIFS[params.get("ptid") - 1]?.text);
     const role = getCookie("role");
     const isThisPageSelected = costs.find(cost => cost.pageId === influencer.pageId)
 
@@ -55,7 +57,7 @@ function StartCard({ influencer, index = 0, addPriceToCosts = () => {return}, co
                         <span>
                             {
                                 !!thisTaarif ?
-                                toPersianUnits(thisTaarif[userLevels.find(level => level.value === role).priceProperty])
+                                toPersianUnits(thisTaarif[USER_LEVELS.find(level => level.value === role).priceProperty])
                                 : ""
                             }
                         </span>

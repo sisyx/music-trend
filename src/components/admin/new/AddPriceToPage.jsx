@@ -1,16 +1,18 @@
 import { Button, MenuItem, Select, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
-import { root, taarifs } from "../../../constatnts";
-import { customAlert, getCookie, getPagePrices } from "../../../functions";
+import { TAARIFS } from "../../../constatnts";
+import { customAlert, getPagePrices } from "../../../functions";
 import { AiFillInstagram, AiFillLike } from "react-icons/ai";
 import styles from './Page.module.css';
-import CircleGradient from "../../loadings/CircleGradient"
+import CircleGradient from "../../loadings/CircleGradient";
+import { getCookie } from "../../../lib/cacheAndStorage";
+import { BASE_URL } from "../../../config/config";
 
 function AddPriceToPage({ page, imgUrl, isVisible,  setReload = () => {return}, handleCloseAdinge = () => {return} }) {
 
     const [isInDetails, setIsInDetail] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
-    const [priceTitle, setPriceTitle] = useState(taarifs.at(0).value);
+    const [priceTitle, setPriceTitle] = useState(TAARIFS.at(0).value);
     const [selectedNormalPrice, setSelectedNormalPrice] = useState("");
     const [selectedSpecialPrice, setSelectedSpecialPrice] = useState("");
     const [selectedCowokerPrice, setSelectedCowokerPrice] = useState("");
@@ -45,7 +47,7 @@ function AddPriceToPage({ page, imgUrl, isVisible,  setReload = () => {return}, 
         
         setIsLoading(() => true)
         try {
-            const req = await fetch(`${root}/api/PricePage/CreatePricePage`, {
+            const req = await fetch(`${BASE_URL}/api/PricePage/CreatePricePage`, {
                 method: "POST",
                 body: JSON.stringify({
                     id: 0,
@@ -67,7 +69,7 @@ function AddPriceToPage({ page, imgUrl, isVisible,  setReload = () => {return}, 
 
             const res = await req.json();
             
-            const req2 = await fetch(`${root}/api/Pages/AddPriceToPage?pageId=${page.id}&pricePageId=${res.price.id}`, {
+            const req2 = await fetch(`${BASE_URL}/api/Pages/AddPriceToPage?pageId=${page.id}&pricePageId=${res.price.id}`, {
                 method: "POST",
             });
             if (!req2.ok) throw new Error(req2.statusText);
@@ -152,13 +154,13 @@ function AddPriceToPage({ page, imgUrl, isVisible,  setReload = () => {return}, 
                         </div>
                         <div className="flex items-center gap-2 w-full" >
                             <Select
-                                defaultValue={taarifs.at(0).value}
+                                defaultValue={TAARIFS.at(0).value}
                                 value={priceTitle}
                                 onChange={event => setPriceTitle(event.target.value)}
                                 sx={{width: "100%"}}
                             >
                                 {
-                                    taarifs.map(taarif => 
+                                    TAARIFS.map(taarif => 
                                         <MenuItem value={taarif.value} dir="rtl">{taarif.text}</MenuItem>
                                     )
                                 }

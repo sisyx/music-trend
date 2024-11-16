@@ -1,9 +1,10 @@
 import { RiMailOpenFill, RiRecordMailFill, RiUserStarFill } from "react-icons/ri";
-import { imagebase, root, userLevels } from "../../constatnts";
-import { getCookie } from '../../functions';
+import { imagebase, USER_LEVELS } from "../../constatnts";
+import { getCookie } from "../../lib/cacheAndStorage";
 import UPnaelLayout from "../../layouts/UPnaelLayout";
 import Skeleton from "react-loading-skeleton";
 import { useEffect, useState } from "react";
+import { BASE_URL } from "../../config/config";
 
 function ProfilePage() {
     const [userDetail, setUserDetail] = useState({error: false, loading: true, data: {}});
@@ -19,7 +20,7 @@ function ProfilePage() {
             return
         }
         try {
-            const req = await fetch(`${root}/user/getById`, {
+            const req = await fetch(`${BASE_URL}/user/getById`, {
                 method: "POST",
                 body: JSON.stringify({
                     id: userId
@@ -34,7 +35,7 @@ function ProfilePage() {
 
             const res = await req.json();
             
-            const level = userLevels.find(xlevel => xlevel.value == res.objectResult.roles).persianName;
+            const level = USER_LEVELS.find(xlevel => xlevel.value == res.objectResult.roles).persianName;
             res.objectResult.level = level
             setUserDetail({
                 error: false,
@@ -50,7 +51,7 @@ function ProfilePage() {
     return ( 
         <UPnaelLayout>
              {/* <div data-aos="fade-down" className="overflow-y-scroll h-screen"> */}
-                <div className="w-full h-full flex flex-col items-center overflow-y-scroll pb-48">
+                <div data-aos="fade-down" className="w-full h-full flex flex-col items-center overflow-y-scroll pb-48">
                     {/* user profile */}
                     <div className="py-8 border-b border-gray-300 w-[80%] flex justify-center">
                         <img src={`${imagebase}/userProfile.jpg`} alt="Your Profile" className="w-32 rounded-full" />

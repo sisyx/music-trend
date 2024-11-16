@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Footer from "../Footer";
 import Navbar from "../Navbar";
 import Wave from "../Wave";
-import { getOffsetTop, isElementInViewport } from "../../funcs";
+import { isElementInViewport } from "../../lib/dom";
 import AboutusChart from "./AbourusChart";
 
 function OurServices() {

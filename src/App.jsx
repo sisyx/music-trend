@@ -1,6 +1,5 @@
-import './fonts.css';
-import './App.css';
-import './general.css';
+import './styles/fonts.css';
+import './styles/general.css';
 import 'aos/dist/aos.css';
 
 import React, { Suspense, useEffect } from 'react';

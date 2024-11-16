@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 // import NoCamp from "../../components/admin/NoCamp";
 // import Main from "../../components/admin/Main";
-import { getRole, setTitle } from "../../functions";
+import { getRole } from "../../utils/auth";
 import AdminSidebar from "../../components/admin/new/AdminSidebar";
 import AdminHeader from "../../components/admin/new/AdminHeader";
 import SeeUsers from "../../components/admin/new/SeeUsers";
@@ -9,6 +9,7 @@ import SeePages from "../../components/admin/new/SeePages";
 import CreatePageTypes from "../../components/admin/new/CreatePageTypes";
 import SeeCamps from "../../components/admin/new/SeeCamps";
 import "./Admin.module.css";
+import { setTitle } from "../../lib/dom";
 
 function Admin() {
     const [_isLoaded, setIsLoaded] = useState(false);

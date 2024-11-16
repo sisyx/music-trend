@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { getRole } from "../../functions";
-import { userLevels } from "../../constatnts";
+import { getRole } from "../../utils/auth";
+import { USER_LEVELS } from "../../constatnts";
 import { useNavigate } from "react-router-dom";
 import Profile from "../../components/userPanel/Profile";
 import UserSideNav from "../../components/userPanel/UserSideNav";
@@ -13,7 +13,7 @@ function UserPaenel() {
 
     function init() {
         const role = getRole();
-        if (!userLevels.find(level => level.value === role)) {
+        if (!USER_LEVELS.find(level => level.value === role)) {
             navigate("/login");
         }
         setIsLoaded(true);

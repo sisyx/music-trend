@@ -1,10 +1,11 @@
 import { Tooltip } from "@mui/material";
 import GlassyButton from "../../GlassyButton";
-import { getProfile, toShamsi } from "../../../functions";
+import { getProfile } from "../../../functions";
 import { useEffect, useRef, useState } from "react";
 import styles from "./Page.module.css"
 import EditCamp from "./EditCamp";
 import { Link } from "react-router-dom";
+import { toShamsi } from "../../../lib/timeAndDates";
 
 function Camp({ camp }) {
 

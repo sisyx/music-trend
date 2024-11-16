@@ -1,16 +1,17 @@
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import { toKFormat, toPercentFormat } from "../../funcs";
+import { toKFormat, toPercentFormat } from '../../utils/numbers';
 import { IoCaretBack } from "react-icons/io5";
 import { useEffect, useState } from "react";
-import { root, userLevels } from "../../constatnts";
-import { getRole } from "../../functions";
+import { USER_LEVELS } from "../../constatnts";
+import { getRole } from '../../utils/auth';
 import CircleGradient from "../loadings/CircleGradient";
+import { BASE_URL } from '../../config/config';
 
 
 function InfluencerInfo({ setInfs, setindetails, selectedInf = {}}) {
     const [prices, setPrices] = useState(["loading"]);
     const [role] = useState(getRole());
-    const priceProperty = userLevels.find(ulevel => ulevel.value === role).priceProperty;
+    const priceProperty = USER_LEVELS.find(ulevel => ulevel.value === role).priceProperty;
     const imgUrl = selectedInf?.imgUrl ? selectedInf?.imgUrl : "/logo.png"
     useEffect(() => {
         init()
@@ -18,7 +19,7 @@ function InfluencerInfo({ setInfs, setindetails, selectedInf = {}}) {
 
     async function init() {
         try {
-            const req = await fetch(`${root}/api/PricePage/GetPricePageByPageID?PageID=${selectedInf.id}`);
+            const req = await fetch(`${BASE_URL}/api/PricePage/GetPricePageByPageID?PageID=${selectedInf.id}`);
 
             if (!req.ok) {
                 throw new Error(req.statusText);

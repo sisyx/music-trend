@@ -1,5 +1,5 @@
 import CardsSwiper from "../../components/CardsSwiper";
-import { getProfile, toShamsi, uploadFile } from "../../functions";
+import { getProfile, uploadFile } from "../../functions";
 import SumRect from "./SumRect";
 import PagesStatsTable from "./PagesStatsTable";
 import InstaReportChart from "../../components/reports/InstaReportChart";
@@ -9,6 +9,7 @@ import SideInfoColapsedItem from "./SideInfoColapsedItem";
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import Loading from "../../components/loadings/Loading";
 import CircleGradient from "../../components/loadings/CircleGradient";
+import { toShamsi } from "../../lib/timeAndDates";
 
 function CampaignMainInfo({campaign, slides, sums = {}, influs = []}) {
 

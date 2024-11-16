@@ -1,10 +1,11 @@
 import { Button, IconButton, TextField } from "@mui/material"
 import { useState } from "react"
 import { RiDeleteBinLine } from "react-icons/ri"
-import { englishAlphabetLC, root } from "../../../constatnts"
+import { englishAlphabetLC } from "../../../constatnts"
 import { CiEdit } from "react-icons/ci"
-import { customAlert, getCookie } from "../../../functions"
-
+import { customAlert } from "../../../functions"
+import { getCookie } from "../../../lib/cacheAndStorage"
+import { BASE_URL } from "../../../config/config"
 
 export default function Category({name, reload = () => {return}, deleteThisCat = () => {return}}) {
     const [editName, setEditName] = useState({
@@ -25,7 +26,7 @@ export default function Category({name, reload = () => {return}, deleteThisCat =
             return;
         }
         try {
-            const req = await fetch(`${root}/api/PageTypeCategory/UpdatePageTypeCategories?oldCategoryName=${name}&newCategoryName=${editName.new}`, {
+            const req = await fetch(`${BASE_URL}/api/PageTypeCategory/UpdatePageTypeCategories?oldCategoryName=${name}&newCategoryName=${editName.new}`, {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${token}`

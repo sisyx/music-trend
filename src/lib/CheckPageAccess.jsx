@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { customAlert, getRole } from "../functions";
+import { customAlert } from "../functions";
 import { useEffect } from "react";
-import { userLevels } from "../constatnts";
+import { USER_LEVELS } from "../constatnts";
+import { getRole } from "../utils/auth";
 
 function CheckPageAccess() {
 
@@ -10,7 +11,7 @@ function CheckPageAccess() {
 
     useEffect(() => {
         console.log('has access? :')
-        const {hasAccess} = userLevels.find(level => level.value === userRole);
+        const {hasAccess} = USER_LEVELS.find(level => level.value === userRole);
         if (!hasAccess) {
             customAlert("حساب کاربری شما در انتظار تایید میباشد. لطفا مجددا بعدا تلاش کنید.", "warn")
             console.log("this user does not have access to this page");

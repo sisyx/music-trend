@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
-import { priceSettings } from '../../constatnts';
+import { PRICE_SETTINGS } from '../../constatnts';
 
 function valuetext(value) {
   return `${value}°C`;
@@ -10,7 +10,7 @@ function valuetext(value) {
 const minDistance = 10;
 
 export default function MinMaxSlider({ setMaxPrice, setMinPrice }) {
-  const [value1, setValue1] = React.useState([priceSettings.min, priceSettings.max]);
+  const [value1, setValue1] = React.useState([PRICE_SETTINGS.min, PRICE_SETTINGS.max]);
 
   const handleChange1 = (_event, newValue, activeThumb) => {
     if (!Array.isArray(newValue)) {
@@ -31,8 +31,8 @@ export default function MinMaxSlider({ setMaxPrice, setMinPrice }) {
   return (
     <Box sx={{ width: 300 }}>
       <Slider
-        min={priceSettings.min / 100000}
-        max={priceSettings.max / 100000}
+        min={PRICE_SETTINGS.min / 100000}
+        max={PRICE_SETTINGS.max / 100000}
         step={1}
         showDis
         getAriaLabel={() => 'Minimum distance'}

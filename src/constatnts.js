@@ -1,11 +1,8 @@
-export const root = "https://webproteam.info";
-export const apiroot = "https://webproteam.info";
-
 export const englishAlphabetLC = "abcdefghijklmnopqrstuvwxyz"; // english alphabet lower case letters
 
-export const filesBase = "wwroot"
+export const FILES_BASE = "wwroot"
 // cart start ----------------------------
-export const cartCookies = {
+export const CART_COOKIES = {
   saveLocalDays: 7,
   campidName: "selected_campaign_id",
   selectedPrices: "selected_price_ids",
@@ -19,8 +16,8 @@ export const routes = {
 }
 // routes end ----------------------------
 
-// genders Start ----------------------------
-export const genders = [
+// GENDERS Start ----------------------------
+export const GENDERS = [
   {
     text: "مرد",
     value: "man",
@@ -34,10 +31,10 @@ export const genders = [
     value: "else",
   }
 ]
-// genders end ----------------------------
+// GENDERS end ----------------------------
 
-// taarifs list start ----------------------------
-export const taarifs = [
+// TAARIFS list start ----------------------------
+export const TAARIFS = [
   {
     text: "استوری 24 ساعته",
     value: "استوری 24 ساعته"
@@ -59,10 +56,10 @@ export const taarifs = [
     value: "پست مخصوص"
   },
 ]
-// taarifs list end ----------------------------
+// TAARIFS list end ----------------------------
 
 // user levels starts ----------------------------
-export const userLevels = [
+export const USER_LEVELS = [
   {
     value: "notValid",
     prev: undefined,
@@ -116,7 +113,7 @@ export const userLevels = [
 ]
 // user levels end ----------------------------
 
-export const priceSettings = {
+export const PRICE_SETTINGS = {
   min: 0,
   max: 100000000
 }

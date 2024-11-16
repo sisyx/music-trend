@@ -4,7 +4,7 @@ import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import AboutUsMain from "../../components/aboutus/AboutUsMain";
 import SmallContact from "../../components/contact/SmallContact";
-import { setTitle } from "../../functions";
+import { setTitle } from "../../lib/dom";
 
 function AboutUsPage() {
 

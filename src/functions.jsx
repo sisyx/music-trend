@@ -1,13 +1,17 @@
 import { notify } from "./App";
-import { apiroot, filesBase, genders, root, taarifs } from "./constatnts";
-import moment from "moment-jalaali";
+import { FILES_BASE, GENDERS, TAARIFS } from "./constatnts";
+import { getFileExtension } from "./utils/files";
+import { convertKeysToCamelCase } from "./utils/objects";
+import { toShamsi } from "./lib/timeAndDates";
+import { getCookie } from "./lib/cacheAndStorage";
+import { BASE_URL } from "./config/config";
 
 
 // admins
 export async function getUsers() {
     const token = getCookie("token");
     try {
-        const req = await fetch(`${root}/user/getAll`, {
+        const req = await fetch(`${BASE_URL}/user/getAll`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -28,7 +32,7 @@ export async function getUsers() {
 
 export async function getAllCamps() {
     try {
-        const req = await fetch(`${root}​/api/Campaign/GetAll`)
+        const req = await fetch(`${BASE_URL}​/api/Campaign/GetAll`)
 
         if (!req.ok) {
             throw new Error("failed to get all camps");
@@ -44,9 +48,8 @@ export async function getAllCamps() {
 }
 
 export async function getPagePrices(id) {
-    const token = getCookie("token");
     try {
-        const req = await fetch(`${root}/api/PricePage/GetPricePageByPageID?PageID=${id}`)
+        const req = await fetch(`${BASE_URL}/api/PricePage/GetPricePageByPageID?PageID=${id}`)
 
         if (!req.ok) {
             throw new Error(req.statusText)
@@ -62,9 +65,8 @@ export async function getPagePrices(id) {
 }
 
 export async function getAllPrices () {
-    const token = getCookie("token");
     try {
-        const req = await fetch(`${root}/api/PricePage/GetAll`)
+        const req = await fetch(`${BASE_URL}/api/PricePage/GetAll`)
 
         if (!req.ok) {
             throw new Error(req.statusText)
@@ -83,7 +85,7 @@ export async function getAllPrices () {
 export async function getPages() {
     const token = getCookie("token");
     try {
-        const req = await fetch(`${root}/api/Pages/GetAllPageAndAllPricePage`, {
+        const req = await fetch(`${BASE_URL}/api/Pages/GetAllPageAndAllPricePage`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -102,48 +104,6 @@ export async function getPages() {
     }
 }
 
-
-// Logins
-export function logout() {
-    document.cookie.split(';').forEach(cookie => {
-        const eqPos = cookie.indexOf('=');
-        const name = eqPos > -1 ? cookie.substring(0, eqPos) : cookie;
-        document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT';
-        customAlert("با موفقیت از حساب خارج شدید")
-    });
-
-    clearAllCookies()
-}
-
-export function isLoggedin() {
-    const token = getCookie("token")
-    console.log("token is " + token)
-    return !!token
-}
-
-export function getUser() {
-    if (!isLoggedin) return undefined
-    const username = getCookie("username");
-
-    return username
-}
-
-export function getRole() {
-    if (!isLoggedin) return undefined
-    const role = getCookie("role");
-
-    return role
-}
-
-export function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-  }
-
-
-
-
 // Campaigns
 
 export async function createCampaign(name, type) {
@@ -153,7 +113,7 @@ export async function createCampaign(name, type) {
         type: type === "instagram" ? "instagram" : "tel"
     }
     try {
-        const req = await fetch(`${root}/api/Campaigns/CreateCampaign`, {
+        const req = await fetch(`${BASE_URL}/api/Campaigns/CreateCampaign`, {
             method: "POST",
             body: JSON.stringify(reqBody),
             headers: {
@@ -175,7 +135,7 @@ export async function createCampaign(name, type) {
 }
 
 export async function getCampWithId(id) {
-    const url = `${root}/api/Campaign/GetCampaignByCampID?campaignID=${id}`
+    const url = `${BASE_URL}/api/Campaign/GetCampaignByCampID?campaignID=${id}`
     try {
         let hasCamp = true;
         const req = await fetch(url);
@@ -188,17 +148,6 @@ export async function getCampWithId(id) {
                 throw new Error("error")
             }
         }
-
-        // const res = hasCamp ? await req.json() : [];
-        // const foundCampaign = res.length ? {
-        //     ...res[0],
-        //     pages: removeRepeats(res[0].pageId.split(",")),
-        //     prices: removeRepeats(res[0].pricePageId.split(",")),
-        //     startDate: toShamsi(convertDate(res[0].startDate))
-        // } : []
-
-        // console.log(foundCampaign);
-        // return foundCampaign
 
         const res = await req.json();
         res.startDate = toShamsi(res.startDate)
@@ -231,7 +180,7 @@ export async function createPublisher(platformid, type, campaignId) {
         campaignId: campaignId
     }
     try {
-        const req = await fetch(`${root}/api/${type === "telegram" ? "PublisherTel/CreatePublisher" : "PublisherInstagram/CreatePublisher"}`, {
+        const req = await fetch(`${BASE_URL}/api/${type === "telegram" ? "PublisherTel/CreatePublisher" : "PublisherInstagram/CreatePublisher"}`, {
             method: "POST",
             body: JSON.stringify(reqBody),
             headers: {
@@ -255,7 +204,7 @@ export async function createPublisher(platformid, type, campaignId) {
 
 export async function getPublishers(campid) {
     console.log(campid)
-    const url = `${root}​/api/Pages/GetEditedPageAndOriginalBuCampID?campaignId=${campid}`;
+    const url = `${BASE_URL}​/api/Pages/GetEditedPageAndOriginalBuCampID?campaignId=${campid}`;
     try {
         const req = await fetch(url);
         if (!req.ok) {
@@ -287,7 +236,7 @@ export async function refreshPubMetadata(pubid) {
     }
 
     try {
-        const req = await fetch(`${root}/api/InstagramApi/ا?username=${pubid}`, {
+        const req = await fetch(`${BASE_URL}/api/InstagramApi/ا?username=${pubid}`, {
             method: "POST"
         });
 
@@ -305,9 +254,9 @@ export async function refreshPubMetadata(pubid) {
 export async function getFilteredPublishers(ptype = undefined, pcat = undefined, maxp , minp, sex = undefined, sTaarifId = undefined) {
     const allPages = [];
     console.log("filtering...")
-    const taarif = !!sTaarifId ? taarifs[sTaarifId - 1].text : undefined;
+    const taarif = !!sTaarifId ? TAARIFS[sTaarifId - 1].text : undefined;
     try {
-        const req = await fetch(`${root}/api/Pages/GetAllPageAndAllPricePage`)
+        const req = await fetch(`${BASE_URL}/api/Pages/GetAllPageAndAllPricePage`)
         if (!req.ok) {
             throw new Error(req.statusText);
         }
@@ -321,7 +270,7 @@ export async function getFilteredPublishers(ptype = undefined, pcat = undefined,
     console.log(allPages)
     console.log(taarif)
     console.log(sTaarifId)
-    const filtered = allPages.filter(page => sex ? page.sex == genders.at(Number(sex) - 1).value : true ) // filter gender
+    const filtered = allPages.filter(page => sex ? page.sex == GENDERS.at(Number(sex) - 1).value : true ) // filter gender
                              .filter(page => pcat ? page.pageCategoryId == pcat : true) // filter categories
                              .filter(page => ptype ? page.pageTypeId == ptype : true ) // filter types
                              .filter(page => !!taarif ? !!page.pricePages.find(pPrice => pPrice.name === taarif) : true) // filter pricePages
@@ -342,7 +291,7 @@ export async function deletePublisher(pageId) {
     }
 
     try {
-        const req = await fetch(`${root}/api/Pages/DeletePage?pageId=${pageId}`, {
+        const req = await fetch(`${BASE_URL}/api/Pages/DeletePage?pageId=${pageId}`, {
             method: "POST"
         });
 
@@ -362,9 +311,9 @@ export async function deletePublisher(pageId) {
 export async function updatePublisher(publisherId, newData, type) {
     let url;
     if (type === "instagram") {
-        url = `${root}/api/PublisherInstagram/${publisherId}`
+        url = `${BASE_URL}/api/PublisherInstagram/${publisherId}`
     } else {
-        url = `${root}/api/PublisherTel/${publisherId}`
+        url = `${BASE_URL}/api/PublisherTel/${publisherId}`
     }
 
     try {
@@ -391,7 +340,7 @@ export async function updatePublisher(publisherId, newData, type) {
 export async function getPageTypes() {
     const token = getCookie ("token");
     try {
-        const req = await fetch(`${root}/api/PageType/GetAll`)
+        const req = await fetch(`${BASE_URL}/api/PageType/GetAll`)
 
         if (!req.ok) {
             throw new Error(req.statusText);
@@ -408,7 +357,7 @@ export async function getPageTypes() {
 export async function getPageCategories() {
     const token = getCookie ("token");
     try {
-        const req = await fetch(`${root}/api/PageTypeCategory/GetAll`, {
+        const req = await fetch(`${BASE_URL}/api/PageTypeCategory/GetAll`, {
             headers: {
                 "Autherization": `Bearer ${token}`
             }
@@ -439,7 +388,7 @@ export async function deletePageType(name) {
     }
 
     try {
-        const req = await fetch(`${root}/api/PageType/DeletePageType?name=${name}`, {
+        const req = await fetch(`${BASE_URL}/api/PageType/DeletePageType?name=${name}`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${token}`
@@ -470,7 +419,7 @@ export async function deletePageCat(name) {
     }
 
     try {
-        const req = await fetch(`${root}/api/PageTypeCategory/DeletePageTypeCategories?categoryName=${name}`, {
+        const req = await fetch(`${BASE_URL}/api/PageTypeCategory/DeletePageTypeCategories?categoryName=${name}`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${token}`
@@ -494,7 +443,7 @@ export async function deletePageCat(name) {
 
 export async function getInstaUser(username) {
     try {
-        const req = await fetch(`${apiroot}/api/instagram/GetBusinessDiscoveryData?username=${username}`);
+        const req = await fetch(`${BASE_URL}/api/instagram/GetBusinessDiscoveryData?username=${username}`);
         
         if (!req.ok) {
             throw new Error("failed to fetch data from instagram");
@@ -511,7 +460,7 @@ export async function getInstaUser(username) {
 
 export async function getTelegramChannel(channelId) {
     try {
-        const req = await fetch(`${apiroot}/api/Telegram/GetChannelProfilePhoto/@${channelId}`);
+        const req = await fetch(`${BASE_URL}/api/Telegram/GetChannelProfilePhoto/@${channelId}`);
         
         if (!req.ok) {
             throw new Error("failed to fetch data from telegram");
@@ -539,165 +488,7 @@ const reportText = "در کلیپ برد کپی شد";
 customAlert(reportText)
 }
 
-export function saveCookie(name, value, days = 1) {
-    if (!name || !value) {
-        console.error("could not get cookie name or cookie value. please try another way.")
-        return
-    }
-
-    console.log(value)
-    const date = new Date();
-    date.setDate(date.getDate() + days)
-
-    document.cookie = `${name}=${value}; expires=${date}`;
-
-    return true
-}
-
-function removeRepeats(lst) {
-    const resultList = [];;
-    lst.forEach(item => {
-        if (!resultList.includes(item)) {
-            resultList.push(item);
-        }
-    })
-
-    return resultList
-}
-
-export function convertDate(dateString) {
-    // Create a Date object from the input string
-    const date = new Date(dateString);
-    
-    // Get the month and year
-    const month = date.getMonth() + 1; // Months are zero-indexed, so add 1
-    const year = date.getFullYear();
-    const day = date.getDay();
-    
-    // Format the output as M/YYYY
-    return `${year}/${month}/${day}`;
-}
-
-export function toShamsi(dateString) {
-    // Convert to Shamsi (Jalali) date
-    const shamsiDate = moment(dateString, 'YYYY/MM/DD').format('jYYYY/jMM/jDD');
-
-    // console.log(shamsiDate); // Output will be in Shamsi format
-
-    const monthNames = [
-        "فروردین",
-        "اریبهشت",
-        "خرداد",
-        "تیر",
-        "مرداد",
-        "شهریور",
-        "مهر",
-        "آبان",
-        "آذر",
-        "دی",
-        "بهمن",
-        "اسفند",
-    ];
-
-    const tmp = shamsiDate.split("/").slice(0, 2);
-    console.log(tmp)
-    const formated = `${monthNames[tmp[1] - 1]} ${tmp[0]}`
-
-    return formated;
-}
-
-export function toPersianNumbers(digit) {
-    const dict = {
-        "1": "۱",
-        "2": "۲",
-        "3": "۳",
-        "4": "۴",
-        "5": "۵",
-        "6": "۶",
-        "7": "۷",
-        "8": "۸",
-        "9": "۹",
-        "0": "۰",
-    }
-
-    return dict[digit]
-}
-
-function clearAllCookies() {
-    // Get all cookies
-    const cookies = document.cookie.split(";");
-
-    // Loop through the cookies and delete each one
-    for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i];
-        const eqPos = cookie.indexOf("=");
-        const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-
-        // Set the cookie's expiration date to a time in the past
-        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
-    }
-}
-
-export function toPersianUnits(num) {
-    // if (num >= 1000000) {
-    //     return (num / 1000000).toFixed(0) + ' میلیون';
-    // } else if (num >= 1000) {
-    //     return (num / 1000).toFixed(0) + ' هزار';
-    // } else {
-    //     return num.toString();
-    // }
-
-    let result = '';
-
-    if (num >= 1000000) {
-        const millions = Math.floor(num / 1000000);
-        result += millions + ' میلیون';
-        num %= 1000000; // باقی‌مانده بعد از محاسبه میلیون‌ها
-    }
-
-    if (num >= 1000) {
-        const thousands = Math.floor(num / 1000);
-        if (result) result += ' و '; // اگر قبلاً میلیون‌ها وجود دارد، "و" اضافه می‌کنیم
-        result += thousands + ' هزار';
-        num %= 1000; // باقی‌مانده بعد از محاسبه هزارها
-    }
-
-    if (num > 0) {
-        if (result) result += ' و '; // اگر قبلاً میلیون‌ها یا هزارها وجود دارد، "و" اضافه می‌کنیم
-        result += num; // عدد باقی‌مانده را اضافه می‌کنیم
-    }
-
-    return result || '0'; // اگر هیچ عددی وجود نداشت، 0 را برمی‌گردانیم
-}
-
-function findSimilarItems(list1, list2) {
-    // Create a Set to store the IDs from the first list for quick lookup
-    const idsSet = new Set(list1.map(item => item.id));
-    
-    // Filter the second list to find items with matching IDs
-    const similarItems = list2.filter(item => idsSet.has(item.id));
-    
-    return similarItems;
-}
-
-function toCamelCase(str) {
-    return str.charAt(0).toLowerCase() + str.slice(1);
-}
-
-function convertKeysToCamelCase(obj) {
-    const newObj = {};
-    for (const key in obj) {
-        if (obj.hasOwnProperty(key)) {
-            const camelCaseKey = toCamelCase(key);
-            newObj[camelCaseKey] = obj[key];
-        }
-    }
-    return newObj;
-}
-
-
 export async function uploadFile(path, file)  {
-    console.log(file);
     const reader = new FileReader();
 
     reader.readAsDataURL(file);
@@ -709,10 +500,10 @@ export async function uploadFile(path, file)  {
             const data = {
                 filedata,
                 fileName: `profile.${extension}`,
-                filePath: `${filesBase}/${path}`
+                filePath: `${FILES_BASE}/${path}`
             }
 
-            const req = await fetch(`${root}/Uploads/UploadFile`, {
+            const req = await fetch(`${BASE_URL}/Uploads/UploadFile`, {
                 method: "POST",
                 body: JSON.stringify(data),
                 headers: {
@@ -720,8 +511,6 @@ export async function uploadFile(path, file)  {
                     "Authorization": `Bearer ${token}`
                 }
             });
-
-            console.log(req);
 
             if (!req.ok) {
                 throw new Error("failed to send file");
@@ -736,8 +525,6 @@ export async function uploadFile(path, file)  {
     }
 }
 
-
-
 export async function getProfile(campid) {    
     const token = getCookie("token");
 
@@ -747,7 +534,7 @@ export async function getProfile(campid) {
         filedata: ""
     }
     try {
-        const req = await fetch(`${root}/Uploads/getFiles`, {
+        const req = await fetch(`${BASE_URL}/Uploads/getFiles`, {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
@@ -771,7 +558,7 @@ export async function getProfile(campid) {
         }
 
         if (!!fileurl) {
-            const req2 = await fetch(`${root}/Uploads/downloadFile?url=${fileurl}`, {
+            const req2 = await fetch(`${BASE_URL}/Uploads/downloadFile?url=${fileurl}`, {
                 method: "POST",
                 headers: {
                     // "Content-Type": "text/plain",
@@ -794,39 +581,4 @@ export async function getProfile(campid) {
         console.log(error.message);
         return "/logo.png";
     }
-}
-
-export function getFileExtension(filename) {
-    const lastDotIndex = filename.lastIndexOf('.');
-    const fileExtension = filename.slice(lastDotIndex);
-    return fileExtension; 
-}
-
-export function setTitle(text) {
-    if (typeof(text) == "string") {
-        document.title = "مخاطب گستر | " + text;
-    }
-}
-
-export function findCommonElement(array1, array2) {
-
-    // Loop for array1
-    for (let i = 0; i < array1.length; i++) {
-
-        // Loop for array2
-        for (let j = 0; j < array2.length; j++) {
-
-            // Compare the element of each and
-            // every element from both of the
-            // arrays
-            if (array1[i] === array2[j]) {
-
-                // Return if common element found
-                return true;
-            }
-        }
-    }
-
-    // Return if no common element exist
-    return false;
 }

@@ -7,10 +7,11 @@ import AddPriceToPage from "./AddPriceToPage";
 import { customAlert, deletePublisher, refreshPubMetadata } from "../../../functions";
 import { IconButton, Tooltip } from "@mui/material";
 import YoutubeSearchedForIcon from '@mui/icons-material/YoutubeSearchedFor';
-import { genders, root } from "../../../constatnts";
+import { GENDERS } from "../../../constatnts";
 import { AiOutlineMan, AiOutlineWoman } from "react-icons/ai";
 import { VscWorkspaceUnknown } from "react-icons/vsc";
 import { RiDeleteBin7Fill } from "react-icons/ri";
+import { BASE_URL } from "../../../config/config";
 
 function Page({page, pageTypes, pageCategories, reloadPages = () => {return}}) {
 
@@ -74,7 +75,7 @@ function Page({page, pageTypes, pageCategories, reloadPages = () => {return}}) {
         const newName = showName.new;
         const pageId = page.id;
         try {
-            const req = await fetch(`${root}/api/Pages/EditShowName?pageID=${pageId}&showName=${newName}`, {
+            const req = await fetch(`${BASE_URL}/api/Pages/EditShowName?pageID=${pageId}&showName=${newName}`, {
                 method: "POST",
                 // headers: {
                 //     "Content-Type": "application/json",
@@ -96,11 +97,11 @@ function Page({page, pageTypes, pageCategories, reloadPages = () => {return}}) {
         <div className={`flex relative flex-col items-center justify-end rounded-sm bg-gray-100 hover:bg-gray-200 cursor-pointer`}>
                 {/* top */}
                 <div className="w-full flex flex-1  justify-between p-3 px-5">
-                    <Tooltip title={genders.find(gender => gender.value === page.sex)?.text} placement="right">
+                    <Tooltip title={GENDERS.find(gender => gender.value === page.sex)?.text} placement="right">
                         <span className="text-gray-900 h-fit text-xl flex items-center justify-center p-2 bg-gray-300 bg-opacity-0 hover:bg-opacity-100 transition-all duration-100 rounded-full">
                             {
-                                page.sex === genders.at(0).value ? <AiOutlineMan /> :
-                                page.sex === genders.at(1).value ? <AiOutlineWoman /> :
+                                page.sex === GENDERS.at(0).value ? <AiOutlineMan /> :
+                                page.sex === GENDERS.at(1).value ? <AiOutlineWoman /> :
                                 <VscWorkspaceUnknown />
                             }
                         </span>
