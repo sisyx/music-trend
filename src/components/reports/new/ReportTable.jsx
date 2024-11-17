@@ -7,9 +7,10 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { toKFormat } from '../../../utils/numbers';
+import ReportRow from './ReportRow';
 
-function createData( img, pageId, name, plikes, pimp, sview, simp, plink) {
-  return { img, pageId, name, plikes, pimp, sview, simp, plink };
+function createData( id, img, pageId, name, plikes, pimp, sview, simp, plink) {
+  return { id ,img, pageId, name, plikes, pimp, sview, simp, plink };
 }
 
 export default function DenseTable({ report, setSums}) {
@@ -19,19 +20,24 @@ export default function DenseTable({ report, setSums}) {
   React.useEffect(() => {
     console.log(report);
     console.log(rows)
-    const newRows = report.map(page => createData( page.Page.ImgUrl, page.PageId || "none", page.Page.ShowName || "None" , page.Page.PostLikes || "-", page.Page.PostImpertion || "-", page.Page.StoryViews || "-", page.Page.StoryImpertion || "-", page.Page.PostLink || "https://instagram.com/" ));
+    const newRows = report.map(page => createData( page.Page.Id, page.Page.ImgUrl, page.PageId || "none", page.Page.ShowName || "None" , page.Page.PostLikes || "-", page.Page.PostImpertion || "-", page.Page.StoryViews || "-", page.Page.StoryImpertion || "-", page.Page.PostLink || "https://instagram.com/" ));
     setRows(newRows);
     
     // set sums
     setSums(cur => cur.map(x => x.key !== "totalPubs" ? ({...x, value: toKFormat(sumOfItems(report, x.dataBaseKey))}) : ({...x, value: report.length}) ));
   }, []);
 
+  React.useEffect(() => {
+    console.log(report)
+  }, [report]);
+
   return (
-    <TableContainer component={Paper}>
+    <TableContainer>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
-            <TableCell align="right"></TableCell>
+            <TableCell>شاتها</TableCell>
+            <TableCell align="right">لینک ها</TableCell>
             <TableCell align="right">ایمپرشن استوری</TableCell>
             <TableCell align="right">بازدید استوری</TableCell>
             <TableCell align="right">ایمپرشن پست</TableCell>
@@ -42,29 +48,7 @@ export default function DenseTable({ report, setSums}) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.slice(0, rowsCount).map((row) => (
-            <TableRow
-              key={row.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell align="right">
-                <a href={row.plink}>مشاهده تبلیغ</a>
-              </TableCell>
-              <TableCell align="right">{row.simp}</TableCell>
-              <TableCell align="right">{row.sview}</TableCell>
-              <TableCell align="right">{row.pimp}</TableCell>
-              <TableCell align="right">{row.plikes}</TableCell>
-              <TableCell align='right' component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align='right' component="th" scope="row">
-                @{row.pageId}
-              </TableCell>
-              <TableCell component="th" scope="row" sx={{width: "60px"}} >
-                <img src={row.img || '/logo.png'} className='w-12 rounded-full aspect-square object-cover object-center' />
-              </TableCell>
-            </TableRow>
-          ))}
+          {rows.slice(0, rowsCount).map((row) => <ReportRow name={row.name} plink={row.plink} simp={row.simp} sview={row.sview} pimp={row.pimp} plikes={row.plikes} pageId={row.pageId} img={row.img} id={row.id} />)}
         </TableBody>
       </Table>
     </TableContainer>

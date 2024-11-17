@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { customAlert } from "../../../functions";
 import { getCookie } from "../../../lib/cacheAndStorage";
 import { BASE_URL } from "../../../config/config";
+import UploadShots from "./UploadShots";
 
 function EditPublisher({ campid, page = undefined, isEdtingPub = false, handleClosePubEdit = () => {return} }) {
     const [pl, spl] = useState(page?.postLikes) // post likes
@@ -80,6 +81,7 @@ function EditPublisher({ campid, page = undefined, isEdtingPub = false, handleCl
 
                 {/* edit form */}
                 <div className="flex flex-col w-full gap-4">
+                    <UploadShots campId={campid} pubId={page.id} />
                     <TextField label="لایک پست" type="number" value={pl} onChange={e => spl(e.target.value)} />
                     <TextField label="کامنت پست" type="number" value={pc} onChange={e => spc(e.target.value)} />
                     <TextField label="بازدید پست" type="number" value={pv} onChange={e => spv(e.target.value)} />

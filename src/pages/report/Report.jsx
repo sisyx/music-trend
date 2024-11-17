@@ -130,7 +130,7 @@ function Report() {
                 <div className="md:w-3/4 w-11/12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-8 gap-4">
                     {
                         campDetail.loading ? sums.map(_ => <Skeleton className="w-full aspect-video" />)
-                        : sums.map(item => <SumRect xkey={item.name} value={item.value} />)
+                        : sums.map((item, index) => <SumRect index={index} xkey={item.name} value={item.value} />)
                     }
                 </div>
                 {/* {

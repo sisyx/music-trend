@@ -582,3 +582,116 @@ export async function getProfile(campid) {
         return "/logo.png";
     }
 }
+
+// files
+
+export async function getShots(campaignid, publisherid) {
+    const token = getCookie("token");
+    const data = {
+        fileName: "",
+        filePath: `wwroot/campshots/${campaignid}/${publisherid}`,
+        filedata: ""
+    }
+    try {
+        const req = await fetch(`${BASE_URL}/Uploads/getFiles`, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+            }
+        })
+
+        if (!req.ok) {
+            throw new Error("Failed to get files");
+        }
+
+        const res = await req.json();
+
+        if (res.objectResult.length) {
+            const shots = res.objectResult
+            if (shots.length) {
+                const sortedShots = shots.sort((a, b) => parseInt(b.fileName.split(".")[0], 10) - parseInt(a.fileName.split(".")[0], 10))
+                return sortedShots;
+            } else {
+                return []
+            }
+        }
+
+    } catch (error) {
+        console.log(error.message);
+        return []
+    }
+}
+
+export async function getShotData(url, extension = ".jpeg") {
+    const type = getFileType(`asdnkasdlknasdasd.${extension}`)
+    try {
+        const req2 = await fetch(`${BASE_URL}/Uploads/downloadFile?url=${url}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "text/plain"
+            }
+        });
+
+        if (!req2.ok) {
+            throw new Error("Failed To Download shot");
+        }
+
+        
+        const res1 = await req2.json();
+        console.log(res1);
+        
+        const fileData = !!res1.objectResult ? res1.objectResult : "r¶¬\u0085ç_\u008aW";
+        const dataUrl = `data:${type}/${extension.slice(1)};base64,${fileData}`;
+        
+        return dataUrl;
+    } catch (error) {
+        console.log(error.message);
+        return "data:text/plane;base64,r¶¬\u0085ç_\u008aW";
+    }
+}
+
+export async function addPostShot(campaignid, publisherid, file) {
+    const token = getCookie("token");
+
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file);
+
+    reader.onload = async function() {
+        const filedata = reader.result
+
+        try {
+            const now = Date.now();
+            const fileExtension = getFileExtension(file.name);
+            const data = {
+                filedata,
+                fileName: `${now}.${fileExtension}`,
+                filePath: `wwroot/campshots/${campaignid}/${publisherid}`
+            }
+
+            const req = await fetch(`${BASE_URL}/Uploads/UploadFile`, {
+                method: "POST",
+                body: JSON.stringify(data),
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            console.log(req);
+
+            if (!req.ok) {
+                throw new Error("failed to send file");
+            }
+
+            const res = await req.json();
+            customAlert("فایل با موفقیت آپلود شد", "success")
+
+        } catch (error) {
+            customAlert("Failed To Upload File", "error")
+            console.log(error.message)
+        }
+    }
+}

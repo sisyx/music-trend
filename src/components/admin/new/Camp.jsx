@@ -35,6 +35,7 @@ function Camp({ camp }) {
     }
 
     return ( 
+        <>
         <div className={`flex relative flex-col items-center justify-end gap-6 rounded-sm bg-gray-100 hover:bg-gray-200 cursor-pointer`}>
                 {/* top */}
                 <div className="flex flex-col flex-1 justify-between gap-6 ">
@@ -69,8 +70,10 @@ function Camp({ camp }) {
                     <GlassyButton onClick={handleOpenDetails} className="flex-1 rounded-lg flex items-center justify-center">مشاهده جزییات</GlassyButton>
                 </div>
 
-                <EditCamp isVisible={isInDetail} handleCloseEdit={handleCloseDetails} camp={camp} />
             </div>
+            <EditCamp isVisible={isInDetail} handleCloseEdit={handleCloseDetails} camp={camp} />
+        </>
+
      );
 }
 

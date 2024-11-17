@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getUser } from "../../../utils/auth";
+import { getUsers } from "../../../functions";
 import { Button, Tooltip } from "@mui/material";
 import User from "./User";
 import CircleGradient from "../../loadings/CircleGradient";

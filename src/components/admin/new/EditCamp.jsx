@@ -5,6 +5,8 @@ import { AiFillInstagram } from "react-icons/ai";
 import CircleGradient from "../../loadings/CircleGradient"
 import { Edit, Instagram } from "@mui/icons-material";
 import EditPublisher from "./EditPublisher";
+import UploadShots from "./UploadShots";
+import { toKFormat } from "../../../utils/numbers";
 
 function EditCamp({isVisible = false, handleCloseEdit, camp}) {
     const [isInDetails, _setIsInDetail] = useState(true);
@@ -15,6 +17,7 @@ function EditCamp({isVisible = false, handleCloseEdit, camp}) {
     const [isEdtingPub, setIsEditingPub] = useState(false);
 
     useEffect(() => {
+        console.log(pages)
         init();
     }, [isVisible, camp]);
 
@@ -69,7 +72,7 @@ function EditCamp({isVisible = false, handleCloseEdit, camp}) {
                                         فالور
                                     </span>
                                     <span>
-                                        {page?.followers || 0}
+                                        {toKFormat(page?.page?.followesrs || 0)}
                                     </span>
                                 </div>
                             </div> 
