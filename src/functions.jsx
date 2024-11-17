@@ -1,6 +1,6 @@
 import { notify } from "./App";
 import { FILES_BASE, GENDERS } from "./constatnts";
-import { getFileExtension } from "./utils/files";
+import { getFileExtension, getFileType } from "./utils/files";
 import { convertKeysToCamelCase } from "./utils/objects";
 import { toShamsi } from "./lib/timeAndDates";
 import { getCookie } from "./lib/cacheAndStorage";
@@ -628,12 +628,14 @@ export async function getShots(campaignid, publisherid) {
 }
 
 export async function getShotData(url, extension = ".jpeg") {
-    const type = getFileType(`asdnkasdlknasdasd.${extension}`)
+    const type = getFileType(`asdnkasdlknasdasd.${extension}`);
+    const token = getCookie("token");
     try {
         const req2 = await fetch(`${BASE_URL}/Uploads/downloadFile?url=${url}`, {
             method: "POST",
             headers: {
-                "Content-Type": "text/plain"
+                "Content-Type": "text/plain",
+                "Authorization": `Bearer ${token}`,
             }
         });
 

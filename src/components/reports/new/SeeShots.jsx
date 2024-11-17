@@ -5,9 +5,10 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import { getShotData, getShots } from '../../../functions';
 import { getFileExtension, getFileType } from '../../../utils/files';
+import CircleGradient from '../../loadings/CircleGradient';
 // import Loading from './Loading';
 
-function SeeShots({ campaignId, publisherId, closeShots }) {
+function SeeShots({ pId, campId, closeShots }) {
     const [shotsUrls, setShotsUrls] = useState([]);
     const [currentImage, setCurrentImage] = useState(0);
     const [isloadingImage, setIsLoadingImage] = useState(true);
@@ -15,7 +16,7 @@ function SeeShots({ campaignId, publisherId, closeShots }) {
     let type = shotsUrls?.length ? getFileType(shotsUrls[currentImage - 1].fileName) : "image";
     
     async function initShots() {
-        const shots = await getShots(campaignId, publisherId);
+        const shots = await getShots(campId, pId);
 
         console.log(shots)
         setShotsUrls(() => shots);
@@ -32,9 +33,8 @@ function SeeShots({ campaignId, publisherId, closeShots }) {
     }, [currentImage]);
     
     async function viewShot() {
-
+        console.log("Called ViewShot")
         const tmpShotData = await getShotData(shotsUrls[currentImage - 1].filePath, getFileExtension(shotsUrls[currentImage - 1].fileName));
-
 
         setCurrentShotData(tmpShotData);
         if (tmpShotData) {
@@ -83,19 +83,19 @@ function SeeShots({ campaignId, publisherId, closeShots }) {
         // .image {
         //     max-height: 90vh;
         // }
-        <div className="fixed top-0 left-0 h-screen w-screen z-[1000] bg-[#3335] backdrop-blur" onClick={(event) => {
-            event.stopPropagation();
-        }}>
-            <div className="flex flex-col items-center content-center h-full gap-8 relative" onClick={closeShots}>
+        <div className="fixed top-0 left-0 h-screen w-screen z-[1000] bg-[#3335] backdrop-blur"
+        onClick={closeShots}>
+            <div className="flex flex-col items-center content-center h-full gap-8 relative">
                 {
-                    isloadingImage ? <>
-                    <div>LOADING</div> </>
+                    isloadingImage ? <div className='w-full h-full flex items-center justify-center'>
+                    <CircleGradient /> 
+                    </div>
                     : <>
                     <div>
                         {
                             type === "image" 
-                            ? <img src={currentShotData} className={styles.image} />
-                            : <video src={currentShotData} className={styles.image} controls="true" onClick={event => {
+                            ? <img src={currentShotData} className="w-[90vh]" />
+                            : <video src={currentShotData} className="w-[90vh]" controls="true" onClick={event => {
                                 event.stopPropagation()
                             }} />
                         }

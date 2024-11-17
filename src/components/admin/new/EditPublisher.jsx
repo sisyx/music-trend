@@ -13,6 +13,7 @@ function EditPublisher({ campid, page = undefined, isEdtingPub = false, handleCl
     const [sv, ssv] = useState(page?.storyViews) // story view
     const [si, ssi] = useState(page?.storyImpertion) // story impertion
     const [link, setlink] = useState(page?.postLink)
+    const [id, _sid] = useState(page?.page.id);
     
     const [isSending, setIsSending] = useState(false);
 
@@ -81,7 +82,7 @@ function EditPublisher({ campid, page = undefined, isEdtingPub = false, handleCl
 
                 {/* edit form */}
                 <div className="flex flex-col w-full gap-4">
-                    <UploadShots campId={campid} pubId={page.id} />
+                    <UploadShots campId={campid} pubId={id} />
                     <TextField label="لایک پست" type="number" value={pl} onChange={e => spl(e.target.value)} />
                     <TextField label="کامنت پست" type="number" value={pc} onChange={e => spc(e.target.value)} />
                     <TextField label="بازدید پست" type="number" value={pv} onChange={e => spv(e.target.value)} />

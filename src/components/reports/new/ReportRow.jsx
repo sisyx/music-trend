@@ -22,9 +22,9 @@ function ReportRow({name, plink, simp, sview, pimp, plikes, pageId, img, id}) {
         >
             <TableCell>
                 <div className="w-full h-full flex items-center">
-                    <IconButton onClick={openshots}>
-                        <IoCamera className="text-3xl" />
-                    </IconButton>
+                    {/* <IconButton > */}
+                        <IoCamera onClick={openshots} className="text-3xl" />
+                    {/* </IconButton> */}
                 </div>
             </TableCell>
             <TableCell align="right" sx={{display: "flex", alignItems: "center", gap: "1rem"}}>
@@ -61,7 +61,7 @@ function ReportRow({name, plink, simp, sview, pimp, plikes, pageId, img, id}) {
                 <img src={img || '/logo.png'} className='w-12 rounded-full aspect-square object-cover object-center' />
             </TableCell>
             {
-                isOpenshots ? <SeeShots pId={id} campId={1} closeshots={() => setIsOpenShots(false)} /> : ""
+                isOpenshots ? <SeeShots pId={id} campId={1} closeShots={() => setIsOpenShots(false)} /> : ""
             }
         </TableRow>
      );
