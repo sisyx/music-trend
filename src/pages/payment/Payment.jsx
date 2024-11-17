@@ -20,7 +20,7 @@ function Payment() {
     const navigate = useNavigate()
     const role = getRole();
     const priceProperty = USER_LEVELS.find(xlevel => xlevel.value === role).priceProperty
-
+    const filteredPrices = prices.reduce((acc, price) => !acc.find(x => x.pageId === price.pageId) ? [...acc, price] : [...acc], [])
     useEffect(() => {
         init()
     }, []);
@@ -89,7 +89,7 @@ function Payment() {
 
                 if (!req.ok) {
                     throw new Error("پرداخت ناموفق بود. لطفا مجددا تلاش کنید")
-                }
+                }filteredPrices
 
                 const res = await req.text();
                 success = true;
@@ -118,7 +118,7 @@ function Payment() {
                     <span>فاکتور خرید شما</span>
                     <div className="flex flex-col gap-2 w-screen max-w-96 rounded-t-xl p-4">
                             {
-                                prices?.map(price =>
+                                filteredPrices?.map(price =>
                                     <div className="flex flex-col gap-2 rounded-xl p-4">
                                         <div className="">{price.pageId}</div>
                                         {

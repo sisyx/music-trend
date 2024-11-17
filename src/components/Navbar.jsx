@@ -12,7 +12,7 @@ import { CART_COOKIES } from "../constatnts";
 import { isLoggedin, getRole, getUser } from "../utils/auth";
 
 function Navbar() {
-    const [isSearching, setIsSearching] = useState(false);TAARIFS
+    const [isSearching, setIsSearching] = useState(false);
     const [search, setSearch] = useState("");
     const [username, setUsername] = useState(undefined);
     const [cart, setCart] = useState(0);

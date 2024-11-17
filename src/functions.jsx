@@ -1,5 +1,5 @@
 import { notify } from "./App";
-import { FILES_BASE, GENDERS, TAARIFS } from "./constatnts";
+import { FILES_BASE, GENDERS } from "./constatnts";
 import { getFileExtension } from "./utils/files";
 import { convertKeysToCamelCase } from "./utils/objects";
 import { toShamsi } from "./lib/timeAndDates";
@@ -256,6 +256,9 @@ export async function getFilteredPublishers(ptype = undefined, pcat = undefined,
     console.log("filtering...")
     const taarifs = await getTaarifs();
     const taarif = !!sTaarifId ? taarifs[sTaarifId - 1].title : undefined;
+    console.log("+++++++++++++++++++++++++++++=")
+    console.log(taarif)
+    console.log("+++++++++++++++++++++++++++++")
     try {
         const req = await fetch(`${BASE_URL}/api/Pages/GetAllPageAndAllPricePage`)
         if (!req.ok) {
@@ -268,9 +271,8 @@ export async function getFilteredPublishers(ptype = undefined, pcat = undefined,
         }
     } catch {}
 
+    console.log("all pages:")
     console.log(allPages)
-    console.log(taarif)
-    console.log(sTaarifId)
     const filtered = allPages.filter(page => sex ? page.sex == GENDERS.at(Number(sex) - 1).value : true ) // filter gender
                              .filter(page => pcat ? page.pageCategoryId == pcat : true) // filter categories
                              .filter(page => ptype ? page.pageTypeId == ptype : true ) // filter types
