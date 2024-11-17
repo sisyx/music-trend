@@ -7,9 +7,11 @@ import styles from './Page.module.css';
 import CircleGradient from "../../loadings/CircleGradient";
 import { getCookie } from "../../../lib/cacheAndStorage";
 import { BASE_URL } from "../../../config/config";
+import useFetch from "../../../hooks/useFetch";
 
 function AddPriceToPage({ page, imgUrl, isVisible,  setReload = () => {return}, handleCloseAdinge = () => {return} }) {
-
+    const {error, loading, data} = useFetch("/api/PricePage/GetAllTitle", {})
+    const [reloadPriceList, setreloadPriceList] = useState(1);
     const [isInDetails, setIsInDetail] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
     const [priceTitle, setPriceTitle] = useState(TAARIFS.at(0).value);
@@ -24,6 +26,10 @@ function AddPriceToPage({ page, imgUrl, isVisible,  setReload = () => {return}, 
             getPrices()
         }
     }, [isVisible])
+
+    useEffect(() => {
+        if (error) setreloadPriceList(cur => cur+1);
+    }, [error])
 
     async function handleCreatePage() {
         const token = getCookie("token");
@@ -160,8 +166,8 @@ function AddPriceToPage({ page, imgUrl, isVisible,  setReload = () => {return}, 
                                 sx={{width: "100%"}}
                             >
                                 {
-                                    TAARIFS.map(taarif => 
-                                        <MenuItem value={taarif.value} dir="rtl">{taarif.text}</MenuItem>
+                                    data.length && data.map(taarif => 
+                                        <MenuItem value={taarif.title} dir="rtl">{taarif.title}</MenuItem>
                                     )
                                 }
                             </Select>
