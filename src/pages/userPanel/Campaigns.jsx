@@ -2,11 +2,8 @@ import Skeleton from "react-loading-skeleton";
 import UPnaelLayout from "../../layouts/UPnaelLayout";
 import { useEffect, useState } from "react";
 import { getCookie } from "../../lib/cacheAndStorage";
-import { Button } from "@mui/material";
-import { Link } from "react-router-dom";
-import { LuCalendarCheck } from "react-icons/lu";
-import { toShamsi } from "../../lib/timeAndDates";
 import { BASE_URL } from "../../config/config";
+import UCampaign from "../../components/userPanel/UCampaign";
 
 function Campaigns() {
     const [camps, setCamps] = useState({error: false, loading: true, data: {}});
@@ -55,28 +52,7 @@ function Campaigns() {
                             : camps.error ? <div className="w-full text-center p-4 text-3xl font-bold">
                                 مشکلی در دریافت کمپین ها پیش آمده
                             </div> : 
-                            camps.data?.map(camp => 
-                            <div className="shadow-lg relative flex flex-col items-center justify-between gap-2 bg-gray-200 pt-8 rounded-xl overflow-hidden" dir="rtl">
-                                <div className="flex justify-between w-full px-4">
-                                    <div className="flex flex-col">
-                                        <span className="absolute top-2 flex items-center gap-4  text-sm">
-                                            <span className="text-gray-400">
-                                                اسم کمپین
-                                            </span>
-                                        </span>
-                                        <span className="md:text-xl text-sm font-bold">{camp.name}</span>
-                                    </div>
-                                    <span className="p-1 rounded-sm text-gray-900 flex items-center gap-2">
-                                        <span className="text-sm">
-                                            {toShamsi(camp.startDate)}
-                                        </span>
-                                        <LuCalendarCheck className="md:text-2xl text-base" />
-                                    </span>
-                                </div>
-                                <Link to={`/report?campname=${camp.name}`} className="w-full">
-                                    <Button sx={{width: "100%"}} variant="contained">مشاهده کمپین</Button>
-                                </Link>
-                            </div>)
+                            camps.data?.map(camp => <UCampaign name={camp.name} startDate={camp.startDate} id={camp.id} />)
                         }
                     </div>
                 </div>
