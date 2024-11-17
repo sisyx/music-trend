@@ -1,20 +1,32 @@
 import { toKFormat, toPercentFormat } from "../../utils/numbers";
 import styles from './StartCard.module.css';
 import { useSearchParams } from "react-router-dom";
-import { TAARIFS, USER_LEVELS } from "../../constatnts";
+import { USER_LEVELS } from "../../constatnts";
 import { getCookie } from "../../lib/cacheAndStorage";
 import { TfiStatsUp } from "react-icons/tfi";
 import { RiUserFollowFill } from "react-icons/ri";
 import { Button } from "@mui/material";
 import { toPersianUnits } from "../../utils/numbers";
+import { useEffect, useState } from "react";
 
-function StartCard({ influencer, index = 0, addPriceToCosts = () => {return}, costs = [] }) {
+function StartCard({ influencer, index = 0, taarifs = [], addPriceToCosts = () => {return}, costs = [] }) {
 
     const [params, _setParams] = useSearchParams();
-    const thisTaarif = influencer.pricePages.find(taarif => taarif.name === TAARIFS[params.get("ptid") - 1]?.text);
+    const thisTaarif = influencer.pricePages.find(taarif => taarif.name === taarifs[params.get("ptid") - 1]?.title);
     const role = getCookie("role");
-    const isThisPageSelected = costs.find(cost => cost.pageId === influencer.pageId)
-
+    const isThisPageSelected= costs.find(cost => cost.pageId === influencer.pageId)?.name === taarifs[params.get('ptid') - 1]?.title;
+    const [reload, setReload] = useState();
+    
+    useEffect(() => {
+        console.log(costs);
+        // setisThisPageSelected(costs.find(cost => cost.pageId === influencer.pageId)?.name === taarifs[params.get('ptid')]?.name)
+        console.log("-----------------------------------------------------")
+        console.log(costs.find(cost => cost.pageId === influencer.pageId)?.name);
+        console.log(taarifs[params.get('ptid') - 1]?.title);
+        console.log("ptid: ", params.get("ptid"))
+        console.log(taarifs)
+        console.log("-----------------------------------------------------")
+    }, [influencer, costs])
 
     function addThisPriceToCosts() {
         addPriceToCosts({
@@ -67,7 +79,7 @@ function StartCard({ influencer, index = 0, addPriceToCosts = () => {return}, co
                     </span>
                 </div>
             </div>
-            <Button onClick={!isThisPageSelected ? addThisPriceToCosts : () => {return}} sx={isThisPageSelected ? {} : {}} color={isThisPageSelected ? "success" : "primary"} variant={isThisPageSelected ? "contained" : "text"}>
+            <Button onClick={!isThisPageSelected ? () => {addThisPriceToCosts(); setReload(cur => cur+1)} : () => {return}} sx={isThisPageSelected ? {} : {}} color={isThisPageSelected ? "success" : "primary"} variant={isThisPageSelected ? "contained" : "text"}>
                 {
                     isThisPageSelected ? "اضافه شد" : "افزودن"
                 }

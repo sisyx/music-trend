@@ -8,7 +8,7 @@ import InfluencerInfo from "./InfluencerInfo";
 import { FaChevronDown } from "react-icons/fa";
 import { getFilteredPublishers } from "../../functions";
 
-function StartCards({ influencers, setInfs, costs, setCosts }) {
+function StartCards({ influencers, setInfs, costs, setCosts, taarifs }) {
     const [selectedInf, seSelectedInf] = useState({});
     const [indetails, setindetails] = useState(false);
     const [params, setParams] = useSearchParams();
@@ -72,8 +72,8 @@ function StartCards({ influencers, setInfs, costs, setCosts }) {
                 </div> 
                 : influencers?.length
                 ? <div className={`transition-500`}>
-                    <div className={`grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-3 p-3 w-full transition-500`}>
-                        { influencers.slice(0, influsCount).map((influencer, index) => <StartCard costs={costs} addPriceToCosts={addPriceToCosts} isSelected={costs.find(cost => cost.pageNId == influencer.id)} index={index} selectInf={selectInf} setindetails={setindetails} influencer={influencer} />)}
+                    <div className={`grid grid-cols-1 xl:grid-cols-2 gap-3 p-3 w-full transition-500`}>
+                        { influencers.slice(0, influsCount).map((influencer, index) => <StartCard taarifs={taarifs} costs={costs} addPriceToCosts={addPriceToCosts} isSelected={costs.find(cost => cost.pageNId == influencer.id)} index={index} selectInf={selectInf} setindetails={setindetails} influencer={influencer} />)}
                     </div>
                     {
                         (influsCount < influencers.length && !isLoading) &&
