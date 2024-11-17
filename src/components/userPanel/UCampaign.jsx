@@ -4,6 +4,7 @@ import { LuCalendarCheck } from "react-icons/lu";
 import { Link } from "react-router-dom";
 import { toShamsi } from "../../lib/timeAndDates";
 import useFetch from "../../hooks/useFetch";
+import CircleGradient from "../loadings/CircleGradient";
 
 function UCampaign({ name, startDate, id }) {
 
@@ -38,7 +39,9 @@ function UCampaign({ name, startDate, id }) {
                 }
                 {
                     error ? <code>Error</code>
-                    : loading ? <code>Loading</code>
+                    : loading ? <div className="w-full flex items-center justify-center">
+                        <CircleGradient />
+                    </div>
                     : data ? data.map(item => 
                         <div className="w-full px-4">
                         <div className="bg-gray-100 p-2 rounded-md" dir="ltr">
