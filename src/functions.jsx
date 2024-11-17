@@ -254,7 +254,8 @@ export async function refreshPubMetadata(pubid) {
 export async function getFilteredPublishers(ptype = undefined, pcat = undefined, maxp , minp, sex = undefined, sTaarifId = undefined) {
     const allPages = [];
     console.log("filtering...")
-    const taarif = !!sTaarifId ? TAARIFS[sTaarifId - 1].text : undefined;
+    const taarifs = await getTaarifs();
+    const taarif = !!sTaarifId ? taarifs[sTaarifId - 1].title : undefined;
     try {
         const req = await fetch(`${BASE_URL}/api/Pages/GetAllPageAndAllPricePage`)
         if (!req.ok) {
@@ -693,5 +694,21 @@ export async function addPostShot(campaignid, publisherid, file) {
             customAlert("Failed To Upload File", "error")
             console.log(error.message)
         }
+    }
+}
+
+async function getTaarifs() {
+    const token = getCookie("token");
+        try {
+            const req = await fetch(`${BASE_URL}/api/PricePage/GetAllTitle`, {
+                headers: {
+                    "accept": "*/*"
+                }
+            });
+        if (!req.ok) throw new Error("مشکلی در دریافت تعرفه ها پیش آمده.");
+        const res = await req.json();
+        return res
+    } catch (error) {
+        setReloadTaarifs(cur => cur+1);
     }
 }

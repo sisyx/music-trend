@@ -12,7 +12,7 @@ import { CART_COOKIES } from "../constatnts";
 import { isLoggedin, getRole, getUser } from "../utils/auth";
 
 function Navbar() {
-    const [isSearching, setIsSearching] = useState(false);
+    const [isSearching, setIsSearching] = useState(false);TAARIFS
     const [search, setSearch] = useState("");
     const [username, setUsername] = useState(undefined);
     const [cart, setCart] = useState(0);
@@ -70,7 +70,7 @@ function Navbar() {
                                 ">
 
                                 <NavLink to="/" className="w-full flex justify-end p-4">
-                                    <span>رقتن به صفحه اصلی</span>
+                                    <span>رفتن به صفحه اصلی</span>
                                 </NavLink>
                                 <NavLink to={isLoggedin() ? "/logout" : "/login"} className="w-full flex justify-end p-4">
                                     {
