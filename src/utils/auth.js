@@ -4,6 +4,7 @@
     but anyway, this file must be in another folder.
 */
 
+import { customAlert } from "../functions";
 import { clearAllCookies, getCookie } from "../lib/cacheAndStorage";
 
 export function logout() {
@@ -11,7 +12,7 @@ export function logout() {
         const eqPos = cookie.indexOf('=');
         const name = eqPos > -1 ? cookie.substring(0, eqPos) : cookie;
         document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT';
-        customAlert("با موفقیت از حساب خارج شدید")
+        customAlert("با موفقیت از حساب خارج شدید", "success")
     });
 
     clearAllCookies()
