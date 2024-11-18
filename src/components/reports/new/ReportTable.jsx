@@ -32,7 +32,7 @@ export default function DenseTable({ report, setSums}) {
   }, [report]);
 
   return (
-    <TableContainer>
+    <TableContainer sx={{overflow: "visible"}}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>

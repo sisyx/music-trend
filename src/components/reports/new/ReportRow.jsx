@@ -6,19 +6,49 @@ import { AiFillInstagram } from "react-icons/ai";
 import { IoLogoWhatsapp } from "react-icons/io";
 import { IoCall, IoCamera } from "react-icons/io5";
 import SeeShots from "./SeeShots";
-
+import ReportPage from './ReportPage'
 function ReportRow({name, plink, simp, sview, pimp, plikes, pageId, img, id}) {
     const {error, loading, data} = useFetch(`/api/Pages/GetPageByPageId?pageID=${id}`, {});
     const [isOpenshots, setIsOpenShots] = useState();
+    const [showCharts, setShowCharts] = useState(false);
+    const [chartsLoaded, setChartsLoaded] = useState(false);
+
+    useEffect(() => {
+
+    }, [chartsLoaded])
 
     function openshots() {
         setIsOpenShots(true)
     }
 
+    function openCharts() {
+        setShowCharts(true);
+        setChartsLoaded(false);
+    }
+
+    function closeCharts() {
+        setShowCharts(false);
+        setChartsLoaded(false);
+    }
+
+    function onChartsLoad() {
+        console.log("THEEEEEEEEEESE CHARTS LOOOOOOOOOOOOOADDED")
+        setChartsLoaded(() => true);
+    }
+
     return (
         <TableRow
+            onMouseOver={openCharts}
+            onMouseLeave={closeCharts}
+            onClick={() => {
+                showCharts ? () => {
+                    setShowCharts(false);
+                    setChartsLoaded(false);
+                } : () => {return}
+            }}
             key={name}
-            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            sx={{ '&:last-child td, &:last-child th': { border: 0 }, position: "relative" }}
+            className={`${!!chartsLoaded ? "cursor-default" : " cursor-wait"}`}
         >
             <TableCell>
                 <div className="w-full h-full flex items-center">
@@ -64,6 +94,9 @@ function ReportRow({name, plink, simp, sview, pimp, plikes, pageId, img, id}) {
             </TableCell>
             {
                 isOpenshots ? <SeeShots pId={id} campId={1} closeShots={() => setIsOpenShots(false)} /> : ""
+            }
+            {
+                showCharts ? <ReportPage closeCharts={closeCharts} onChartsLoad={onChartsLoad} className="absolute top-0 -translate-y-full left-0 right-0 shadow-lg bg-white max-z" pageId={pageId} /> : ''
             }
         </TableRow>
      );

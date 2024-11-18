@@ -126,16 +126,7 @@ function Report() {
             <ReportLeftHeader />
             <div className="pt-4 w-full flex flex-col items-center gap-24 pb-96 overflow-scroll">
                 {/* campaign main details */}
-                <ReportHead startDate={campDetail.data?.startDate || ""} name={campDetail.data?.name || ""} isLoading={campDetail.loading} />
-                <div className="md:w-3/4 w-11/12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-8 gap-4">
-                    {
-                        campDetail.loading ? sums.map(_ => <Skeleton className="w-full aspect-video" />)
-                        : sums.map((item, index) => <SumRect index={index} xkey={item.name} value={item.value} />)
-                    }
-                </div>
-                {/* {
-                    !campDetail.loading && !campDetail.error ? campDetail.data?.report?.map(page => <ReportPage postDetails={page.Page} pageId={page.PageId} yourPostLink={page.Page.PostLink} />) : ""
-                } */}
+                <ReportHead sums={campDetail.loading ? "loading" : sums} startDate={campDetail.data?.startDate || ""} name={campDetail.data?.name || ""} isLoading={campDetail.loading} />
                 <div className="md:w-3/4 w-11/12">
                 {
                     (!campDetail.loading && !campDetail.error)

@@ -35,3 +35,11 @@ export function toShamsi(dateString) {
 
     return formated;
 }
+
+export function delay(delay = 3) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(1);
+        }, delay * 1000);
+    });
+}
