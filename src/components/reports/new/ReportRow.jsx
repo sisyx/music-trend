@@ -27,25 +27,27 @@ function ReportRow({name, plink, simp, sview, pimp, plikes, pageId, img, id}) {
                     {/* </IconButton> */}
                 </div>
             </TableCell>
-            <TableCell align="right" sx={{display: "flex", alignItems: "center", gap: "1rem"}}>
-            <a href={plink} target="_blank">
-                <AiFillInstagram className="text-2xl text-primary" />
-            </a>
-            {
-                (!error && !loading) ?
-                <>
-                    <a href={data ? `https://t.me/${data.telegramID.slice(1)}` : "/"} target="_blank">
-                        <FaTelegramPlane className="text-2xl text-telegram" />
-                    </a> 
-                    <a href={data ? `https://wa.me/${data.whatsappNumber}` : ""} target="_blank">
-                        <IoLogoWhatsapp className="text-2xl text-green-500" />
+            <TableCell align="right">
+                <div className="flex items-center gap-2" dir="rtl">
+                    <a href={plink} target="_blank" className="block">
+                        <AiFillInstagram className="text-2xl hover:text-black text-primary" />
                     </a>
-                    <a href={data ? `tel:${data.whatsappNumber}` : ""} target="_blank">
-                        <IoCall />
-                    </a>
-                </>
-                : ""
-            }
+                    {
+                        (!error && !loading) ?
+                        <>
+                            <a href={data ? `https://t.me/${data.telegramID.slice(1)}` : "/"} target="_blank" className="block">
+                                <FaTelegramPlane className="text-2xl hover:text-black text-telegram" />
+                            </a> 
+                            <a href={data ? `https://wa.me/${data.whatsappNumber}` : ""} target="_blank" className="block">
+                                <IoLogoWhatsapp className="text-2xl hover:text-black text-green-500" />
+                            </a>
+                            <a href={data ? `tel:${data.whatsappNumber}` : ""} target="_blank" className="block">
+                                <IoCall className="text-2xl" />
+                            </a>
+                        </>
+                        : ""
+                    }
+            </div>
             </TableCell>
             <TableCell align="right">{simp}</TableCell>
             <TableCell align="right">{sview}</TableCell>
