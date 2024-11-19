@@ -6,18 +6,17 @@ import React, { Suspense, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Loading from './components/loadings/Loading';
 
-
-import Home from"./pages/home/Home";
-import Admin from"./pages/admin/Admin";
-import Login from"./pages/login/Login";
-import Logout from'./components/login/Logout';
-import AboutUsPage from'./pages/other/AboutUsPage';
-import Start from"./pages/start/Start";
-// import InstagramReport from'./pages/report/InstagramReport';
-import Contact from'./pages/contact/Contact';
-import Payment from'./pages/payment/Payment';
-import Report from'./pages/report/Report';
-
+const Home = React.lazy(() => import('./pages/home/Home'));
+const Admin = React.lazy(() => import('./pages/admin/Admin'));
+const Login = React.lazy(() => import('./pages/login/Login'));
+const  
+ Logout = React.lazy(() => import('./components/login/Logout'));
+const AboutUsPage = React.lazy(() => import('./pages/other/AboutUsPage'));
+const Start = React.lazy(() => import('./pages/start/Start'));
+// const InstagramReport = React.lazy(() => import('./pages/report/InstagramReport'));
+const Contact = React.lazy(() => import('./pages/contact/Contact'));
+const Payment = React.lazy(() => import('./pages/payment/Payment'));
+const Report = React.lazy(() => import('./pages/report/Report'));
 
 
 import { Slide, ToastContainer, toast } from 'react-toastify';
