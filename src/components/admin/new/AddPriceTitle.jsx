@@ -108,7 +108,7 @@ function AddPriceTitle() {
                 isAddingTaarig ? <div data-aos="zoom-in" data-aos-duration="100" className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center" onClick={stopAdding}>
                     <div className="flex px-4 gap-4 justify-center flex-col w-full aspect-video bg-white max-w-96 rounded-md shadow-lg shadow-gray-400" onClick={e => e.stopPropagation()}>
                         <TextField label="عنوان تعرفه" value={newTitle} onChange={e => setNewTitle(e.target.value)} />
-                        <Button variant={newTitle.length > 3 ? "contained" : "outlined"} startIcon={<AddSharp />} onClick={() => newTitle.length > 3 ? addTitle() : customAlert("لطفا عنوان طولانی تری انتخاب کنید", "warn")} >اضافه کردن دسته بندی</Button>
+                        <Button variant={newTitle.length > 3 ? "contained" : "outlined"} startIcon={<AddSharp />} onClick={() => newTitle.length > 3 ? addTitle() : customAlert("لطفا عنوان طولانی تری انتخاب کنید", "warn")} >اضافه کردن تعرفه</Button>
                     </div>
                 </div> : ""
             }
