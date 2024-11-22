@@ -44,7 +44,7 @@ function App() {
 
   useEffect(() => {
     Aos.init();
-  })
+  }, []);
 
   return (
         <Suspense fallback={<Loading />}>
