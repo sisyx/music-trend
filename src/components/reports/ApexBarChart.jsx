@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Chart from "react-apexcharts";
+import { toKFormat } from "../../utils/numbers";
 
 const monthNames = [
   "ژانویه",
@@ -37,7 +38,14 @@ const ApexBarChart = ({data, title}) => {
         },
       },
       dataLabels: {
-        enabled: false,
+        enabled: true,
+        style: {
+          colors: ['#333'],
+          background: "#ccc"
+        },
+        formatter: function (val) {return toKFormat(val)},
+        // textAnchor: 'start',
+        offsetX: 0,
       },
       xaxis: {
         categories: data?.map(item => {

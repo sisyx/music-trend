@@ -3,6 +3,7 @@ import { BASE_URL } from "../config/config";
 import { getCookie } from "../lib/cacheAndStorage";
 import { customAlert } from "../functions";
 import { useNavigate } from "react-router-dom";
+import { logout } from "../utils/auth";
 
 function useFetch(url = BASE_URL, {contentType = "application/json", reload, getAs = "json", alertOnError = "", alertOnSuccess = "", needsToken = false}) {
     const [state, setState] = useState({error: false, loading: true, data: {}});
@@ -12,7 +13,8 @@ function useFetch(url = BASE_URL, {contentType = "application/json", reload, get
         const token = getCookie("token");
         if (needsToken && !token) {
             console.error(`token ${token} is NOT valid`);
-            customAlert("")
+            customAlert("خطا در تایید کاربر.");
+            logout();
             setState({loading: false, error: true, data: {message: "نیاز دوباره به ورود به حساب", callback: () => navigate("/login") }})
             return
         }
@@ -24,7 +26,6 @@ function useFetch(url = BASE_URL, {contentType = "application/json", reload, get
             });
             if (!req.ok) throw new Error(req.statusText);
             const res = await req.json() || await req.text();
-            console.log(res)
             if (alertOnSuccess) customAlert(alertOnSuccess)
             setState({error: false, loading: false, data: res});
         } catch (error) {

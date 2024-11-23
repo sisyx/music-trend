@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Chart from "react-apexcharts";
+import { toKFormat } from "../../utils/numbers";
 
 const monthNames = [
   "ژانویه",
@@ -32,12 +33,16 @@ const ApexLineChart = ({data, title}) => {
           enabled: false,
         },
       },
+      markers: {
+        size: 0,
+      },
       colors: ["#2da5dc"],
       toolbar: {
         left: "7px",
       },
       dataLabels: {
-        enabled: false,
+        enabled: true,
+        formatter: function (val) {return toKFormat(val)}
       },
       stroke: {
         curve: "smooth",

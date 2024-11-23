@@ -1,0 +1,58 @@
+.x {
+    --width: 2rem;
+    --radius: 1.5rem;
+    overflow: visible;
+    z-index: 1000;
+}
+.y::before {
+    content: '';
+    display: block;
+    position: absolute;
+    background-color: #f1f2f7;
+    width: var(--width);
+    height: var(--width);
+}
+.y::after {
+    content: '';
+    display: block;
+    position: absolute;
+    background-color: #fff;
+    width: var(--width);
+    height: var(--width);
+}
+.y1::before {
+    top: 0;
+    left: 0;
+}
+.y1::after {
+    top: 0;
+    left: 0;
+    border-top-left-radius: var(--radius);
+}
+.y2::before {
+    top: 0;
+    right: 0;
+}
+.y2::after {
+    top: 0;
+    right: 0;
+    border-top-right-radius: var(--radius);
+}
+.y3::before {
+    bottom: 0;
+    right: 0;
+}
+.y3::after {
+    bottom: 0;
+    right: 0;
+    border-bottom-right-radius: var(--radius);
+}
+.y4::before {
+    bottom: 0;
+    left: 0;
+}
+.y4::after {
+    bottom: 0;
+    left: 0;
+    border-bottom-left-radius: var(--radius);
+}

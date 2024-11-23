@@ -4,7 +4,7 @@ import ApexBarChart from "../ApexBarChart";
 import ApexLineChart from "../ApexLineChart";
 import { BASE_URL } from "../../../config/config"; 
 
-function ReportPage({pageId, className="", onChartsLoad, closeCharts}) {
+function ReportChart({pageId, className="", onChartsLoad, closeCharts}) {
     const [pageDetail, setPageDetail] = useState({data: {}, error: false, loading: true});
 
     useEffect(() => {
@@ -32,17 +32,18 @@ function ReportPage({pageId, className="", onChartsLoad, closeCharts}) {
 
     return (
         // outer container
-        <div onClick={closeCharts} onMouseOver={onChartsLoad}  className={`${className} ${!!pageDetail.data?.posts ? "scale-100" : "scale-0"}`}>
+        <div onClick={closeCharts} onMouseOver={onChartsLoad}  className={`${className} bg-white rounded-md p-4 w-full mb-5`}>
+            <div dir="rtl">نمودارهای پیشرفت {pageId}</div>
             {/* Charts */}
             <div className="flex items-center flex-wrap justify-between">
                 {
                     pageDetail.data?.posts
-                    ? <ApexBarChart data={pageDetail.data.posts.map(post => ({x: String(post.likes_count), y: post.timestamp})).slice(0, 15)} title="لایک" />
+                    ? <ApexLineChart data={pageDetail.data.posts.map(post => ({x: String(post.comments_count), y: post.timestamp})).slice(0, 15)} title="کامنت" />
                     : ""
                 }
                 {
                     pageDetail.data?.posts
-                    ? <ApexLineChart data={pageDetail.data.posts.map(post => ({x: String(post.comments_count), y: post.timestamp})).slice(0, 15)} title="کامنت" />
+                    ? <ApexBarChart data={pageDetail.data.posts.map(post => ({x: String(post.likes_count), y: post.timestamp})).slice(0, 15)} title="لایک" />
                     : ""
                 }
             </div>
@@ -50,4 +51,4 @@ function ReportPage({pageId, className="", onChartsLoad, closeCharts}) {
     );
 }
 
-export default ReportPage;
+export default ReportChart;

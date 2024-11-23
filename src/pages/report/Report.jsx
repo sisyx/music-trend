@@ -1,61 +1,78 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import ReportHeader from "../../components/reports/ReportHeader";
-import ReportLeftHeader from "../../components/reports/ReportLeftHeader";
-import ReportPage from "../../components/reports/ReportPage";
+import ReportRightHeader from "../../components/reports/ReportRightHeader";
 import { getCookie } from "../../lib/cacheAndStorage";
 import { useEffect, useState } from "react";
-import { IoCalendarNumber } from "react-icons/io5";
-import { TbBrandCampaignmonitor } from "react-icons/tb";
-import Skeleton from "react-loading-skeleton";
+import { IoEye } from "react-icons/io5";
 import ReportHead from "../../components/reports/new/ReportHead";
-import SumRect from "./SumRect";
 import { toKFormat } from "../../utils/numbers";
 import ReportTable from "../../components/reports/new/ReportTable";
-import { toShamsi } from "../../lib/timeAndDates";
 import { BASE_URL } from "../../config/config";
+import { FaCommentAlt, FaHeartbeat } from "react-icons/fa";
+import { MdOutlineInsights } from "react-icons/md";
+import { TbProgressCheck } from "react-icons/tb";
+import { GiProgression } from "react-icons/gi";
+import { FaPeopleRobbery } from "react-icons/fa6";
+import ReportShots from "../../components/reports/new/ReportShots";
+import Skeleton from "react-loading-skeleton";
+import ReportChart from "../../components/reports/new/ReportChart";
 
 const tmpSums = [
     {
         key: "plike",
         dataBaseKey: "PostLikes",
         name: "لایک پست",
-        value: toKFormat(0)
-    },
-    {
-        key: "pview",
-        dataBaseKey: "PostViews",
-        name: "ویو پست",
-        value: toKFormat(0)
+        value: toKFormat(0),
+        icon: <FaHeartbeat />,
+        color: "#f05"
     },
     {
         key: "pcomment",
         dataBaseKey: "PostLikes",
         name: "کامنت پست",
-        value: toKFormat(0)
+        value: toKFormat(0),
+        icon: <FaCommentAlt />,
+        color: "#2da5dc"
+    },
+    {
+        key: "pview",
+        dataBaseKey: "PostViews",
+        name: "ویو پست",
+        value: toKFormat(0),
+        icon: <IoEye />,
+        color: "#e31e78"
     },
     {
         key: "pimp",
         dataBaseKey: "PostImpertion",
         name: "ایمپرشن پست",
-        value: toKFormat(0)
+        value: toKFormat(0),
+        icon: <MdOutlineInsights />,
+        color: "#5e298e"
     },
     {
         key: "sview",
         dataBaseKey: "StoryViews",
         name: "ویو استوری",
-        value: toKFormat(0)
+        value: toKFormat(0),
+        icon: <TbProgressCheck />,
+        color: "#f12911"
     },
     {
         key: "simp",
         dataBaseKey: "StoryImpertion",
         name: "ایمپرشن استوری",
-        value: toKFormat(0)
+        value: toKFormat(0),
+        icon: <GiProgression />,
+        color: "#f26c13"
     },
     {
         key: "totalPubs",
         dataBaseKey: "x",
         name: "تعداد ناشران",
-        value: toKFormat(0)
+        value: toKFormat(0),
+        icon: <FaPeopleRobbery />,
+        color: "#f4a919"
     },
 ]
 
@@ -69,20 +86,9 @@ function Report() {
         init()
     }, []);
 
-    useEffect(() => {
-        console.log(campDetail);
-        // campDetail.data?.report?.map(page => console.log(page.PageId))
-        console.log(campDetail.data)
-    }, [campDetail])
-
-    // useEffect(() => {
-    //     console.log(sums);
-    // }, [sums])
-
     async function init() {
         const campname = params.get("campname");
         const campid = params.get("id");
-        // console.log(campname);
         if (!campname && !campid) {
             navigate(-1);
             return
@@ -122,8 +128,7 @@ function Report() {
     return ( 
         <>
         <ReportHeader username={username} />
-        <div className="flex">
-            <ReportLeftHeader />
+        <div className="flex bg-[#f1f2f7]">
             <div className="pt-4 w-full flex flex-col items-center gap-24 pb-96 overflow-scroll">
                 {/* campaign main details */}
                 <ReportHead sums={campDetail.loading ? "loading" : sums} startDate={campDetail.data?.startDate || ""} name={campDetail.data?.name || ""} isLoading={campDetail.loading} />
@@ -133,8 +138,24 @@ function Report() {
                     ? <ReportTable setSums={setSums} report={campDetail.data.report || [] } />
                     : ""
                 }
+                {/* Charts */}
+                <div className="w-full max-w-7xl">
+                    {
+                        campDetail.loading ? <Skeleton count={3} width={300} height={200} />
+                        : campDetail.data?.report ? 
+                        campDetail.data.report.map(page => <ReportChart pageId={page.PageId} />)
+                        : <code>Error Loading Charts</code>
+                    }
+                </div>
+                {/* Campaign Screen Shots */}
+                {
+                    (!campDetail.loading && !campDetail.error)
+                    ? <ReportShots campId={campDetail.data?.id} pages={campDetail.data?.report.reduce((acc, cur) => [...acc, cur.Page] , [])} />
+                    : ""
+                }
                 </div>
             </div>
+            <ReportRightHeader />
         </div>
         </>
      );

@@ -5,7 +5,6 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import { toKFormat } from '../../../utils/numbers';
 import ReportRow from './ReportRow';
 
@@ -36,7 +35,6 @@ export default function DenseTable({ report, setSums}) {
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
-            <TableCell>شاتها</TableCell>
             <TableCell align="right">لینک ها</TableCell>
             <TableCell align="right">ایمپرشن استوری</TableCell>
             <TableCell align="right">بازدید استوری</TableCell>
@@ -47,6 +45,7 @@ export default function DenseTable({ report, setSums}) {
             <TableCell></TableCell>
           </TableRow>
         </TableHead>
+        <span className='w-full h-7'></span>
         <TableBody>
           {rows.slice(0, rowsCount).map((row) => <ReportRow name={row.name} plink={row.plink} simp={row.simp} sview={row.sview} pimp={row.pimp} plikes={row.plikes} pageId={row.pageId} img={row.img} id={row.id} />)}
         </TableBody>
