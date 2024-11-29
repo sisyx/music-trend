@@ -1,12 +1,10 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { changeViewMode } from "../../Redux/core/start/startSlice";
+import { useSelector } from "react-redux";
 import Left from '../../components/start/Left'
-import RightFilters from '../../components/start/RightFilters';
+import RightFilters from '../../components/start/instagram/InstagramRightFilters';
 import Page from "../../components/start/instagram/Page";
-import { allPriceTitles, tmpPages } from "../../tmp";
-import Title from "../../components/start/Title";
+import { tmpPages } from "../../tmp";
 import TaarifTitles from "../../components/start/TaarifTitles";
+import { allPriceTitles } from "../../tmp";
 
 function InstagramStart() {
     const viewMode = useSelector((state) => state.start.viewMode);
@@ -22,15 +20,14 @@ function InstagramStart() {
                 formatedPages.push(tmpPage);
             }
         }
-
         return formatedPages
     }
 
-    return ( 
-        <div className="flex w-full p-4 gap-4 h-full">
+    return (
+        <div data-aos="fade-down" data-aos-duration="200" className="flex w-full p-4 gap-4 h-full">
             <Left />
             <div className="flex-1 h-screen shadow-xl rounded-md">
-                <TaarifTitles />
+                <TaarifTitles taarifs={allPriceTitles} />
                 <div className={`grid ${viewMode === 'large' ? "grid-cols-7" : viewMode === "medium" ? " grid-cols-10" : "grid-cols-1" } gap-2`}>
                     {/* pages */}
                     {

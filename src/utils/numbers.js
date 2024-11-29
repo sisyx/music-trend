@@ -6,6 +6,8 @@
     * to use theme
 */
 
+export const allNumbers = [0,1,2,3,4,5,6,7,8,9];
+
 export function toKFormat(num) { // usage: input=1532, output=1.5K
     if (num >= 1000000) {
         return (num / 1000000).toFixed(1) + 'M';

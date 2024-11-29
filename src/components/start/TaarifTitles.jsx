@@ -1,9 +1,9 @@
-import { allPriceTitles } from "../../tmp";
 import { useDispatch, useSelector } from "react-redux";
 import Title from "./Title";
 import { changeCurrentPrice } from "../../Redux/core/cart/cartSlice";
+import { useEffect } from "react";
 
-function TaarifTitles() {
+function TaarifTitles({ taarifs = [] }) {
     const currentPrice = useSelector((state) => state.cart.currentPrice);
     const dispatch = useDispatch();
 
@@ -11,9 +11,16 @@ function TaarifTitles() {
         dispatch(changeCurrentPrice(newPrice));
     }
 
+    useEffect(() => {
+        // Update the current price whenever they change: when choosing (instagram/website/telegram)
+        if (taarifs.length) {
+            dispatch(changeCurrentPrice(taarifs[0]))
+        }
+    }, [taarifs])
+
     return ( 
         <div className="flex w-full bg-gray-100" dir="rtl">
-            {allPriceTitles.map(title => <Title value={title} onClick={handlechangeCurrnetPrice} currnetPrice={currentPrice} name={title} />)}
+            {taarifs.map(title => <Title value={title} onClick={handlechangeCurrnetPrice} currnetPrice={currentPrice} name={title} />)}
         </div>
      );
 }

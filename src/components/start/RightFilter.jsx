@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
 
-function RightFilter({filter, icon, children}) {
-    const [istoolbar, setistoolbar] = useState(false);
+function RightFilter({filter, icon, children, open = false}) {
+    const [istoolbar, setistoolbar] = useState(open);
 
     return ( 
         <div className="group relative max-w-40 text-2xl border-gray-300 border rounded-2xl overflow-hidden min-w-60 bg-white text-black cursor-pointer">

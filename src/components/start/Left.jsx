@@ -1,11 +1,13 @@
 import { Button } from "@mui/material";
-import LeftCosts from "./LeftCosts";
 import { useSelector } from "react-redux";
+import InstagarmLeftCosts from "./instagram/InstagramLeftCosts";
+import WebsiteLeftCosts from "./website/WebsiteLeftCosts";
+import TelegramLeftCosts from "./telegram/TelegramLeftCosts";
 
-function Left({ setShowCampaignSelect = () => {} }) {
-    const pages = useSelector((state) => state.cart.pages);
-    const prices = useSelector((state) => state.cart.prices);
+function Left({ setShowCampaignSelect = () => {}, type = "instagram" }) {
     const priceAndPagesPair = useSelector((state) => state.cart.priceAndPagesPair);
+    const priceAndSitesPair = useSelector((state) => state.cart.priceAndSitesPair);
+    const priceAndChannelsPair = useSelector((state) => state.telegramCart.priceAndChannelsPair);
 
     return ( 
         <div className="md:w-72 w-full shadow-lg p-2">
@@ -25,9 +27,14 @@ function Left({ setShowCampaignSelect = () => {} }) {
             </div>
             <hr className="my-4"/>
             <div className="h-full flex flex-col gap-2 items-center">
-                <LeftCosts costs={priceAndPagesPair} />
                 {
-                    priceAndPagesPair.length ? 
+                    type === "instagram" ? <InstagarmLeftCosts costs={priceAndPagesPair} /> :
+                    type === "website" ? <WebsiteLeftCosts costs={priceAndSitesPair} />
+                    : <TelegramLeftCosts costs={priceAndChannelsPair} />
+                }
+
+                {
+                    ((type === "instagram" && priceAndPagesPair.length) || (type === "website" && priceAndSitesPair.length)) ?
                     <Button onClick={() => setShowCampaignSelect(true)} sx={{width: "100%"}} variant="contained">خرید و تایید نهایی محصولات</Button> : ""
                 }
             </div>

@@ -42,6 +42,8 @@ import ProfilePage from './pages/userPanel/ProfilePage';
 import Campaigns from './pages/userPanel/Campaigns';
 import StartSelectCampType from './components/start/StartSelectCampType';
 import StartLayout from './layouts/StartLayout';
+import WebsiteStart from './pages/start/WebsiteStart';
+import TelegramStart from './pages/start/TelegramStart';
 
 
 export const notify = (text, xtype) => toast[xtype](text, {
@@ -77,9 +79,9 @@ function App() {
                   <StartLayout />
                 </Suspense>}>
               <Route path='' element={<StartSelectCampType />} />
-              <Route path='telegram' element={<h1>Telegram Creating Campaign</h1>} />
+              <Route path='telegram' element={<TelegramStart />} />
               <Route path='instagram' element={<InstagramStart />} />
-              <Route path='website' element={<h1>Website Creating Campaign</h1>} />
+              <Route path='website' element={<WebsiteStart />} />
             </Route>
             <Route path='/report' element={<Report />} />
             <Route path='/contact' element={<Contact />} />

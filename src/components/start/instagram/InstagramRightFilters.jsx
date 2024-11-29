@@ -1,16 +1,14 @@
 // icons
-import { HiCurrencyDollar } from "react-icons/hi2";
 import { MdFilterListAlt } from "react-icons/md";
-import RightFilter from "./RightFilter";
+import RightFilter from "../RightFilter";
 import { Button, Checkbox, styled } from "@mui/material";
 import { FaFilterCircleXmark } from "react-icons/fa6";
 import { useEffect, useState } from "react";
-import { getPageCategories, getPageTypes } from "../../functions";
+import { getPageCategories, getPageTypes } from "../../../functions";
 import { useSearchParams } from "react-router-dom";
 import { TbCategoryFilled } from "react-icons/tb";
-import { GENDERS } from "../../constatnts";
+import { GENDERS } from "../../../constatnts";
 import { PiGenderIntersexBold } from "react-icons/pi";
-import { toPersianUnits } from "../../utils/numbers";
 
 function RightFilters() {
     const [pagetypes, setPagetypes] = useState([]);

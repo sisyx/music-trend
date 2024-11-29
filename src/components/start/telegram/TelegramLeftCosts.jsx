@@ -1,17 +1,20 @@
-import styles from "./Left.module.css";
-import { USER_LEVELS } from "../../constatnts";
-import { getCookie } from "../../lib/cacheAndStorage";
+import styles from "../Left.module.css";
+import { USER_LEVELS } from "@/constatnts";
+import { getCookie } from "@/lib/cacheAndStorage";
 import { IconButton } from "@mui/material";
 import { IoCloseSharp } from "react-icons/io5";
-import { toPersianUnits } from "../../utils/numbers";
+import { toPersianUnits } from "@/utils/numbers";
 import { useDispatch } from "react-redux";
-import { removePage, removePrice } from "../../Redux/core/cart/cartSlice";
-import { useEffect } from "react";
+import { removeChannel } from "@/Redux/core/cart/telegram_cart/telegramCartSlice";
 
-function LeftCosts({ costs }) {
+function TelegramLeftCosts({ costs = [] }) {
     const role = getCookie("role");
     const priceProperty = USER_LEVELS.find(ulevel => ulevel.value === role)?.priceProperty || "normalprice";
     const dispatch = useDispatch();
+
+    function handleRemove(channel) {
+        dispatch(removeChannel(channel));
+    }
 
     return ( 
         <>
@@ -20,17 +23,14 @@ function LeftCosts({ costs }) {
             <>
                 {costs.map(cost =>
                     <div className={`relative flex flex-col items-center rounded-md w-full bg-gray-200 hover:bg-gray-300 cursor-pointer md:gap-3 ${styles.cart_influ}`}>
-                        <IconButton onClick={() => dispatch(removePage(cost.page))} sx={{position: "absolute", top: "0rem", left: "0rem"}}>
+                        <IconButton onClick={() => handleRemove(cost.channel)} sx={{position: "absolute", top: "0rem", left: "0rem"}}>
                             {/* <Delete sx={{color: "#a00"}} /> */}
                             <IoCloseSharp />
                         </IconButton>
-                        <div className="flex items-start justify-end w-full gap-2 p-2">
+                        <div className="flex items-start justify-end w-full gap-2 p-2 mt-6">
                             <div className="flex flex-col items-end justify-end md:gap-0">
                                 <span className="text-base font-bold pt_serif_regular">
-                                    {cost.page}
-                                </span>
-                                <span dir="rtl" className="text-base">
-                                    {cost.page}
+                                    {cost.channel}
                                 </span>
                                 {/* prices count */}
                                 <div dir="rtl" className="flex items-center gap-2 text-nowrap">
@@ -48,7 +48,7 @@ function LeftCosts({ costs }) {
                             </div>
                             <div className="flex flex-col gap-2 items-center justify-center">
                                 <span>
-                                    <img className={`max-w-16 w-16 rounded-full overflow-hidden aspect-square ${styles.cart_influ_img}`} src={cost?.pageImg || "/logo.png"} alt="Profile Photo" />
+                                    <img className={`max-w-16 w-16 rounded-full overflow-hidden aspect-square ${styles.cart_influ_img}`} src={cost?.channelImg || "/logo.png"} alt="Profile Photo" />
                                 </span>
                             </div>
                         </div>
@@ -78,4 +78,4 @@ function LeftCosts({ costs }) {
      );
 }
 
-export default LeftCosts;
+export default TelegramLeftCosts;
