@@ -38,7 +38,6 @@ export default function Type({name, reload = () => {return}, deleteThisType = ()
             }
 
             const res = await req.json();
-            console.log(res);
             customAlert(res.message);
             reload();
         } catch (error) {

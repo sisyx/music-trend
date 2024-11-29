@@ -20,7 +20,6 @@ export function getFileType(filename) {
     // Get the file extension from the filename
     const extension = filename.slice(((filename.lastIndexOf(".") - 1) >>> 0) + 2).toLowerCase();
 
-    console.log("extenstion: " + extension)
     // Check if the extension is in the video or image arrays
     if (videoExtensions.includes(`.${extension}`)) {
         return 'video';

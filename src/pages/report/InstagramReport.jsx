@@ -23,10 +23,6 @@ function InstagramReport() {
         init()
     }, [])
 
-    useEffect(() => {
-        console.log(publishers);
-    }, [publishers]);
-
     async function init() {
         const token = getCookie("token");
         if (!token) {
@@ -35,8 +31,6 @@ function InstagramReport() {
         const id = params.get("id");
         const tmpCamp = await getCampWithId(id);
         const tmpPubs = await getPublishers(id);
-        console.log("tmpPubs is ")
-        console.log(tmpPubs)
         setPublishers(() => tmpPubs);
         const sums = {
             postLikes: 0,

@@ -10,15 +10,12 @@ function PublishersList({ campaignId, type, handleSelect, selectedPub }) {
 
     useEffect(() => {
         init()
-        console.log(selectedPub)
-        console.log(pubslihers)
     }, [campaignId, type]);
 
     async function init() {
         setPublishers(() => [])
         setIsLoading(true);
         const tmpPubs = await getPublishers(campaignId, type);
-        console.log(tmpPubs)
         setPublishers(() => tmpPubs);
         setIsLoading(false);
     }

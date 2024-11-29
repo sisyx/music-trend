@@ -36,7 +36,6 @@ function AddPage({ isVisible, pageCategories, pageTypes, setReload, handleCloseA
             return
         }
 
-        console.log(xtel.length < 5)
         if (xtel.length < 5 || !xtel.startsWith("@")) {
             customAlert("لطفا آیدی تلگرام را به درستی وارد.");
             return
@@ -71,7 +70,6 @@ function AddPage({ isVisible, pageCategories, pageTypes, setReload, handleCloseA
             }
 
             const res = await req.text();
-            console.log(res);
             setReload(cur => cur + 1)
         } catch (error) {
             customAlert("ایجاد پیج جدید ناموفق بود. لطفا دوباره تلاش کنید", "error")

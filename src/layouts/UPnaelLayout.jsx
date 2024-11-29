@@ -3,11 +3,6 @@ import UserSideNav from "../components/userPanel/UserSideNav";
 import CheckPageAccess from "../lib/CheckPageAccess";
 
 function UPnaelLayout({ children }) {
-
-    useEffect(() => {
-        console.log(children)
-    }, [])
-
     return ( 
         <>
         <CheckPageAccess />

@@ -25,10 +25,6 @@ function Payment() {
         init()
     }, []);
 
-    useEffect(() => {
-        console.log(metadata)
-    }, [metadata])
-
     async function init() {
         setLoading(() => true)
         try {
@@ -47,10 +43,9 @@ function Payment() {
                 priceIdsList[i].priceDetail = allPrices.find(price => price.id == priceIdsList[i].priceId);
             }
 
-            console.log(priceIdsList)
             setPrices(priceIdsList)
         } catch(error) {
-            console.log(error.message)
+            console.error(error.message)
         }
         setLoading(() => false)
     }

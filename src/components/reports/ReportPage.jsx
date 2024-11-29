@@ -20,12 +20,7 @@ function ReportPage({pageId, yourPostLink, postDetails}) {
 
     useEffect(() => {
         init();
-        console.log(postDetails)
     }, []);
-
-    // useEffect(() => {
-    //     console.log(pageDetail.data);
-    // }, [pageDetail]);
 
     async function init() {
         const ispageIdValid = typeof(pageId) === "string" && pageId.length > 4;
@@ -70,8 +65,6 @@ function ReportPage({pageId, yourPostLink, postDetails}) {
                 unicks.push(xlinkUnic);
             }
         }
-        // console.log(unicks);
-        // console.log(munick)
         return unicks.indexOf(munick);
 
 

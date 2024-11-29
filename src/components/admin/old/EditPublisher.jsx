@@ -18,11 +18,6 @@ function EditPublisher({ campaings }) {
         setSelectedPub(undefined);
     }, [selectedCamp]);
 
-    // useEffect(() => {
-    //     console.log(selectedPub);
-    // }, [selectedPub])
-
-
     function handleSelect(publisher) {
         setSelectedPub(() => publisher)
     }

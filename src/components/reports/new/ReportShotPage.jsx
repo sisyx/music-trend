@@ -17,7 +17,6 @@ function ReportShotPage({campId, pageNId, pageName}) {
 
     async function downloadShots() {
         const xshotsUrls = shotsUrls;
-        console.log(xshotsUrls)
         for (let i = 0; i < xshotsUrls.length; i++) {
             setNewShotStatus({loading: true, error: false});
             const tmpShotData = await getShotData(xshotsUrls[i].filePath, getFileExtension(xshotsUrls[i].fileName));
@@ -35,10 +34,6 @@ function ReportShotPage({campId, pageNId, pageName}) {
     useEffect(() => {
         downloadShots();
     }, [shotsUrls])
-
-    useEffect(() => {
-        console.log(shotsData)
-    }, [shotsData])
 
     return (
         <div className="flex flex-col items-center gap-4 bg-white p-4 rounded-lg w-full hover:shadow-black hover:shadow-lg transition-all duration-100">

@@ -30,7 +30,6 @@ export function toShamsi(dateString) {
     ];
 
     const tmp = shamsiDate.split("/").slice(0, 2);
-    console.log(tmp)
     const formated = `${monthNames[tmp[1] - 1]} ${tmp[0]}`
 
     return formated;

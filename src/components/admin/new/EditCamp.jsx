@@ -17,7 +17,6 @@ function EditCamp({isVisible = false, handleCloseEdit, camp}) {
     const [isEdtingPub, setIsEditingPub] = useState(false);
 
     useEffect(() => {
-        console.log(pages)
         init();
     }, [isVisible, camp]);
 
@@ -26,8 +25,6 @@ function EditCamp({isVisible = false, handleCloseEdit, camp}) {
         if (!isVisible) return
         setIsGettingPrices(() => true)
         const xpages = await getPublishers(camp.id);
-
-        console.log(xpages)
 
         setPages(xpages);
         setIsGettingPrices(() => false);

@@ -3,20 +3,17 @@ import { FaUserAlt } from "react-icons/fa";
 import { IoSearchSharp } from "react-icons/io5";
 import { getCookie } from "../../lib/cacheAndStorage";
 import { useEffect } from "react";
+import { NavLink } from "react-router-dom";
+import { Button } from "@mui/material";
+import BeatifullBtn from "../css-components/BeatifullBtn";
 
-function StartNav({ search, setSearch }) {
-
-    useEffect(() => {
-        const token = getCookie("token");
-        if (!token) location.assign("/login")
-    }, []);
-
+function StartNav() {
     const username = getCookie("username")
 
     return ( 
         // outer container
         <div>
-            <nav className="w-full border-b flex items-center justify-between gap-2 px-4 py-2 md:py-4">
+            <nav className="w-full border-b flex items-center justify-between gap-2 px-4 py-2">
                 {/* left */}
                 <div className="md:flex-1 text-2xl flex items-center gap-2">
                     <div className="rounded-full bg-gray-200 p-2 text-sm md:text-base">
@@ -28,12 +25,34 @@ function StartNav({ search, setSearch }) {
                 </div>
                 
                 {/* center */}
-                <div className="flex-1 flex justify-center" dir="rtl">
-                    <div className="flex items-center pr-2 md:pr-4 rounded-lg md:rounded-full  overflow-hidden max-w-2xl w-full bg-gray-100">
-                        <label htmlFor="search-start" className="hidden">search</label>
-                        <IoSearchSharp className="text-sm md:text-base" />
-                        <input type="text" value={search} onChange={event => setSearch(event.target.value)} name="search-start" id="#search" placeholder="جستجوی اینفلوینسر ها" className="w-full h-full outline-none bg-transparent px-2 py-1 md:py-2 text-black text-sm md:text-base" />
-                    </div>
+                <div className="flex-1 flex gap-2 justify-center" dir="rtl">
+                    <BeatifullBtn className="rounded-md overflow-hidden">
+                        <NavLink to='telegram'
+                            className={({ isActive, isPending }) =>
+                                `px-4 py-1 ${isPending ? "bg-primary" : isActive ? "bg-telegram text-white" : ""}`
+                        }
+                        >
+                            تلگرام
+                        </NavLink>
+                    </BeatifullBtn>
+                    <BeatifullBtn className="rounded-md overflow-hidden">
+                        <NavLink to='instagram' 
+                            className={({ isActive, isPending }) =>
+                                `px-4 py-1 ${isPending ? "bg-primary" : isActive ? "bg-telegram text-white" : ""}`
+                            }
+                        >
+                                اینستاگرام
+                        </NavLink>
+                    </BeatifullBtn>
+                    <BeatifullBtn className="rounded-md overflow-hidden">
+                        <NavLink to='website'
+                            className={({ isActive, isPending }) =>
+                                `px-4 py-1 ${isPending ? "bg-primary" : isActive ? "bg-telegram text-white" : ""}`
+                            }
+                        >
+                                وبسابت
+                        </NavLink>
+                    </BeatifullBtn>
                 </div>
                 
                 {/* right */}

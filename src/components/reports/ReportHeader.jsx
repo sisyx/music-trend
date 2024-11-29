@@ -7,7 +7,6 @@ function ReportHeader({username}) {
 
     useEffect(() => {
         const headerHeight = headerRef.current?.clientHeight;
-        console.log(headerHeight)
         document.body.style.paddingTop = `${headerHeight}px`;
 
         return () => document.body.style.paddingTop = "0px"

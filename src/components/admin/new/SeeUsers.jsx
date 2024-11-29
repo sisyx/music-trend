@@ -48,7 +48,6 @@ function SeeUsers({setState}) {
     async function init() {
         setIsLoading(() => true)
         const xusers = await getUsers();
-        console.log(xusers);
         setUsers(xusers)
         setIsLoading(() => false)
     }

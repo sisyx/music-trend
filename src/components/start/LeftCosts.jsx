@@ -1,42 +1,44 @@
 import styles from "./Left.module.css";
 import { USER_LEVELS } from "../../constatnts";
 import { getCookie } from "../../lib/cacheAndStorage";
-import GlassyButton from "../GlassyButton";
-import { Delete } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import { IoCloseSharp } from "react-icons/io5";
 import { toPersianUnits } from "../../utils/numbers";
+import { useDispatch } from "react-redux";
+import { removePage, removePrice } from "../../Redux/core/cart/cartSlice";
+import { useEffect } from "react";
 
-function LeftCosts({costs, deleteCost}) {
+function LeftCosts({ costs }) {
     const role = getCookie("role");
     const priceProperty = USER_LEVELS.find(ulevel => ulevel.value === role)?.priceProperty || "normalprice";
-
+    const dispatch = useDispatch();
 
     return ( 
         <>
         {
             costs.length ?
             <>
-                {costs.map(cost => 
+                {costs.map(cost =>
                     <div className={`relative flex flex-col items-center rounded-md w-full bg-gray-200 hover:bg-gray-300 cursor-pointer md:gap-3 ${styles.cart_influ}`}>
-                        <IconButton onClick={() => deleteCost(cost.id)} sx={{position: "absolute", top: "0rem", left: "0rem"}}>
+                        <IconButton onClick={() => dispatch(removePage(cost.page))} sx={{position: "absolute", top: "0rem", left: "0rem"}}>
                             {/* <Delete sx={{color: "#a00"}} /> */}
                             <IoCloseSharp />
                         </IconButton>
                         <div className="flex items-start justify-end w-full gap-2 p-2">
                             <div className="flex flex-col items-end justify-end md:gap-0">
                                 <span className="text-base font-bold pt_serif_regular">
-                                    {cost.pageId}
+                                    {cost.page}
                                 </span>
                                 <span dir="rtl" className="text-base">
-                                    {cost.name}
+                                    {cost.page}
                                 </span>
                                 {/* prices count */}
                                 <div dir="rtl" className="flex items-center gap-2 text-nowrap">
-                                    <span>1 تعرفه</span>
+                                    <span>{cost.prices.length} تعرفه</span>
                                     <span className="" dir="rtl">
                                     {
-                                        toPersianUnits(cost[priceProperty])
+                                        // toPersianUnits(cost[priceProperty])
+                                        toPersianUnits(cost.prices.reduce((acc, price) => acc += price.cost, 0))
                                     }
                                     <span>
                                         تومان
@@ -46,7 +48,7 @@ function LeftCosts({costs, deleteCost}) {
                             </div>
                             <div className="flex flex-col gap-2 items-center justify-center">
                                 <span>
-                                    <img className={`max-w-16 w-16 rounded-full overflow-hidden aspect-square ${styles.cart_influ_img}`} src={cost.pageImg || "/logo.png"} alt="Profile Photo" />
+                                    <img className={`max-w-16 w-16 rounded-full overflow-hidden aspect-square ${styles.cart_influ_img}`} src={cost?.pageImg || "/logo.png"} alt="Profile Photo" />
                                 </span>
                             </div>
                         </div>
@@ -59,7 +61,8 @@ function LeftCosts({costs, deleteCost}) {
                         <span className="flex gap-2">
                             <span>
                                 {
-                                    toPersianUnits(costs.reduce((acc, cur) => acc += cur[priceProperty], 0))
+                                    // toPersianUnits(costs.reduce((acc, cur) => acc += cur[priceProperty], 0))
+                                    toPersianUnits(costs.reduce((acc, cur) => acc += 15000, 0))
                                 }
                             </span>
                             <span>تومان</span>

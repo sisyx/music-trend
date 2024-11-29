@@ -29,8 +29,6 @@ function EditPublisher({ campid, page = undefined, isEdtingPub = false, handleCl
 
     async function updatePublisher(newData) {
         const token = getCookie("token")
-        console.log(token)
-
         if (!campid || !page.page.id || !newData || !token ) return
 
         // return
@@ -70,7 +68,6 @@ function EditPublisher({ campid, page = undefined, isEdtingPub = false, handleCl
             "storyImpertion": si
         }
 
-        console.log(newData)
         updatePublisher(newData);
     }
 

@@ -56,7 +56,7 @@ const Home = () => {
             }
 
             const res = await req.json();
-            console.log(res)
+            
 
             if (res.messageType === 0) {
                 const date = new Date();
@@ -331,7 +331,6 @@ function validateIranPhoneNumber(number) {
     if (!(xnumber.length === 11)) return false
     
     const firstTwoDigits = xnumber.slice(0, 2)
-    console.log(firstTwoDigits)
     if (firstTwoDigits === "09" && isNumeric(xnumber))
         return true
 }

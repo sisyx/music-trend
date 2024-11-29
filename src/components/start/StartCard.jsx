@@ -16,17 +16,6 @@ function StartCard({ influencer, index = 0, taarifs = [], addPriceToCosts = () =
     const role = getCookie("role");
     const isThisPageSelected= costs.find(cost => cost.pageId === influencer.pageId)?.name === taarifs[params.get('ptid') - 1]?.title;
     const [reload, setReload] = useState();
-    
-    useEffect(() => {
-        console.log(costs);
-        // setisThisPageSelected(costs.find(cost => cost.pageId === influencer.pageId)?.name === taarifs[params.get('ptid')]?.name)
-        console.log("-----------------------------------------------------")
-        console.log(costs.find(cost => cost.pageId === influencer.pageId)?.name);
-        console.log(taarifs[params.get('ptid') - 1]?.title);
-        console.log("ptid: ", params.get("ptid"))
-        console.log(taarifs)
-        console.log("-----------------------------------------------------")
-    }, [influencer, costs])
 
     function addThisPriceToCosts() {
         addPriceToCosts({

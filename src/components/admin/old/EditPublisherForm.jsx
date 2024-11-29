@@ -18,11 +18,6 @@ function EditPublisherForm({ selectedPub, type = "instagram" }) {
     const [insPV, setInsPV] = useState("");
     const [insStC, setInsStC] = useState("");
     const [insLastAdLink, setInsLastAdLink] = useState("");
-    
-    useEffect(() => {
-        console.log("selected pub: ")
-        console.log(selectedPub.Id);
-    }, []);
 
     useEffect(() => {
         setInsLastAdLink("");

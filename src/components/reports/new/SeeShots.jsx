@@ -18,7 +18,6 @@ function SeeShots({ pId, campId, closeShots }) {
     async function initShots() {
         const shots = await getShots(campId, pId);
 
-        console.log(shots)
         setShotsUrls(() => shots);
         if (shots.length) setCurrentImage(() => 1)
     }
@@ -33,7 +32,6 @@ function SeeShots({ pId, campId, closeShots }) {
     }, [currentImage]);
     
     async function viewShot() {
-        console.log("Called ViewShot")
         const tmpShotData = await getShotData(shotsUrls[currentImage - 1].filePath, getFileExtension(shotsUrls[currentImage - 1].fileName));
 
         setCurrentShotData(tmpShotData);

@@ -21,10 +21,6 @@ function AddPriceTitle() {
         setIsAddingTaarif(false);
     }
 
-    useEffect(() => {
-        console.log(data);
-    }, [data]);
-
     async function addTitle() {
         const title = newTitle;
         try {

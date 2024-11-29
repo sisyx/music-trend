@@ -1,0 +1,34 @@
+.compaign-info__box {
+    background-color: #f2f2f2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+    transition: background-color 0.3s;
+    padding: 0;
+}
+.btn_hover {
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    background-size: 300% 100%;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+.btn_hover:hover {
+    background-position: 100% 0;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+    color: white;
+}
+.bt_-hover:focus {
+    outline: none;
+}
+.btn_hover.color_1 {
+    background-image: linear-gradient(110deg, #f2f2f2, #f8f8f8, #b4e6fc, #e31e78);
+}

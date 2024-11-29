@@ -14,10 +14,6 @@ function TelegramTableRow({ publisher, index }) {
         init()
     }, [])
 
-    useEffect(() => {
-        console.log(xpublisher);
-    }, [xpublisher])
-
     async function init() {
         setIsLoading(() => true);
         const tmpPublisher = await getTelegramChannel(publisher.channelId);

@@ -27,9 +27,6 @@ function TelegramReport() {
         const id = params.get("id");
         const tmpPubs = await getPublishers(id, "telegram");
         const tmpCamp = await getCampWithId(id, "telegram");
-        console.log(tmpPubs)
-        // console.log(tmpPubs);
-        // console.log(tmpCamp)
         setPublishers(() => tmpPubs);
         const sums = {
             postViews: 0,

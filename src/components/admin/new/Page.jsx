@@ -26,11 +26,6 @@ function Page({page, pageTypes, pageCategories, reloadPages = () => {return}}) {
         setPageId(page.pageId)
     }, [page])
 
-    useEffect(() => {
-        console.log(showName.new)
-    }, [showName.new])
-
-
     function handleOpenDetails() {
         setIsInDetail(true);
     }

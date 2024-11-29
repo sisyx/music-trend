@@ -16,8 +16,6 @@ function RightFilters() {
     const [pagetypes, setPagetypes] = useState([]);
     const [pageCats, setPageCats] = useState([]);
     const [params, setParams] = useSearchParams();
-    // const [maxPrice, setMaxPrice] = useState(100)
-    // const [minPrice, setMinPrice] = useState(100)
 
     useEffect(() => {
         init();
@@ -53,7 +51,7 @@ function RightFilters() {
     }
 
     return ( 
-        <div className="flex flex-col w-fit gap-2 bg-white vazirmatn">
+        <div className="flex flex-col w-fit gap-2 bg-white vazirmatn shadow-lg p-2">
             <div className="flex items-center justify-between w-full pr-2" onClick={clearAllFilters}>
                 <div className="bg-telegram p-3 rounded-full text-white border border-white cursor-pointer hover:text-telegram hover:border-telegram hover:bg-white">
                     <FaFilterCircleXmark />
@@ -73,7 +71,6 @@ function RightFilters() {
                             <Checkbox 
                                 checked={params.get("ptype") == index + 1} 
                                 onChange={e => {
-                                    console.log(e.target.value)
                                     if (e.target.value) {
                                         updateParam(`ptype`, index + 1)
                                     }
@@ -95,7 +92,6 @@ function RightFilters() {
                             <Checkbox 
                                 checked={params.get("pcat") == index + 1} 
                                 onChange={e => {
-                                    console.log(e.target.value)
                                     if (e.target.value) {
                                         updateParam(`pcat`, index + 1)
                                     }

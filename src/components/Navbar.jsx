@@ -23,10 +23,6 @@ function Navbar() {
         setUsername(getUser());
     }, [])
 
-    useEffect(() => {
-        console.log(cart)
-    }, [cart])
-
     function handleSearch(event) {
         setSearch(event.target.value)
     }

@@ -9,11 +9,6 @@ import CircleGradient from "../loadings/CircleGradient";
 function UCampaign({ name, startDate, id }) {
 
     const {error, loading, data} = useFetch(`/api/Campaign/GetRejectedPages?campaignId=${id}`, {});
-
-    useEffect(() => {
-        console.log(id);
-    }, [id]);
-
     return ( 
         <div className="shadow-lg relative flex flex-col items-center justify-between gap-2 bg-gray-200 pt-8 rounded-xl overflow-hidden" dir="rtl">
             <div className="flex justify-between w-full px-4">

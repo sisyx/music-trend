@@ -1,11 +1,6 @@
 import { useEffect } from "react";
 
 function UserSettings({ user }) {
-
-    useEffect(() => {
-        console.log(user)
-    }, [])
-
     return ( 
         <div className="flex flex-col gap-4 items-center bg-white shadow-xl p-4 rounded-xl">
             <img src={user.imageUrl || "/logo.png"} alt="" className="max-w-96" />

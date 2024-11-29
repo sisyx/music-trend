@@ -38,7 +38,6 @@ export default function Category({name, reload = () => {return}, deleteThisCat =
             }
 
             const res = await req.json();
-            console.log(res);
             customAlert(res.message);
             reload();
         } catch (error) {

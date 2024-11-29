@@ -17,18 +17,12 @@ export default function DenseTable({ report, setSums}) {
   const [rows, setRows] = React.useState([]);
 
   React.useEffect(() => {
-    console.log(report);
-    console.log(rows)
     const newRows = report.map(page => createData( page.Page.Id, page.Page.ImgUrl, page.PageId || "none", page.Page.ShowName || "None" , page.Page.PostLikes || "-", page.Page.PostImpertion || "-", page.Page.StoryViews || "-", page.Page.StoryImpertion || "-", page.Page.PostLink || "https://instagram.com/" ));
     setRows(newRows);
     
     // set sums
     setSums(cur => cur.map(x => x.key !== "totalPubs" ? ({...x, value: toKFormat(sumOfItems(report, x.dataBaseKey))}) : ({...x, value: report.length}) ));
   }, []);
-
-  React.useEffect(() => {
-    console.log(report)
-  }, [report]);
 
   return (
     <TableContainer sx={{overflow: "visible"}}>

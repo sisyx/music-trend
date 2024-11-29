@@ -27,7 +27,7 @@ function InfluencerInfo({ setInfs, setindetails, selectedInf = {}}) {
 
             const res = await req.json();
             setPrices(res);
-            console.log(res)
+            
         } catch (error) {
             console.error(error);
             setPrices([]);
@@ -92,7 +92,6 @@ function InfluencerInfo({ setInfs, setindetails, selectedInf = {}}) {
                                     </div>
                                         <div 
                                             onClick={() => {
-                                                console.log(price.selected)
                                                 if (!price.selected) {
                                                     setInfs(cur => cur.map(influ => influ.id === selectedInf.id ? {...influ, selcted: true, prices: influ?.prices ? [...influ?.prices, price] : [price]} : influ))
                                                     setPrices(cur => cur.map(xprice => xprice.id === price.id ? {...xprice, selected: true} : xprice))

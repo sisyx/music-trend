@@ -49,7 +49,6 @@ function AddType({ reloadAll = () => {return}, addingWhat = "type", handleCloseA
             customAlert(`
                 ${addingWhat === "type" ? "نوع پیج" : "دسته بندی"} با موفقیت اضافه شد
                 `, "success")
-            console.log(res);
         } catch (error) {
             console.error(error)
         }

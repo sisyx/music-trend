@@ -2,11 +2,6 @@ import { useEffect } from "react";
 import ReportShotPage from "./ReportShotPage";
 
 function ReportShots({ pages, campId }) {
-
-    useEffect(() => {
-        console.log(pages);
-    }, [])
-
     return (
         <div className="w-full max-w-7xl grid grid-cols-3 gap-4 justify-items-center">
             {

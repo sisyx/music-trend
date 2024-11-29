@@ -91,7 +91,6 @@ export default function PagesStatsTable({ data }) {
         if (data.length) {
             for (let i = 0; i < data.length; i++) {
             const currentPage = data[i];
-            console.log(currentPage)
             const newData = {
                 name: currentPage.page.showName ? currentPage.page.showName : "-",
                 calories: currentPage.pageId ? currentPage.pageId : "-",

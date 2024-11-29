@@ -20,7 +20,6 @@ export function logout() {
 
 export function isLoggedin() {
     const token = getCookie("token")
-    console.log("token is " + token)
     return !!token
 }
 

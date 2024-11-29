@@ -18,7 +18,7 @@ function RightFilter({filter, icon, children}) {
                     </span>
                 </div>
             </span>
-            <div className={` max-h-fit ${istoolbar ? "h-48 overflow-y-scroll" : "h-0 overflow-hidden"} flex flex-col transition-all duration-500 w-full  bg-white`}>
+            <div className={` ${istoolbar ? "h-48 overflow-y-scroll" : "h-0 overflow-hidden"} flex flex-col transition-all duration-500 w-full  bg-white`}>
                 {children}
             </div>
         </div>

@@ -6,25 +6,43 @@ import React, { Suspense, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Loading from './components/loadings/Loading';
 
-const Home = React.lazy(() => import('./pages/home/Home'));
-const Admin = React.lazy(() => import('./pages/admin/Admin'));
-const Login = React.lazy(() => import('./pages/login/Login'));
-const  
- Logout = React.lazy(() => import('./components/login/Logout'));
-const AboutUsPage = React.lazy(() => import('./pages/other/AboutUsPage'));
-const Start = React.lazy(() => import('./pages/start/Start'));
-// const InstagramReport = React.lazy(() => import('./pages/report/InstagramReport'));
-const Contact = React.lazy(() => import('./pages/contact/Contact'));
-const Payment = React.lazy(() => import('./pages/payment/Payment'));
-const Report = React.lazy(() => import('./pages/report/Report'));
+// const Home = React.lazy(() => import('./pages/home/Home'));
+// const Admin = React.lazy(() => import('./pages/admin/Admin'));
+// const Login = React.lazy(() => import('./pages/login/Login'));
+// const  
+//  Logout = React.lazy(() => import('./components/login/Logout'));
+// const AboutUsPage = React.lazy(() => import('./pages/other/AboutUsPage'));
+// const Contact = React.lazy(() => import('./pages/contact/Contact'));
+// const Payment = React.lazy(() => import('./pages/payment/Payment'));
+// const Report = React.lazy(() => import('./pages/report/Report'));
+// import { Slide, ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+// import Aos from 'aos';
+// import InstagramStart from './pages/start/InstagramStart';
+// const UserPaenel = React.lazy(() => import('./pages/userPanel/UserPaenel'));
+// const ProfilePage = React.lazy(() => import('./pages/userPanel/ProfilePage'));
+// const Campaigns = React.lazy(() => import('./pages/userPanel/Campaigns'));
+// const StartSelectCampType = React.lazy(() => import('./components/start/StartSelectCampType'));
+// const StartLayout = React.lazy(() => import('./layouts/StartLayout'));
 
-
+import Home from './pages/home/Home';
+import Admin from './pages/admin/Admin';
+import Login from './pages/login/Login';
+import Logout from './components/login/Logout';
+import AboutUsPage from './pages/other/AboutUsPage';
+import Contact from './pages/contact/Contact';
+import Payment from './pages/payment/Payment';
+import Report from './pages/report/Report';
 import { Slide, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Aos from 'aos';
+import InstagramStart from './pages/start/InstagramStart';
 import UserPaenel from './pages/userPanel/UserPaenel';
 import ProfilePage from './pages/userPanel/ProfilePage';
 import Campaigns from './pages/userPanel/Campaigns';
+import StartSelectCampType from './components/start/StartSelectCampType';
+import StartLayout from './layouts/StartLayout';
+
 
 export const notify = (text, xtype) => toast[xtype](text, {
   position: "bottom-right",
@@ -54,7 +72,15 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/logout' element={<Logout />} />
             <Route path='/aboutus' element={<AboutUsPage />} />
-            <Route path='/start' element={<Start />} />
+            <Route path='/start' element={
+                <Suspense fallback={<h1>LOADING</h1>}>
+                  <StartLayout />
+                </Suspense>}>
+              <Route path='' element={<StartSelectCampType />} />
+              <Route path='telegram' element={<h1>Telegram Creating Campaign</h1>} />
+              <Route path='instagram' element={<InstagramStart />} />
+              <Route path='website' element={<h1>Website Creating Campaign</h1>} />
+            </Route>
             <Route path='/report' element={<Report />} />
             <Route path='/contact' element={<Contact />} />
             <Route path='/payment' element={<Payment />} />

@@ -34,7 +34,6 @@ function CampaignSelect({ saveSelections }) {
             const req = await fetch(`${BASE_URL}/api/Campaign/GetCampaignByUserId?userId=${id}`);
 
             if (!req.ok) {
-                console.log(req )
                 if (req.status === 404) {
                     throw new Error("کمپینی برای این کاربر یافت نشد!")
                 } else {   
@@ -44,7 +43,7 @@ function CampaignSelect({ saveSelections }) {
 
             const res = await req.json();
             setCamps(res);
-            console.log(res);
+            ;
         } catch (error) {
             console.error(error);
         }
@@ -96,7 +95,7 @@ function CampaignSelect({ saveSelections }) {
             realoadCamps();
         } catch (error) {
             customAlert(error.message)
-            console.log(error);
+            console.error(error);
         }
     }
 
@@ -115,7 +114,6 @@ function CampaignSelect({ saveSelections }) {
     }
 
     function onChooseCampaign(campId) {
-        console.log("campaign id: " + campId)
         const prevCart = getCookie(CART_COOKIES.campidName);
         if (prevCart) setShowAddCardDialog(campId);
         else approveDeletePrevCart(campId);

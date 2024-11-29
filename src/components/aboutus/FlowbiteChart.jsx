@@ -71,11 +71,11 @@ function FlowbiteChart() {
     
     useEffect(() => {
         if (chartRef.current && typeof ApexCharts !== 'undefined') {
-            console.log("ApexChart is not undefined")
+            console.error("ApexChart is not undefined")
             const chart = new ApexCharts(chartRef.current, options);
             chart.render();
         } else {
-            console.log("AppxChart is undefined")
+            console.error("AppxChart is undefined")
         }
     }, [])
   

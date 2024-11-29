@@ -119,3 +119,21 @@ export const PRICE_SETTINGS = {
 }
 
 export const imagebase = "/src/assets/images"; // base source for addressing images in <img /> tags
+
+// Start Page Starts ------------------------------------------
+export const timelinedata = [
+  {
+      title: "انتخاب ناشر",
+      active: true
+  },
+  {
+      title: "بررسی حساب کاربری"
+  },
+  {
+      title: "پرداخت"
+  },
+  {
+      title: "اتمام خرید"
+  },
+]
+// Start Page Ends ------------------------------------------

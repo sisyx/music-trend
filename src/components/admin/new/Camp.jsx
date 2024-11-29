@@ -21,7 +21,6 @@ function Camp({ camp }) {
     async function init() {
         if (!camp?.id) return
         const campImageSrc = await getProfile(camp.id);
-        console.log(campImageSrc);
         imgRef.current.src = campImageSrc;
     }
 

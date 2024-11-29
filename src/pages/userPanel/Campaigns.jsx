@@ -19,7 +19,7 @@ function Campaigns() {
             const req = await fetch(`${BASE_URL}/api/Campaign/GetCampaignByUserId?userId=${userId}`);
             if (!req.ok) throw new Error(req.statusText);
             const res = await req.json();
-            console.log(res);
+            ;
             setCamps({error: false, loading: false, data: res});
         } catch(error) {
             setCamps({error: true, loading: false, data: {}});

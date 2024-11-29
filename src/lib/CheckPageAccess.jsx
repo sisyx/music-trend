@@ -10,11 +10,9 @@ function CheckPageAccess() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log('has access? :')
         const {hasAccess} = USER_LEVELS.find(level => level.value === userRole) || USER_LEVELS.at(0);
         if (!hasAccess) {
             customAlert("حساب کاربری شما در انتظار تایید میباشد. لطفا مجددا بعدا تلاش کنید.", "warn")
-            console.log("this user does not have access to this page");
             setTimeout(() => {  
                 navigate("/")
             })

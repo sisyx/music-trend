@@ -38,7 +38,6 @@ export async function getAllCamps() {
             throw new Error("failed to get all camps");
         }
 
-        console.log(req)
         const res = await req.json();
         return res
     } catch (error) {
@@ -56,7 +55,6 @@ export async function getPagePrices(id) {
         }
 
         const res = await req.json();
-        console.log(res);
         return [...res]
     } catch (error) {
         console.error(error)
@@ -73,7 +71,6 @@ export async function getAllPrices () {
         }
 
         const res = await req.json();
-        console.log(res);
         return res
     } catch (error) {
         console.error(error)
@@ -96,7 +93,6 @@ export async function getPages() {
             throw new Error("failed to get all users");
         }   
         const res = await req.json()
-        console.log(res)
         return res.pages
     } catch (error) {
         console.error(error)
@@ -193,7 +189,6 @@ export async function createPublisher(platformid, type, campaignId) {
         }
 
         const res = await req.json();
-        console.log(res);
         return res.message
 
     } catch (error) {
@@ -203,7 +198,6 @@ export async function createPublisher(platformid, type, campaignId) {
 }
 
 export async function getPublishers(campid) {
-    console.log(campid)
     const url = `${BASE_URL}​/api/Pages/GetEditedPageAndOriginalBuCampID?campaignId=${campid}`;
     try {
         const req = await fetch(url);
@@ -253,12 +247,8 @@ export async function refreshPubMetadata(pubid) {
 
 export async function getFilteredPublishers(ptype = undefined, pcat = undefined, maxp , minp, sex = undefined, sTaarifId = undefined) {
     const allPages = [];
-    console.log("filtering...")
     const taarifs = await getTaarifs();
     const taarif = !!sTaarifId ? taarifs[sTaarifId - 1].title : undefined;
-    console.log("+++++++++++++++++++++++++++++=")
-    console.log(taarif)
-    console.log("+++++++++++++++++++++++++++++")
     try {
         const req = await fetch(`${BASE_URL}/api/Pages/GetAllPageAndAllPricePage`)
         if (!req.ok) {
@@ -270,9 +260,6 @@ export async function getFilteredPublishers(ptype = undefined, pcat = undefined,
             allPages.push(tmpPage);
         }
     } catch {}
-
-    console.log("all pages:")
-    console.log(allPages)
     const filtered = allPages.filter(page => sex ? page.sex == GENDERS.at(Number(sex) - 1).value : true ) // filter gender
                              .filter(page => pcat ? page.pageCategoryId == pcat : true) // filter categories
                              .filter(page => ptype ? page.pageTypeId == ptype : true ) // filter types
@@ -335,7 +322,7 @@ export async function updatePublisher(publisherId, newData, type) {
         const res = await req.json();
         return res
     } catch (error) {
-        console.log(error.message);
+        console.error(error.message);
         return "مشکلی در ادیت کردن پابلیشر ایجاد شده. لطفا دوباره امتحان کنید"
     }
 }
@@ -453,10 +440,9 @@ export async function getInstaUser(username) {
         }
 
         const res = await req.json();
-        console.log(res);
         return res;
     } catch (error) {
-        console.log(error.message);
+        console.error(error.message);
         return {}
     }
 }
@@ -470,10 +456,9 @@ export async function getTelegramChannel(channelId) {
         }
 
         const res = await req.json();
-        console.log(res);
         return res;
     } catch (error) {
-        console.log(error.message);
+        console.error(error.message);
         return {}
     }
 }
@@ -523,7 +508,7 @@ export async function uploadFile(path, file)  {
             customAlert(res.message)
         } catch (error) {
             customAlert("Failed To Upload File")
-            console.log(error.message)
+            console.error(error.message)
         }
     }
 }
@@ -581,7 +566,7 @@ export async function getProfile(campid) {
             return dataUrl;
         }
     } catch (error) {
-        console.log(error.message);
+        console.error(error.message);
         return "/logo.png";
     }
 }
@@ -622,7 +607,7 @@ export async function getShots(campaignid, publisherid) {
         }
 
     } catch (error) {
-        console.log(error.message);
+        console.error(error.message);
         return []
     }
 }
@@ -644,15 +629,13 @@ export async function getShotData(url, extension = ".jpeg") {
         }
 
         
-        const res1 = await req2.json();
-        console.log(res1);
-        
+        const res1 = await req2.json();        
         const fileData = !!res1.objectResult ? res1.objectResult : "r¶¬\u0085ç_\u008aW";
         const dataUrl = `data:${type}/${extension.slice(1)};base64,${fileData}`;
         
         return dataUrl;
     } catch (error) {
-        console.log(error.message);
+        console.error(error.message);
         return "data:text/plane;base64,r¶¬\u0085ç_\u008aW";
     }
 }
@@ -685,8 +668,6 @@ export async function addPostShot(campaignid, publisherid, file) {
                 }
             });
 
-            console.log(req);
-
             if (!req.ok) {
                 throw new Error("failed to send file");
             }
@@ -696,7 +677,7 @@ export async function addPostShot(campaignid, publisherid, file) {
 
         } catch (error) {
             customAlert("Failed To Upload File", "error")
-            console.log(error.message)
+            console.error(error.message)
         }
     }
 }

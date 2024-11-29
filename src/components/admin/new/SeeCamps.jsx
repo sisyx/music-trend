@@ -17,7 +17,6 @@ export default function SeeCamps({setState}) {
     async function init() {
         setIsLoading(() => true)
         const xcamps = await getAllCamps();
-        console.log(xcamps);
         setCamps(xcamps);
         setIsLoading(() => false);
     }

@@ -39,9 +39,6 @@ function AddPriceToPage({ page, imgUrl, isVisible,  setReload = () => {return}, 
         const normalPrice = selectedNormalPrice;
         const specialPrice = selectedSpecialPrice;
         const coworkerPrice = selectedCowokerPrice;
-        console.log(newPageId)  
-        console.log(normalPrice)
-        console.log(specialPrice)
         if (!specialPrice || !normalPrice || !newPageId ) {
             customAlert("لطفا ابتدا فیلد ها را به درستی پر کنید")
             return
@@ -102,7 +99,6 @@ function AddPriceToPage({ page, imgUrl, isVisible,  setReload = () => {return}, 
         setIsGettingPrices(() => true)
         const xprices = await getPagePrices(page.id);
 
-        console.log(prices)
         setPrices(xprices);
         setIsGettingPrices(() => false)
     }

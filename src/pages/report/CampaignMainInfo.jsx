@@ -24,7 +24,6 @@ function CampaignMainInfo({campaign, slides, sums = {}, influs = []}) {
     async function init() {
         if (!campaign?.id) return
         const campImageSrc = await getProfile(campaign.id);
-        console.log(campImageSrc);
         const filecontent = document.querySelector(".camp-profile-img");
         filecontent.src = campImageSrc;
         if (campImageSrc == "/logo.png") {
