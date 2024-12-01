@@ -3,6 +3,7 @@ import styles from './Footer.module.css';
 import { IoIosCall } from "react-icons/io";
 import { imagebase } from "../constatnts";
 import { AiFillInstagram } from "react-icons/ai";
+import ENamad from "./ENamad";
 
 function Footer() {
     return ( 
@@ -69,6 +70,7 @@ function Footer() {
                             </div>
                         </div>
                         <div className="hidden md:block">
+                            <ENamad />
                             <div className="flex flex-col gap-7">
                                 <span className={`${styles.title}`}>
                                     حدمات ما
