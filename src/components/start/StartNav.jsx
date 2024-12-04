@@ -4,11 +4,16 @@ import { IoSearchSharp } from "react-icons/io5";
 import { getCookie } from "../../lib/cacheAndStorage";
 import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import BeatifullBtn from "../css-components/BeatifullBtn";
+import { viewModes } from "../../config/config";
+import { useDispatch, useSelector } from "react-redux";
+import { changeViewMode } from "../../Redux/core/start/startSlice";
 
 function StartNav() {
-    const username = getCookie("username")
+    const username = getCookie("username");
+    const viewMode = useSelector((state) => state.start.viewMode);
+    const dispatch = useDispatch();
 
     return ( 
         // outer container
@@ -26,33 +31,45 @@ function StartNav() {
                 
                 {/* center */}
                 <div className="flex-1 flex gap-2 justify-center" dir="rtl">
-                    <BeatifullBtn className="rounded-md overflow-hidden">
-                        <NavLink to='telegram'
-                            className={({ isActive, isPending }) =>
-                                `px-4 py-1 ${isPending ? "bg-primary" : isActive ? "bg-telegram text-white" : ""}`
-                        }
-                        >
-                            تلگرام
-                        </NavLink>
-                    </BeatifullBtn>
-                    <BeatifullBtn className="rounded-md overflow-hidden">
-                        <NavLink to='instagram' 
-                            className={({ isActive, isPending }) =>
-                                `px-4 py-1 ${isPending ? "bg-primary" : isActive ? "bg-telegram text-white" : ""}`
+                    <div className="flex items-center gap-2">
+                        <BeatifullBtn className="rounded-md overflow-hidden">
+                            <NavLink to='telegram'
+                                className={({ isActive, isPending }) =>
+                                    `px-4 py-1 ${isPending ? "bg-primary" : isActive ? "bg-telegram text-white" : ""}`
                             }
-                        >
-                                اینستاگرام
-                        </NavLink>
-                    </BeatifullBtn>
-                    <BeatifullBtn className="rounded-md overflow-hidden">
-                        <NavLink to='website'
-                            className={({ isActive, isPending }) =>
-                                `px-4 py-1 ${isPending ? "bg-primary" : isActive ? "bg-telegram text-white" : ""}`
+                            >
+                                تلگرام
+                            </NavLink>
+                        </BeatifullBtn>
+                        <BeatifullBtn className="rounded-md overflow-hidden">
+                            <NavLink to='instagram' 
+                                className={({ isActive, isPending }) =>
+                                    `px-4 py-1 ${isPending ? "bg-primary" : isActive ? "bg-telegram text-white" : ""}`
                             }
-                        >
-                                وبسابت
-                        </NavLink>
-                    </BeatifullBtn>
+                            >
+                                    اینستاگرام
+                            </NavLink>
+                        </BeatifullBtn>
+                        <BeatifullBtn className="rounded-md overflow-hidden">
+                            <NavLink to='website'
+                                className={({ isActive, isPending }) =>
+                                    `px-4 py-1 ${isPending ? "bg-primary" : isActive ? "bg-telegram text-white" : ""}`
+                            }
+                            >
+                                    وبسابت
+                            </NavLink>
+                        </BeatifullBtn>
+                    </div>
+                        {/* Change View Mode Buttons (top-left) */}
+                        <div>
+                            {
+                                viewModes.map(mode => 
+                                    <IconButton sx={viewMode === mode.value ? {color: "white", backgroundColor: "black", borderRadius: "0.5rem", ":hover": {backgroundColor: "#444", color: "#999"}} : {borderRadius: "0.5rem"}} onClick={() => dispatch(changeViewMode(mode.value))}>
+                                        {mode.icon}
+                                    </IconButton>
+                                )
+                            }
+                        </div>
                 </div>
                 
                 {/* right */}

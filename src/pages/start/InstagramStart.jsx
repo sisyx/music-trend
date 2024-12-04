@@ -38,9 +38,12 @@ function InstagramStart() {
                 <div className={`grid ${viewMode === 'large' ? "grid-cols-7" : viewMode === "medium" ? " grid-cols-10" : "grid-cols-1" } gap-2`}>
                     {/* pages */}
                     {
-                        filteredPages.length && filteredPages.map((page, index) => <Page currentPrice={currentPrice} pageId={page.pageId} prices={page.prices} followers={page.followers} followings={page.followings} name={page.showName} index={index} viewMode={viewMode} key={`page---${index}`} />)
+                        filteredPages.length ? filteredPages.map((page, index) => <Page currentPrice={currentPrice} pageId={page.pageId} prices={page.prices} followers={page.followers} followings={page.followings} name={page.showName} index={index} viewMode={viewMode} key={`page---${index}`} />) : ""
                     }
                 </div>
+                {
+                    !filteredPages.length ? <div className="text-center">نتیجه ای یافت نشد</div> : ""
+                }
             </div>
             <RightFilters />
         </div>

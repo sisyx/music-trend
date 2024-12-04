@@ -11,7 +11,7 @@ function Timeline({ data, className = "hidden md:flex items-center", itemWidth =
         <ol className={`${className}`}>
             {
                 data.map((item, index) => 
-                    <li key={`timeline-${index}`} className={`relative mb-6 sm:mb-0 ${index < data.length - 1 ? `` : "max-w-fit"} w-full flex flex-col items-center justify-center ${styles.item}`} style={{
+                    <li key={`timeline-${index}`} className={`relative ${index < data.length - 1 ? `` : "max-w-fit"} w-full flex flex-col items-center justify-center ${styles.item}`} style={{
                         animationDelay: `${index * 200}ms`
                     }}>
                         <div className="group w-full flex items-center">
