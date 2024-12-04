@@ -47,7 +47,7 @@ function UCampaign({ name, startDate, id }) {
                 }
                 </div>
             </div>
-            <Link to={`/report?campname=${name}`} className="w-full">
+            <Link to={`/report/instagram?campname=${name}`} className="w-full">
                 <Button sx={{width: "100%"}} variant="contained">مشاهده کمپین</Button>
             </Link>
         </div>

@@ -2,7 +2,7 @@ import { Add, Home, Refresh, Shop } from "@mui/icons-material";
 import { Tooltip } from "@mui/material";
 import { Link } from "react-router-dom";
 
-function ReportLeftHeader() {
+function ReportRightHeader() {
     return ( 
         <div className='group text-xl hidden md:flex w-fit flex-col gap-2 bg-white text-gray-100 pb-24 p-2 relative after:absolute after:z-50 after:top-0 after:left-0 after:-translate-x-full after:block after:bg-[#f1f2f7] after:w-5 after:h-5  after:content-[""] after:rounded-tr-full before:absolute before:z-50 before:top-0 before:left-0 before:-translate-x-full before:block before:bg-white before:w-5 before:h-5  before:content-[""]'>
             <Tooltip title="رفتن به خانه" placement="left">
@@ -33,4 +33,4 @@ function ReportLeftHeader() {
      );
 }
 
-export default ReportLeftHeader;
+export default ReportRightHeader;

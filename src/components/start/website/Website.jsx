@@ -24,7 +24,7 @@ function Website({ viewMode = "large", index = 0, siteUrl = "", prices= {}, name
         <>
         {
             viewMode !== "small" ? 
-            <div onClick={handleClickCard} className={`flex flex-col items-center gap-2 border border-telegram cursor-pointer ${isInPages ? "bg-telegram bg-opacity-50 hover:bg-telegram hover:bg-opacity-60" : "bg-white hover:bg-telegram hover:bg-opacity-30" }`}>
+            <div onClick={handleClickCard} className={`flex flex-col items-center gap-2 border border-telegram cursor-pointer ${isInPages ? "bg-telegram bg-opacity-50 hover:bg-telegram hover:bg-opacity-60" : "bg-white hover:bg-telegram hover:bg-opacity-30"}`}>
                 <div className="">
                     <img src="/logo.png" alt="Profile.png" />
                 </div>

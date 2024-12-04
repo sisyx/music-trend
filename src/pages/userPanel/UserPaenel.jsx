@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import { getRole } from "../../utils/auth";
 import { USER_LEVELS } from "../../constatnts";
 import { useNavigate } from "react-router-dom";
-import Profile from "../../components/userPanel/Profile";
 import UserSideNav from "../../components/userPanel/UserSideNav";
-import UserNav from "../../components/userPanel/UserNav";
 
 function UserPaenel() {
     const [_isLoaded, setIsLoaded] = useState(false);

@@ -1,158 +1,154 @@
-import InstagramTableRow from '../../components/reports/InstagramTableRow';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { getCampWithId, getPublishers } from '../../functions';
-import { getCookie } from '../../lib/cacheAndStorage';
-import { ContactlessOutlined, Instagram } from '@mui/icons-material';
-import ReportHeader from '../../components/reports/ReportHeader';
-import CampaignMainInfo from './CampaignMainInfo';
-import ReportLeftHeader from '../../components/reports/ReportLeftHeader';
-import { toShamsi } from '../../lib/timeAndDates';
+import { useNavigate, useSearchParams } from "react-router-dom";
+import ReportHeader from "../../components/reports/ReportHeader";
+import ReportRightHeader from "../../components/reports/ReportRightHeader";
+import { getCookie } from "../../lib/cacheAndStorage";
+import { useEffect, useState } from "react";
+import { IoEye } from "react-icons/io5";
+import ReportHead from "../../components/reports/InstagramReport/ReportHead";
+import { toKFormat } from "../../utils/numbers";
+import ReportTable from "../../components/reports/InstagramReport/ReportTable";
+import { BASE_URL } from "../../config/config";
+import { FaCommentAlt, FaHeartbeat } from "react-icons/fa";
+import { MdOutlineInsights } from "react-icons/md";
+import { TbProgressCheck } from "react-icons/tb";
+import { GiProgression } from "react-icons/gi";
+import { FaPeopleRobbery } from "react-icons/fa6";
+import ReportShots from "../../components/reports/new/ReportShots";
+import Skeleton from "react-loading-skeleton";
+import ReportChart from "../../components/reports/InstagramReport/ReportChart";
+
+const tmpSums = [
+    {
+        key: "plike",
+        dataBaseKey: "PostLikes",
+        name: "لایک پست",
+        value: toKFormat(0),
+        icon: <FaHeartbeat />,
+        color: "#f05"
+    },
+    {
+        key: "pcomment",
+        dataBaseKey: "PostLikes",
+        name: "کامنت پست",
+        value: toKFormat(0),
+        icon: <FaCommentAlt />,
+        color: "#2da5dc"
+    },
+    {
+        key: "pview",
+        dataBaseKey: "PostViews",
+        name: "ویو پست",
+        value: toKFormat(0),
+        icon: <IoEye />,
+        color: "#e31e78"
+    },
+    {
+        key: "pimp",
+        dataBaseKey: "PostImpertion",
+        name: "ایمپرشن پست",
+        value: toKFormat(0),
+        icon: <MdOutlineInsights />,
+        color: "#5e298e"
+    },
+    {
+        key: "sview",
+        dataBaseKey: "StoryViews",
+        name: "ویو استوری",
+        value: toKFormat(0),
+        icon: <TbProgressCheck />,
+        color: "#f12911"
+    },
+    {
+        key: "simp",
+        dataBaseKey: "StoryImpertion",
+        name: "ایمپرشن استوری",
+        value: toKFormat(0),
+        icon: <GiProgression />,
+        color: "#f26c13"
+    },
+    {
+        key: "totalPubs",
+        dataBaseKey: "x",
+        name: "تعداد ناشران",
+        value: toKFormat(0),
+        icon: <FaPeopleRobbery />,
+        color: "#f4a919"
+    },
+]
 
 function InstagramReport() {
-    const [params] = useSearchParams();
-    const [publishers, setPublishers] = useState([]);
-    const [campaign, setCampaign] = useState({});
-    const [slides, setSlides] = useState([]);
-    const [achivSums, setAchivSums] = useState();
+    const [params, _setParams] = useSearchParams();
     const navigate = useNavigate();
-    
-    const username = getCookie("username");
-
+    const [sums, setSums] = useState(tmpSums)
+    const [campDetail, setCampDetail] = useState({error: false, loading: true, data: {}});
     useEffect(() => {
         init()
-    }, [])
+    }, []);
 
     async function init() {
-        const token = getCookie("token");
-        if (!token) {
-            navigate("/login?return=true")
+        const campname = params.get("campname");
+        const campid = params.get("id");
+        if (!campname && !campid) {
+            navigate(-1);
+            return
         }
-        const id = params.get("id");
-        const tmpCamp = await getCampWithId(id);
-        const tmpPubs = await getPublishers(id);
-        setPublishers(() => tmpPubs);
-        const sums = {
-            postLikes: 0,
-            postComments: 0,
-            postViews: 0,
-            postImpertion: 0,
-            storyViews: 0,
-            storyImprertion: 0,
-        };
-        tmpPubs.forEach(tpub => {
-            sums.postLikes += tpub.page.postLikes;
-            sums.postViews += tpub.page.postViews;
-            sums.postComments += tpub.page.postComments;
-            sums.postImpertion += tpub.page.postImpertion;
-            sums.storyViews += tpub.page.storyViews;
-            sums.storyImprertion += tpub.page.storyImpertion;
-        });
-        setAchivSums(_cur => sums);
-        setSlides(() => {
-            return [
-                {
-                    color: "#ff006e",
-                    text: 
-                    <div className='flex flex-col gap-2 items-center' dir='rtl'>
-                        <span className='text-2xl md:text-4xl text-bold'>{sums.postLikes}</span>
-                        <span className='text-sm md:text-base'>لایک پست</span>
-                        <Instagram sx={{fontSize: "2rem"}} />
-                    </div>
-                },
-                {
-                    color: "#7b10ac",
-                    text: 
-                    <div className='flex flex-col gap-2 items-center' dir='rtl'>
-                        <span className='text-2xl md:text-4xl text-bold'>{sums.postViews}</span>
-                        <span className='text-sm md:text-base'>ویو پست</span>
-                        <Instagram sx={{fontSize: "2rem"}} />
-                    </div>
-                },
-                {
-                    color: "#9c1893",
-                    text: 
-                    <div className='flex flex-col gap-2 items-center' dir='rtl'>
-                        <span className='text-2xl md:text-4xl text-bold'>{sums.postImpertion}</span>
-                        <span className='text-sm md:text-base'>ایمپرشن پست</span>
-                        <Instagram sx={{fontSize: "2rem"}} />
-            
-                    </div>
-                },
-                {
-                    color: "#bd207a",
-                    text: 
-                    <div className='flex flex-col gap-2 items-center' dir='rtl'>
-                        <span className='text-2xl md:text-4xl text-bold'>{sums.postComments}</span>
-                        <span className='text-sm md:text-base'>کامنت پست</span>
-                        <Instagram sx={{fontSize: "2rem"}} />
-            
-                    </div>
-                },
-                {
-                    color: "#ce246d",
-                    text: 
-                    <div className='flex flex-col gap-2 items-center' dir='rtl'>
-                        <span className='text-2xl md:text-4xl text-bold'>{sums.storyViews}</span>
-                        <span className='text-sm md:text-base'>ویو استوری</span>
-                        <Instagram sx={{fontSize: "2rem"}} />
-            
-                    </div>
-                },
-                {
-                    color: "#de2860",
-                    text: 
-                    <div className='flex flex-col gap-2 items-center' dir='rtl'>
-                        <span className='text-2xl md:text-4xl text-bold'>{sums.storyImprertion}</span>
-                        <span className='text-sm md:text-base'>ایمپرشن استوری</span>
-                        <Instagram />
-                    </div>
-                },
-            ]
-        })
-        setCampaign(() => tmpCamp);
-    }
+        try {
+            let req;
+            var res;
+            const url = campname ? `${BASE_URL}/api/Campaign/GetCampByName?CampName=${campname}` : campid ?  `${BASE_URL}/api/Campaign/GetCampaignByCampID?campaignID=${campid}` : undefined;
+            req = await fetch(url);
+            if (!req.ok) throw new Error(req.statusText);
+            res = await req.json();
+            res = campname ? res : res[0]
+            setCampDetail(_ => ({loading: true, error: false, data: res}));
 
-    return (
-        <div>
-            {/* container */}
-            <div className='h-screen flex flex-col'>
-                <ReportHeader username={username} />
-                <div className='h-full flex flex-1 overflow-hidden'>
-                    {/* left header */}
-                    <ReportLeftHeader />
-                    <main className='z-10 flex-1 overflow-y-scroll bg-gray-100'>
-                        {/* top side */}
-                        <CampaignMainInfo sums={achivSums} campaign={campaign} slides={slides} influs={publishers} />
-                        {/* report table */}
-                        <div className='hidden w-full overflow-x-scroll px-10 mt-24'>
-                            <table className=' min-w-[800px] md:min-w-full max-w-screen' dir='rtl'>
-                                <tr className='border-b border-b-black'>
-                                    <td></td>
-                                    <td className='text-sm'>ID</td>
-                                    <td className='text-sm'> اسم</td>
-                                    <td className='text-sm'>تعداد فالور ها</td>
-                                    <td className='text-sm'>ایمپرشن پست</td>
-                                    <td className='text-sm'>لایک پست</td>
-                                    <td className='text-sm'>بازدید پست</td>
-                                    <td className='text-sm'>کامنتهای پست</td>
-                                    <td className='text-sm'>ایمپرشن استوری</td>
-                                    <td className='text-sm'>بازدید استوری</td>
-                                    <td></td>
-                                </tr>
-                                {
-                                    publishers.length 
-                                    ? publishers.map((publisher, index) => 
-                                        <>
-                                            <InstagramTableRow publisher={publisher} index={index} />
-                                        </>
-                                    )
-                                    : "تا بحال گزارشی ثبت نشده"
-                                }
-                            </table>
-                        </div>
-                    </main>
-                </div>
+            
+            if (res.id) {
+                const req2 = await fetch(`${BASE_URL}/api/Pages/GetEditedPageAndOriginalBuCampID?campaignId=${res.id}`);
+                if (!req2.ok) throw new Error(req2.statusText);
+                const res2 = await req2.json();
+
+                const reportPages = [];
+                for (let i = 0; i < res2.length; i++) {
+                    const thisPage = res2[i];
+                    if (thisPage.PageId && !reportPages.find(rpage => thisPage.PageId == rpage.PageId)) {
+                        reportPages.push(thisPage);
+                    }
+                }
+
+                setCampDetail(cur => ({loading: false, error: false, data: {...cur.data, report: reportPages}}))
+            }
+        } catch (error) {
+            console.error(error);
+            return;
+        }
+    }
+    
+    return ( 
+        <div className="pt-4 w-full flex flex-col items-center gap-24 pb-96 overflow-scroll">
+            {/* campaign main details */}
+            <ReportHead sums={campDetail.loading ? "loading" : sums} startDate={campDetail.data?.startDate || ""} name={campDetail.data?.name || ""} isLoading={campDetail.loading} />
+            <div className="md:w-3/4 w-11/12">
+            {
+                (!campDetail.loading && !campDetail.error)
+                ? <ReportTable setSums={setSums} report={campDetail.data.report || [] } />
+                : ""
+            }
+            {/* Charts */}
+            <div className="w-full max-w-7xl">
+                {
+                    campDetail.loading ? <Skeleton count={3} width={300} height={200} />
+                    : campDetail.data?.report ? 
+                    campDetail.data.report.map(page => <ReportChart pageId={page.PageId} />)
+                    : <code>Error Loading Charts</code>
+                }
+            </div>
+            {/* Campaign Screen Shots */}
+            {
+                (!campDetail.loading && !campDetail.error)
+                ? <ReportShots campId={campDetail.data?.id} pages={campDetail.data?.report.reduce((acc, cur) => [...acc, cur.Page] , [])} />
+                : ""
+            }
             </div>
         </div>
      );

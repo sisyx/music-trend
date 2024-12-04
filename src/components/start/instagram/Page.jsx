@@ -9,7 +9,7 @@ function Page({ viewMode = "large", index = 0, pageId = "", prices= {}, follower
     const priceAndPagesPair = useSelector((state) => state.cart.priceAndPagesPair);
     const isInPages = priceAndPagesPair.find(page => page.page === pageId && !!page.prices.length && !!page.prices?.find(price => price?.title === currentPrice));
     const role = getRole();
-    const priceProperty = USER_LEVELS.find(ulevel => ulevel.value === role).priceProperty;
+    const priceProperty = role ? USER_LEVELS.find(ulevel => ulevel.value === role).priceProperty : USER_LEVELS[0].priceProperty;
     const cost = prices.find(price => price.title === currentPrice)
 
     function handleClickCard() {

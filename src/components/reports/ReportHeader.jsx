@@ -1,15 +1,33 @@
 import { Avatar } from "@mui/material";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 function ReportHeader({username}) {
     const headerRef = useRef();
+    const [chosenPlatform, setchosenPlatform] = useState("instagram")
 
     useEffect(() => {
         const headerHeight = headerRef.current?.clientHeight;
         document.body.style.paddingTop = `${headerHeight}px`;
+        
 
-        return () => document.body.style.paddingTop = "0px"
+        // detect and set the platform (for icon in middle)
+        const path = location.pathname.split("/");
+        for (let i = 0; i < path.length; i++) {
+            const tmp = path[i];
+            if (tmp === "instagram") {
+                setchosenPlatform("instagram")
+                break;
+            } else if (tmp === "website") {
+                setchosenPlatform("website")
+                break;
+            } else if (tmp === "telegram") {
+                setchosenPlatform("telegram")
+                break;
+            }
+        }
+        
+        return () => document.body.style.paddingTop = "0px";
     }, []);
 
     return ( 
@@ -24,7 +42,7 @@ function ReportHeader({username}) {
                     </span>
                 </div>
             </div>
-            <img src="/src/assets/images/report/header-instagram.webp" alt="insta" className='w-10 aspect-square' />
+            <img src={`/src/assets/images/report/header-${chosenPlatform}.png`} alt="insta" className='w-10 aspect-square object-cover object-center' />
             {/* right */}
             <Link to='/' className='flex-1 flex justify-end items-center gap-4'>
                 <span className="hidden md:block bg-clip-text text-transparent bg-gradient-to-r from-primary to-telegram">
