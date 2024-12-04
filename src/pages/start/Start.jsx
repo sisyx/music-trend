@@ -88,9 +88,7 @@ function Start() {
         })
 
         const priceIdsString = selecteds.reduce((acc, cur, index) => acc += `${cur}${index >= selecteds.length - 1 ? "" : ","}` , "");
-        // const influIdsString = influIdsList.reduce((acc, cur, index) => acc += `${cur}${index >= influIdsList.length - 1 ? "" : ","}` , "");
         const isPricesSaved = saveCookie(CART_COOKIES.selectedPrices, priceIdsString, CART_COOKIES.saveLocalDays);
-        // const isPagesSaved = saveCookie(CART_COOKIES.selectedInflus, influIdsString, CART_COOKIES.saveLocalDays);
 
         if (isCampSaved  && isPricesSaved ) {
             customAlert("سبد خرید شما با موفقیت ذخیره شد\n شما میتوانید با مراجعه به ادمین سایت خرید خود را تکمیل کنید")

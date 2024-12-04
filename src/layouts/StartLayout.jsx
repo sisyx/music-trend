@@ -45,6 +45,7 @@ function StartLayout({children, searchCho}) {
                                     بازگشت
                             </Button>
                         </Link>
+                        {/* Change View Mode Buttons (top-left) */}
                         <div>
                             {
                                 viewModes.map(mode => 
@@ -70,7 +71,7 @@ function StartLayout({children, searchCho}) {
                 {/* main */}
                 <div className="w-screen flex flex-col items-center justify-center mt-4 md:mt-12">
                 <Timeline className="flex flex-nowrap md:hidden items-center w-screen px-4" itemWidth={40} data={timelinedata} />
-                {/* React Router Outlet (for pathes headed by /start) */}
+                {/* React Router Outlet (for pathes headed by /p/start) */}
                 <Outlet />
                 </div>
             </div>
