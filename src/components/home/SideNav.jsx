@@ -21,7 +21,7 @@ export default function SideNav() {
         <img src="/src/assets/images/right-arrow.png" alt="" />
       </button>
       <div className={styles.buttons_container}>
-        <Link to='/start' className={styles.link_btn}>
+        <Link to='/p/start' className={styles.link_btn}>
           <Button variant="contained" className={styles.button} endIcon={<TbSquareRoundedLetterMFilled className={styles.end_icon} />} dir="rtl">
               <span className={styles.btn_label}>
               ایجاد کمپین

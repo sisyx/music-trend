@@ -3,7 +3,7 @@ import './styles/general.css';
 import 'aos/dist/aos.css';
 
 import React, { Suspense, useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Outlet, Route, Routes } from 'react-router-dom';
 import Loading from './components/loadings/Loading';
 
 // const Home = React.lazy(() => import('./pages/home/Home'));
@@ -32,7 +32,6 @@ import Logout from './components/login/Logout';
 import AboutUsPage from './pages/other/AboutUsPage';
 import Contact from './pages/contact/Contact';
 import Payment from './pages/payment/Payment';
-import Report from './pages/report/Report';
 import { Slide, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Aos from 'aos';
@@ -44,6 +43,10 @@ import StartSelectCampType from './components/start/StartSelectCampType';
 import StartLayout from './layouts/StartLayout';
 import WebsiteStart from './pages/start/WebsiteStart';
 import TelegramStart from './pages/start/TelegramStart';
+import InstagramReport from './pages/report/InstagramReport';
+import TelegramReport from './pages/report/TelegramReport';
+import ReportLayout from './layouts/ReportLayout';
+import PrivateRouteLayout from './layouts/PrivateRouteLayout';
 
 
 export const notify = (text, xtype) => toast[xtype](text, {
@@ -63,6 +66,7 @@ export const notify = (text, xtype) => toast[xtype](text, {
 function App() {
 
   useEffect(() => {
+    // initialize AOS scroll animations
     Aos.init();
   }, []);
 
@@ -70,20 +74,34 @@ function App() {
         <Suspense fallback={<Loading />}>
           <Routes>
             <Route index exact element={<Home />} />
-            <Route path='/admin' exact element={<Admin />} />
             <Route path='/login' element={<Login />} />
             <Route path='/logout' element={<Logout />} />
             <Route path='/aboutus' element={<AboutUsPage />} />
-            <Route path='/start' element={
+            <Route path='/p' element={<PrivateRouteLayout />}>
+              <Route path='admin' exact element={<Admin />} />
+              <Route path='start' element={
                 <Suspense fallback={<h1>LOADING</h1>}>
-                  <StartLayout />
-                </Suspense>}>
-              <Route path='' element={<StartSelectCampType />} />
-              <Route path='telegram' element={<TelegramStart />} />
-              <Route path='instagram' element={<InstagramStart />} />
-              <Route path='website' element={<WebsiteStart />} />
+                    <StartLayout />
+                  </Suspense>}>
+                <Route path='' element={<StartSelectCampType />} />
+                <Route path='telegram' element={<TelegramStart />} />
+                <Route path='instagram' element={<InstagramStart />} />
+                <Route path='website' element={<WebsiteStart />} />
+              </Route>
+              <Route
+                  path='report' 
+                  element={ 
+                    <>
+                      <Suspense fallback={<h1>LOADING</h1>}>
+                        <ReportLayout />
+                      </Suspense>
+                    </>
+                    }>
+                  <Route path='instagram' element={<InstagramReport />} />
+                  <Route path='telegram' element={<TelegramReport />} />
+                  <Route path='website' element={<TelegramReport />} />
+              </Route>
             </Route>
-            <Route path='/report' element={<Report />} />
             <Route path='/contact' element={<Contact />} />
             <Route path='/payment' element={<Payment />} />
             <Route path='/uPanel' element={<UserPaenel />} />

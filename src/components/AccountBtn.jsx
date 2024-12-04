@@ -94,7 +94,7 @@ export default function AccountMenu({ username, role }) {
         }
         {
           role === "admin" 
-          ? <Link to="/admin">
+          ? <Link to="/p/admin">
             <MenuItem >
               <Avatar />
               ادمین
@@ -103,7 +103,7 @@ export default function AccountMenu({ username, role }) {
           : ""
         }
         <Divider />
-        <Link to="/start">
+        <Link to="/p/start">
           <MenuItem onClick={handleClose}>
             <ListItemIcon>
               <PersonAdd fontSize="small" />

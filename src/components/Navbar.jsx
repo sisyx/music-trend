@@ -87,17 +87,17 @@ function Navbar() {
                         <NavLink to="/contact">
                             تماس با ما
                         </NavLink>
-                        <NavLink to="/start">
+                        <NavLink to="/p/start">
                             ایجاد کمپین
                         </NavLink>
                         {
                             role === "admin"
-                            ? <NavLink to="/admin">
+                            ? <NavLink to="/p/admin">
                             ادمین
                         </NavLink> : ""
                         }
                     </div>
-                    <Link to={cart ? "/payment" : "/start"} className={`relative group rounded-full aspect-square border p-2 cursor-pointer hover:border-telegram hover:text-telegram ${cart ? "border-red-500 bg-red-500 text-white hover:bg-telegram hover:text-white" : ""}`}>
+                    <Link to={cart ? "/p/payment" : "/p/start"} className={`relative group rounded-full aspect-square border p-2 cursor-pointer hover:border-telegram hover:text-telegram ${cart ? "border-red-500 bg-red-500 text-white hover:bg-telegram hover:text-white" : ""}`}>
                         <IoBagAddOutline fontSize="1.2rem" />
                         <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-6 h-6 flex items-center justify-center bg-red-500 group-hover:bg-telegram rounded-full text-white aspect-square">
                             <span className="block ">
