@@ -6,6 +6,7 @@ import { IoCloseSharp } from "react-icons/io5";
 import { toPersianUnits } from "@/utils/numbers";
 import { useDispatch } from "react-redux";
 import { removePage, removePrice } from "@/Redux/core/cart/cartSlice";
+import { AiFillLike } from "react-icons/ai";
 
 function InstagarmLeftCosts({ costs }) {
     const role = getCookie("role");
@@ -18,7 +19,7 @@ function InstagarmLeftCosts({ costs }) {
             costs.length ?
             <>
                 {costs.map(cost =>
-                    <div className={`relative flex flex-col items-center rounded-md w-full bg-gray-200 hover:bg-gray-300 cursor-pointer md:gap-3 ${styles.cart_influ}`}>
+                    <div className={`group relative flex flex-col items-center rounded-md w-full bg-gray-200 hover:bg-gray-300 cursor-pointer md:gap-3 ${styles.cart_influ}`}>
                         <IconButton onClick={() => dispatch(removePage(cost.page))} sx={{position: "absolute", top: "0rem", left: "0rem"}}>
                             {/* <Delete sx={{color: "#a00"}} /> */}
                             <IoCloseSharp />
@@ -32,7 +33,8 @@ function InstagarmLeftCosts({ costs }) {
                                     {cost.page}
                                 </span>
                                 {/* prices count */}
-                                <div dir="rtl" className="flex items-center gap-2 text-nowrap">
+                                <div dir="rtl" className="relative flex items-center gap-2 text-nowrap">
+                                    <AiFillLike className="absolute right-0 group-hover:scale-125 group-hover:-rotate-12 transition-transform duration-150 translate-x-full text-telegram" />
                                     <span>{cost.prices.length} تعرفه</span>
                                     <span className="" dir="rtl">
                                     {
