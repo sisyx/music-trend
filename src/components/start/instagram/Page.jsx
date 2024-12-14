@@ -40,13 +40,6 @@ function Page({ viewMode = "large", index = 0, pageId = "", prices= {}, follower
                     <span className="pt_serif_regular">{pageId}</span>
                     <span>{name}</span>
                 </div>
-                <div className="text-sm flex flex-col items-center">
-                    <div dir="rtl" className="flex items-center gap-1">
-                        <span>{toPersianUnits(cost[priceProperty])}</span>
-                        <span>تومان</span>
-                    </div>
-                    <span>{currentPrice}</span>
-                </div>
             </div> : 
             <div data-aos="scale-up" onClick={handleClickCard} className={`flex items-center justify-between gap-2 border border-telegram cursor-pointer ${isInPages ? "bg-telegram bg-opacity-50 hover:bg-telegram hover:bg-opacity-60" : "bg-white hover:bg-telegram hover:bg-opacity-30" }`}>
                 <div className="flex items-center gap-4">
@@ -72,13 +65,6 @@ function Page({ viewMode = "large", index = 0, pageId = "", prices= {}, follower
                     </Tooltip>
                 </div>
                 <div className="flex items-center">
-                    <div className="text-sm flex items-center gap-4">
-                        <div>
-                            <span>{toPersianUnits(cost[priceProperty])}</span>
-                            <span>تومان</span>
-                        </div>
-                        <span>{currentPrice}</span>
-                    </div>
                     <IconButton onClick={e => e.stopPropagation()}>
                         <FaHeartCirclePlus />
                     </IconButton>
